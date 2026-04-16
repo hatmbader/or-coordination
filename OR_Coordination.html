@@ -157,8 +157,14 @@ async function load() {
     const res = await fetch(url);
     const csv = await res.text();
     rows = parseCSV(csv);
+    // الإحصائيات تتحسب هنا مباشرة بعد تحميل البيانات
+    const total = rows.length;
+    const sched = rows.filter(r => pDate(r.date)).length;
+    const unsched = total - sched;
+    document.getElementById('s-total').textContent = total;
+    document.getElementById('s-sched').textContent = sched;
+    document.getElementById('s-unsched').textContent = unsched;
     buildS();
-    stats();
     render();
     document.getElementById('updated').textContent = 'آخر تحديث: '+new Date().toLocaleTimeString('ar-SA');
   } catch(e) {
@@ -192,13 +198,6 @@ function pDate(raw) {
 
 function fDate(raw){const d=pDate(raw);if(!d)return '<span class="nd">غير مجدول</span>';return '<span>'+pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+'</span>';}
 function pad(n){return String(n).padStart(2,'0');}
-
-function stats(){
-  const t=rows.length, s=rows.filter(r=>pDate(r.date)).length;
-  document.getElementById('s-total').textContent=t;
-  document.getElementById('s-sched').textContent=s;
-  document.getElementById('s-unsched').textContent=t-s;
-}
 
 function buildS(){
   const surgeons=[...new Set(rows.map(r=>r.surgeon).filter(Boolean))].sort();
