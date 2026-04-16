@@ -79,6 +79,8 @@
   @keyframes spin { to { transform: rotate(360deg); } }
   .empty { padding: 60px 20px; text-align: center; color: var(--ts); }
   .sc { font-size: 11px; color: var(--blue); margin-right: 4px; font-weight: 400; text-transform: none; }
+  .err { padding: 40px 20px; text-align: center; color: var(--ts); }
+  .err button { margin-top: 12px; padding: 8px 20px; border-radius: 8px; border: 1px solid var(--border); background: white; color: var(--blue); cursor: pointer; font-family: inherit; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -94,9 +96,9 @@
     </div>
   </div>
   <div class="hdr-stats">
-    <div class="st-item"><div class="st-num" id="s-total" style="color:var(--blue)">0</div><div class="st-lbl">إجمالي المرضى</div></div>
-    <div class="st-item"><div class="st-num" id="s-sched" style="color:var(--green)">0</div><div class="st-lbl">مجدولون</div></div>
-    <div class="st-item"><div class="st-num" id="s-unsched" style="color:var(--amber)">0</div><div class="st-lbl">غير مجدولين</div></div>
+    <div class="st-item"><div class="st-num" id="s-total" style="color:var(--blue)">—</div><div class="st-lbl">إجمالي المرضى</div></div>
+    <div class="st-item"><div class="st-num" id="s-sched" style="color:var(--green)">—</div><div class="st-lbl">مجدولون</div></div>
+    <div class="st-item"><div class="st-num" id="s-unsched" style="color:var(--amber)">—</div><div class="st-lbl">غير مجدولين</div></div>
   </div>
 </div>
 
@@ -135,7 +137,7 @@
   </div>
 
   <div class="rb">
-    <div class="rc">عرض <span id="shown">0</span> من <span id="total">0</span> مريض</div>
+    <div class="rc">عرض <span id="shown">—</span> من <span id="total">—</span> مريض</div>
     <div class="lu" id="updated"></div>
   </div>
 
@@ -152,31 +154,37 @@ let rows = [], selS = new Set(), F = {type:'all',sched:'all'}, phones = {};
 
 async function load() {
   document.getElementById('container').innerHTML = '<div class="loading"><div class="spinner"></div><div>جاري تحميل البيانات...</div></div>';
-  try {
-    const url = 'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:csv&sheet='+encodeURIComponent(TAB)+'&headers=1&t='+Date.now();
-    const res = await fetch(url);
-    const csv = await res.text();
-    rows = parseCSV(csv);
-    // الإحصائيات تتحسب هنا مباشرة بعد تحميل البيانات
-    const total = rows.length;
-    const sched = rows.filter(r => pDate(r.date)).length;
-    const unsched = total - sched;
-    document.getElementById('s-total').textContent = total;
-    document.getElementById('s-sched').textContent = sched;
-    document.getElementById('s-unsched').textContent = unsched;
-    buildS();
-    render();
-    document.getElementById('updated').textContent = 'آخر تحديث: '+new Date().toLocaleTimeString('ar-SA');
-  } catch(e) {
-    document.getElementById('container').innerHTML = '<div class="empty">تعذر تحميل البيانات.</div>';
+  const urls = [
+    'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:csv&sheet='+encodeURIComponent(TAB)+'&headers=1&t='+Date.now(),
+    'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/export?format=csv&gid=0&t='+Date.now()
+  ];
+  let csv = null;
+  for (const url of urls) {
+    try {
+      const res = await fetch(url, {cache:'no-store'});
+      if (res.ok) { csv = await res.text(); break; }
+    } catch(e) { continue; }
   }
+  if (!csv) {
+    document.getElementById('container').innerHTML = '<div class="err">تعذر تحميل البيانات<br><small>تأكد أن الشيت مشارك للعموم</small><br><button onclick="load()">إعادة المحاولة</button></div>';
+    return;
+  }
+  rows = parseCSV(csv);
+  const total = rows.length;
+  const sched = rows.filter(r => pDate(r.date)).length;
+  document.getElementById('s-total').textContent = total;
+  document.getElementById('s-sched').textContent = sched;
+  document.getElementById('s-unsched').textContent = total - sched;
+  buildS();
+  render();
+  document.getElementById('updated').textContent = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-SA');
 }
 
 function parseCSV(csv) {
   return csv.trim().split('\n').slice(1).map(line => {
     const c = pLine(line);
     return {mrn:c[0]||'',date:c[1]||'',name:c[2]||'',specialty:c[3]||'',admType:c[4]||'',surgeon:c[5]||'',avgWT:parseFloat(c[6])||0,procedure:c[7]||''};
-  }).filter(r => r.mrn && r.mrn !== 'MRN');
+  }).filter(r => r.mrn && r.mrn !== 'MRN' && r.name);
 }
 
 function pLine(line) {
@@ -203,10 +211,14 @@ function buildS(){
   const surgeons=[...new Set(rows.map(r=>r.surgeon).filter(Boolean))].sort();
   const el=document.getElementById('sp');
   el.innerHTML='';
+  const prev=new Set(selS);
+  selS.clear();
   surgeons.forEach(s=>{
     const short=s.split(' ').slice(0,2).join(' ');
     const p=document.createElement('span');
-    p.className='pill'; p.title=s; p.textContent=short;
+    p.className='pill'+(prev.has(s)?' on':'');
+    if(prev.has(s)) selS.add(s);
+    p.title=s; p.textContent=short;
     p.onclick=()=>{
       if(selS.has(s)){selS.delete(s);p.classList.remove('on');}
       else{selS.add(s);p.classList.add('on');}
@@ -215,26 +227,27 @@ function buildS(){
     };
     el.appendChild(p);
   });
+  document.getElementById('sc').textContent=selS.size>0?'('+selS.size+' محدد)':'';
 }
 
 document.getElementById('tp').addEventListener('click',e=>{
-  const p=e.target.closest('.pill'); if(!p) return;
+  const p=e.target.closest('.pill');if(!p)return;
   F.type=p.dataset.val;
   document.querySelectorAll('#tp .pill').forEach(x=>x.classList.remove('on'));
-  p.classList.add('on'); render();
+  p.classList.add('on');render();
 });
 
 document.getElementById('schp').addEventListener('click',e=>{
-  const p=e.target.closest('.pill'); if(!p) return;
+  const p=e.target.closest('.pill');if(!p)return;
   F.sched=p.dataset.val;
   document.querySelectorAll('#schp .pill').forEach(x=>x.classList.remove('on'));
-  p.classList.add('on'); render();
+  p.classList.add('on');render();
 });
 
 document.getElementById('search').addEventListener('input',render);
 
 document.getElementById('reset-btn').addEventListener('click',()=>{
-  selS.clear(); F={type:'all',sched:'all'};
+  selS.clear();F={type:'all',sched:'all'};
   document.getElementById('search').value='';
   document.getElementById('sc').textContent='';
   document.querySelectorAll('#sp .pill').forEach(p=>p.classList.remove('on'));
@@ -248,12 +261,12 @@ document.getElementById('refresh-btn').addEventListener('click',load);
 function render(){
   const q=document.getElementById('search').value.toLowerCase();
   const filtered=rows.filter(r=>{
-    if(selS.size>0&&!selS.has(r.surgeon)) return false;
-    if(F.type!=='all'&&r.admType!==F.type) return false;
+    if(selS.size>0&&!selS.has(r.surgeon))return false;
+    if(F.type!=='all'&&r.admType!==F.type)return false;
     const hd=!!pDate(r.date);
-    if(F.sched==='yes'&&!hd) return false;
-    if(F.sched==='no'&&hd) return false;
-    if(q&&!r.name.toLowerCase().includes(q)&&!r.mrn.includes(q)) return false;
+    if(F.sched==='yes'&&!hd)return false;
+    if(F.sched==='no'&&hd)return false;
+    if(q&&!r.name.toLowerCase().includes(q)&&!r.mrn.includes(q))return false;
     return true;
   });
   document.getElementById('shown').textContent=filtered.length;
