@@ -34,6 +34,7 @@
   .pill { padding: 5px 12px; border-radius: 20px; font-size: 12px; border: 1px solid var(--border); background: var(--gray); color: var(--ts); cursor: pointer; transition: all 0.15s; user-select: none; white-space: nowrap; }
   .pill:hover { border-color: var(--bm); color: var(--blue); }
   .pill.on { background: var(--bl); border-color: var(--blue); color: var(--blue); font-weight: 500; }
+  .pill.all-pill.on { background: var(--blue); border-color: var(--blue); color: white; font-weight: 600; }
   .fa { display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; }
   .si { padding: 7px 12px; border-radius: 8px; font-size: 13px; border: 1px solid var(--border); background: var(--gray); color: var(--tp); font-family: inherit; width: 200px; }
   .si:focus { outline: none; border-color: var(--blue); background: white; }
@@ -84,7 +85,7 @@
 </style>
 </head>
 <body>
-
+ 
 <div class="hdr">
   <div class="hdr-logo">
     <div class="logo-ic">
@@ -101,30 +102,39 @@
     <div class="st-item"><div class="st-num" id="s-unsched" style="color:var(--amber)">—</div><div class="st-lbl">غير مجدولين</div></div>
   </div>
 </div>
-
+ 
 <div class="main">
   <div class="fc">
     <div class="fr">
+ 
       <div class="fg">
         <div class="fg-lbl">الطبيب <span class="sc" id="sc"></span></div>
         <div class="fps" id="sp"></div>
       </div>
+ 
+      <div class="fg">
+        <div class="fg-lbl">التخصص <span class="sc" id="spc"></span></div>
+        <div class="fps" id="specp"></div>
+      </div>
+ 
       <div class="fg">
         <div class="fg-lbl">نوع الدخول</div>
         <div class="fps" id="tp">
-          <span class="pill on" data-val="all">الكل</span>
+          <span class="pill all-pill on" data-val="all">الكل</span>
           <span class="pill" data-val="Routine">Routine</span>
           <span class="pill" data-val="Day Surgery">Day Surgery</span>
         </div>
       </div>
+ 
       <div class="fg">
         <div class="fg-lbl">الجدولة</div>
         <div class="fps" id="schp">
-          <span class="pill on" data-val="all">الكل</span>
+          <span class="pill all-pill on" data-val="all">الكل</span>
           <span class="pill" data-val="yes">مجدولون</span>
           <span class="pill" data-val="no">غير مجدولين</span>
         </div>
       </div>
+ 
       <div class="fa">
         <input class="si" id="search" placeholder="بحث باسم المريض...">
         <button class="btn" id="reset-btn">مسح الفلاتر</button>
@@ -135,172 +145,277 @@
       </div>
     </div>
   </div>
-
+ 
   <div class="rb">
     <div class="rc">عرض <span id="shown">—</span> من <span id="total">—</span> مريض</div>
     <div class="lu" id="updated"></div>
   </div>
-
+ 
   <div class="tc"><div class="tw" id="container">
     <div class="loading"><div class="spinner"></div><div>جاري تحميل البيانات...</div></div>
   </div></div>
 </div>
-
+ 
 <script>
 const SHEET_ID = '1VGQMxYgkcmQLurL9nG794Uv5vcIt43Aa8rBKknpZtPo';
 const TAB = 'Sheet1';
 const DAYS = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
-let rows = [], selS = new Set(), F = {type:'all',sched:'all'}, phones = {};
-
+ 
+let rows = [];
+let selS = new Set();
+let selSpec = new Set();
+let F = { type: 'all', sched: 'all' };
+let phones = {};
+ 
 async function load() {
   document.getElementById('container').innerHTML = '<div class="loading"><div class="spinner"></div><div>جاري تحميل البيانات...</div></div>';
+ 
   const urls = [
-    'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:csv&sheet='+encodeURIComponent(TAB)+'&headers=1&t='+Date.now(),
-    'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/export?format=csv&gid=0&t='+Date.now()
+    'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(TAB) + '&headers=1&t=' + Date.now(),
+    'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&gid=0&t=' + Date.now()
   ];
+ 
   let csv = null;
   for (const url of urls) {
     try {
-      const res = await fetch(url, {cache:'no-store'});
+      const res = await fetch(url, { cache: 'no-store' });
       if (res.ok) { csv = await res.text(); break; }
     } catch(e) { continue; }
   }
+ 
   if (!csv) {
     document.getElementById('container').innerHTML = '<div class="err">تعذر تحميل البيانات<br><small>تأكد أن الشيت مشارك للعموم</small><br><button onclick="load()">إعادة المحاولة</button></div>';
     return;
   }
+ 
   rows = parseCSV(csv);
+ 
+  // إحصائيات مباشرة من البيانات
   const total = rows.length;
   const sched = rows.filter(r => pDate(r.date)).length;
   document.getElementById('s-total').textContent = total;
   document.getElementById('s-sched').textContent = sched;
   document.getElementById('s-unsched').textContent = total - sched;
-  buildS();
-  render();
+ 
+  buildSurgeonFilter();
+  buildSpecialtyFilter();
+  render(); // يعرض البيانات مباشرة بعد التحميل
   document.getElementById('updated').textContent = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-SA');
 }
-
+ 
 function parseCSV(csv) {
-  return csv.trim().split('\n').slice(1).map(line => {
+  const lines = csv.trim().split('\n');
+  return lines.slice(1).map(line => {
     const c = pLine(line);
-    return {mrn:c[0]||'',date:c[1]||'',name:c[2]||'',specialty:c[3]||'',admType:c[4]||'',surgeon:c[5]||'',avgWT:parseFloat(c[6])||0,procedure:c[7]||''};
+    return {
+      mrn: c[0]||'', date: c[1]||'', name: c[2]||'',
+      specialty: c[3]||'', admType: c[4]||'', surgeon: c[5]||'',
+      avgWT: parseFloat(c[6])||0, procedure: c[7]||''
+    };
   }).filter(r => r.mrn && r.mrn !== 'MRN' && r.name);
 }
-
+ 
 function pLine(line) {
-  const r=[]; let cur='',q=false;
-  for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"')q=!q;else if(ch===','&&!q){r.push(cur.trim());cur='';}else cur+=ch;}
-  r.push(cur.trim()); return r;
+  const r = []; let cur = '', q = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') q = !q;
+    else if (ch === ',' && !q) { r.push(cur.trim()); cur = ''; }
+    else cur += ch;
+  }
+  r.push(cur.trim());
+  return r;
 }
-
-function pDate(raw) {
-  if(!raw||raw==='Not scheduled'||!raw.trim()) return null;
-  raw=raw.trim();
-  let m=raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-  if(m) return new Date(+m[3],+m[1]-1,+m[2]);
-  m=raw.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
-  if(m) return new Date(+m[3],+m[2]-1,+m[1]);
-  if(/^\d+(\.\d+)?$/.test(raw)){const s=parseFloat(raw);if(s>40000&&s<60000)return new Date(Math.round((s-25569)*86400000));}
-  const d=new Date(raw); return isNaN(d)?null:d;
-}
-
-function fDate(raw){const d=pDate(raw);if(!d)return '<span class="nd">غير مجدول</span>';return '<span>'+pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+'</span>';}
-function pad(n){return String(n).padStart(2,'0');}
-
-function buildS(){
-  const surgeons=[...new Set(rows.map(r=>r.surgeon).filter(Boolean))].sort();
-  const el=document.getElementById('sp');
-  el.innerHTML='';
-  const prev=new Set(selS);
-  selS.clear();
-  surgeons.forEach(s=>{
-    const short=s.split(' ').slice(0,2).join(' ');
-    const p=document.createElement('span');
-    p.className='pill'+(prev.has(s)?' on':'');
-    if(prev.has(s)) selS.add(s);
-    p.title=s; p.textContent=short;
-    p.onclick=()=>{
-      if(selS.has(s)){selS.delete(s);p.classList.remove('on');}
-      else{selS.add(s);p.classList.add('on');}
-      document.getElementById('sc').textContent=selS.size>0?'('+selS.size+' محدد)':'';
+ 
+function buildSurgeonFilter() {
+  const surgeons = [...new Set(rows.map(r => r.surgeon).filter(Boolean))].sort();
+  const el = document.getElementById('sp');
+  el.innerHTML = '';
+ 
+  const allPill = document.createElement('span');
+  allPill.className = 'pill all-pill' + (selS.size === 0 ? ' on' : '');
+  allPill.textContent = 'الكل';
+  allPill.onclick = () => {
+    selS.clear();
+    document.querySelectorAll('#sp .pill:not(.all-pill)').forEach(p => p.classList.remove('on'));
+    allPill.classList.add('on');
+    document.getElementById('sc').textContent = '';
+    render();
+  };
+  el.appendChild(allPill);
+ 
+  surgeons.forEach(s => {
+    const short = s.split(' ').slice(0, 2).join(' ');
+    const p = document.createElement('span');
+    p.className = 'pill' + (selS.has(s) ? ' on' : '');
+    p.title = s;
+    p.textContent = short;
+    p.onclick = () => {
+      if (selS.has(s)) { selS.delete(s); p.classList.remove('on'); }
+      else { selS.add(s); p.classList.add('on'); }
+      if (selS.size === 0) allPill.classList.add('on');
+      else allPill.classList.remove('on');
+      document.getElementById('sc').textContent = selS.size > 0 ? '(' + selS.size + ' محدد)' : '';
       render();
     };
     el.appendChild(p);
   });
-  document.getElementById('sc').textContent=selS.size>0?'('+selS.size+' محدد)':'';
 }
-
-document.getElementById('tp').addEventListener('click',e=>{
-  const p=e.target.closest('.pill');if(!p)return;
-  F.type=p.dataset.val;
-  document.querySelectorAll('#tp .pill').forEach(x=>x.classList.remove('on'));
-  p.classList.add('on');render();
-});
-
-document.getElementById('schp').addEventListener('click',e=>{
-  const p=e.target.closest('.pill');if(!p)return;
-  F.sched=p.dataset.val;
-  document.querySelectorAll('#schp .pill').forEach(x=>x.classList.remove('on'));
-  p.classList.add('on');render();
-});
-
-document.getElementById('search').addEventListener('input',render);
-
-document.getElementById('reset-btn').addEventListener('click',()=>{
-  selS.clear();F={type:'all',sched:'all'};
-  document.getElementById('search').value='';
-  document.getElementById('sc').textContent='';
-  document.querySelectorAll('#sp .pill').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('#tp .pill').forEach((p,i)=>p.classList.toggle('on',i===0));
-  document.querySelectorAll('#schp .pill').forEach((p,i)=>p.classList.toggle('on',i===0));
+ 
+function buildSpecialtyFilter() {
+  const specs = [...new Set(rows.map(r => r.specialty).filter(Boolean))].sort();
+  const el = document.getElementById('specp');
+  el.innerHTML = '';
+ 
+  const allPill = document.createElement('span');
+  allPill.className = 'pill all-pill' + (selSpec.size === 0 ? ' on' : '');
+  allPill.textContent = 'الكل';
+  allPill.onclick = () => {
+    selSpec.clear();
+    document.querySelectorAll('#specp .pill:not(.all-pill)').forEach(p => p.classList.remove('on'));
+    allPill.classList.add('on');
+    document.getElementById('spc').textContent = '';
+    render();
+  };
+  el.appendChild(allPill);
+ 
+  specs.forEach(s => {
+    const p = document.createElement('span');
+    p.className = 'pill' + (selSpec.has(s) ? ' on' : '');
+    p.textContent = s;
+    p.onclick = () => {
+      if (selSpec.has(s)) { selSpec.delete(s); p.classList.remove('on'); }
+      else { selSpec.add(s); p.classList.add('on'); }
+      if (selSpec.size === 0) allPill.classList.add('on');
+      else allPill.classList.remove('on');
+      document.getElementById('spc').textContent = selSpec.size > 0 ? '(' + selSpec.size + ' محدد)' : '';
+      render();
+    };
+    el.appendChild(p);
+  });
+}
+ 
+document.getElementById('tp').addEventListener('click', e => {
+  const p = e.target.closest('.pill'); if (!p) return;
+  F.type = p.dataset.val;
+  document.querySelectorAll('#tp .pill').forEach(x => x.classList.remove('on'));
+  p.classList.add('on');
   render();
 });
-
-document.getElementById('refresh-btn').addEventListener('click',load);
-
-function render(){
-  const q=document.getElementById('search').value.toLowerCase();
-  const filtered=rows.filter(r=>{
-    if(selS.size>0&&!selS.has(r.surgeon))return false;
-    if(F.type!=='all'&&r.admType!==F.type)return false;
-    const hd=!!pDate(r.date);
-    if(F.sched==='yes'&&!hd)return false;
-    if(F.sched==='no'&&hd)return false;
-    if(q&&!r.name.toLowerCase().includes(q)&&!r.mrn.includes(q))return false;
+ 
+document.getElementById('schp').addEventListener('click', e => {
+  const p = e.target.closest('.pill'); if (!p) return;
+  F.sched = p.dataset.val;
+  document.querySelectorAll('#schp .pill').forEach(x => x.classList.remove('on'));
+  p.classList.add('on');
+  render();
+});
+ 
+document.getElementById('search').addEventListener('input', render);
+ 
+document.getElementById('reset-btn').addEventListener('click', () => {
+  selS.clear(); selSpec.clear(); F = { type: 'all', sched: 'all' };
+  document.getElementById('search').value = '';
+  document.getElementById('sc').textContent = '';
+  document.getElementById('spc').textContent = '';
+  document.querySelectorAll('#sp .pill').forEach((p, i) => p.classList.toggle('on', i === 0));
+  document.querySelectorAll('#specp .pill').forEach((p, i) => p.classList.toggle('on', i === 0));
+  document.querySelectorAll('#tp .pill').forEach((p, i) => p.classList.toggle('on', i === 0));
+  document.querySelectorAll('#schp .pill').forEach((p, i) => p.classList.toggle('on', i === 0));
+  render();
+});
+ 
+document.getElementById('refresh-btn').addEventListener('click', load);
+ 
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = rows.filter(r => {
+    if (selS.size > 0 && !selS.has(r.surgeon)) return false;
+    if (selSpec.size > 0 && !selSpec.has(r.specialty)) return false;
+    if (F.type !== 'all' && r.admType !== F.type) return false;
+    const hd = !!pDate(r.date);
+    if (F.sched === 'yes' && !hd) return false;
+    if (F.sched === 'no' && hd) return false;
+    if (q && !r.name.toLowerCase().includes(q) && !r.mrn.includes(q)) return false;
     return true;
   });
-  document.getElementById('shown').textContent=filtered.length;
-  document.getElementById('total').textContent=rows.length;
-  if(!filtered.length){document.getElementById('container').innerHTML='<div class="empty">لا توجد نتائج مطابقة</div>';return;}
-  let html='<table><thead><tr><th>MRN</th><th>اسم المريض</th><th>تاريخ العملية</th><th>الطبيب</th><th>نوع الدخول</th><th>العملية</th><th>متوسط الانتظار</th><th>رقم الجوال</th><th>إرسال واتساب</th></tr></thead><tbody>';
-  filtered.forEach(r=>{
-    const idx=rows.indexOf(r);
-    const tc=r.admType==='Day Surgery'?'bd':'br';
-    const ac=r.avgWT>100?'ah':r.avgWT>60?'am':'al';
-    const ss=r.surgeon.split(' ').slice(0,3).join(' ');
-    const ph=phones[idx]||'';
-    html+='<tr><td class="mrn">'+r.mrn+'</td><td class="nm">'+r.name+'</td><td>'+fDate(r.date)+'</td><td title="'+r.surgeon+'">'+ss+'</td><td><span class="bdg '+tc+'">'+(r.admType||'—')+'</span></td><td>'+(r.procedure||'—')+'</td><td class="'+ac+'">'+(r.avgWT||'—')+'</td><td><input class="pi" placeholder="05XXXXXXXX" value="'+ph+'" oninput="phones['+idx+']=this.value;updWA('+idx+')"></td><td><div class="wbs" id="wa-'+idx+'">'+buildWA(r,idx,ph)+'</div></td></tr>';
+ 
+  document.getElementById('shown').textContent = filtered.length;
+  document.getElementById('total').textContent = rows.length;
+ 
+  if (!filtered.length) {
+    document.getElementById('container').innerHTML = '<div class="empty">لا توجد نتائج مطابقة</div>';
+    return;
+  }
+ 
+  let html = '<table><thead><tr><th>MRN</th><th>اسم المريض</th><th>تاريخ العملية</th><th>الطبيب</th><th>التخصص</th><th>نوع الدخول</th><th>العملية</th><th>متوسط الانتظار</th><th>رقم الجوال</th><th>إرسال واتساب</th></tr></thead><tbody>';
+ 
+  filtered.forEach(r => {
+    const idx = rows.indexOf(r);
+    const tc = r.admType === 'Day Surgery' ? 'bd' : 'br';
+    const ac = r.avgWT > 100 ? 'ah' : r.avgWT > 60 ? 'am' : 'al';
+    const ss = r.surgeon.split(' ').slice(0, 3).join(' ');
+    const ph = phones[idx] || '';
+    html += '<tr>';
+    html += '<td class="mrn">' + r.mrn + '</td>';
+    html += '<td class="nm">' + r.name + '</td>';
+    html += '<td>' + fDate(r.date) + '</td>';
+    html += '<td title="' + r.surgeon + '">' + ss + '</td>';
+    html += '<td>' + (r.specialty || '—') + '</td>';
+    html += '<td><span class="bdg ' + tc + '">' + (r.admType || '—') + '</span></td>';
+    html += '<td>' + (r.procedure || '—') + '</td>';
+    html += '<td class="' + ac + '">' + (r.avgWT || '—') + '</td>';
+    html += '<td><input class="pi" placeholder="05XXXXXXXX" value="' + ph + '" oninput="phones[' + idx + ']=this.value;updWA(' + idx + ')"></td>';
+    html += '<td><div class="wbs" id="wa-' + idx + '">' + buildWA(r, idx, ph) + '</div></td>';
+    html += '</tr>';
   });
-  html+='</tbody></table>';
-  document.getElementById('container').innerHTML=html;
+ 
+  html += '</tbody></table>';
+  document.getElementById('container').innerHTML = html;
 }
-
-function updWA(idx){const el=document.getElementById('wa-'+idx);if(el)el.innerHTML=buildWA(rows[idx],idx,phones[idx]||'');}
-
-function buildWA(r,idx,phone){
-  const d=pDate(r.date);
-  let ds='___',dn='____';
-  if(d){ds=pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear();dn=DAYS[d.getDay()];}
-  const cl=phone.replace(/\D/g,'');
-  const ok=cl.length>=9;
-  const ph='966'+cl.replace(/^0/,'');
-  const m1=encodeURIComponent('السلام عليكم ورحمة الله وبركاته\nعزيزي/عزيزتي '+r.name+'\nنود إبلاغكم بأن موعد عمليتكم في مدينة الملك سعود الطبية قد تم تحديده يوم '+dn+' الموافق '+ds+'\n\n📌 تعليمات مهمة:\n• الصيام من الساعة 12:00 منتصف الليل صيام كلي عن الأكل والشرب (حتى الماء) والتدخين\n• الحضور إلى برج الباطنة الأول - الدور الأرضي - مكتب الدخول - الساعة 6:00 صباحاً\n• إحضار الهوية الوطنية / الإقامة\n• للنساء الرجاء إزالة المكياج، طلاء الأظافر، والإكسسوارات قبل الحضور\n\n‼️ الرجاء إبلاغنا في حال أخذ أدوية مسيلة للدم أو إبر إنقاص الوزن\n‼️ بخصوص أدوية الضغط والسكر وغيرها، يرجى اتباع تعليمات المنسق المذكورة أثناء الاتصال\n\n⚠️ تنبيه: الرجاء الالتزام بالحضور في حال التأخير أو عدم الحضور سيتم إغلاق الطلب الجراحي\n\nمدينة الملك سعود الطبية - قسم تنسيق العمليات');
-  const m2=encodeURIComponent('السلام عليكم ورحمة الله وبركاته\nعزيزي/عزيزتي '+r.name+'\nنود إبلاغكم بأن موعد عمليتكم في مدينة الملك سعود الطبية قد تم تحديده يوم '+dn+' الموافق '+ds+'\nوسيكون التنويم يوم ____ الموافق ____\n\n📌 تعليمات مهمة:\n• سيتم التواصل معكم في نفس يوم التنويم لتحديد وقت الحضور، يرجى الانتباه للجوال\n• إحضار الهوية الوطنية / الإقامة أثناء التنويم\n• للنساء: يرجى إزالة المكياج، طلاء الأظافر، والإكسسوارات قبل الحضور\n\n‼️ الرجاء إبلاغنا في حال أخذ أدوية مسيلة للدم أو إبر إنقاص الوزن\n\n⚠️ تنبيه: الرجاء الالتزام بالحضور، وفي حال عدم الحضور سيتم إغلاق الطلب الجراحي\n\nمدينة الملك سعود الطبية - قسم تنسيق العمليات');
-  const a1=ok?'href="https://web.whatsapp.com/send?phone='+ph+'&text='+m1+'" target="_blank"':'';
-  const a2=ok?'href="https://web.whatsapp.com/send?phone='+ph+'&text='+m2+'" target="_blank"':'';
-  return '<a class="wb wds'+(ok?'':' off')+'" '+a1+'><span class="dot dg"></span> DS</a><a class="wb wr'+(ok?'':' off')+'" '+a2+'><span class="dot db"></span> R</a>';
+ 
+function pDate(raw) {
+  if (!raw || raw === 'Not scheduled' || !raw.trim()) return null;
+  raw = raw.trim();
+  let m = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (m) return new Date(+m[3], +m[1]-1, +m[2]);
+  m = raw.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+  if (m) return new Date(+m[3], +m[2]-1, +m[1]);
+  if (/^\d+(\.\d+)?$/.test(raw)) {
+    const s = parseFloat(raw);
+    if (s > 40000 && s < 60000) return new Date(Math.round((s - 25569) * 86400000));
+  }
+  const d = new Date(raw);
+  return isNaN(d) ? null : d;
 }
-
+ 
+function fDate(raw) {
+  const d = pDate(raw);
+  if (!d) return '<span class="nd">غير مجدول</span>';
+  return '<span>' + pad(d.getDate()) + '/' + pad(d.getMonth()+1) + '/' + d.getFullYear() + '</span>';
+}
+ 
+function pad(n) { return String(n).padStart(2, '0'); }
+ 
+function updWA(idx) {
+  const el = document.getElementById('wa-' + idx);
+  if (el) el.innerHTML = buildWA(rows[idx], idx, phones[idx] || '');
+}
+ 
+function buildWA(r, idx, phone) {
+  const d = pDate(r.date);
+  let ds = '___', dn = '____';
+  if (d) { ds = pad(d.getDate()) + '-' + pad(d.getMonth()+1) + '-' + d.getFullYear(); dn = DAYS[d.getDay()]; }
+  const cl = phone.replace(/\D/g, '');
+  const ok = cl.length >= 9;
+  const ph = '966' + cl.replace(/^0/, '');
+  const m1 = encodeURIComponent('السلام عليكم ورحمة الله وبركاته\nعزيزي/عزيزتي ' + r.name + '\nنود إبلاغكم بأن موعد عمليتكم في مدينة الملك سعود الطبية قد تم تحديده يوم ' + dn + ' الموافق ' + ds + '\n\n📌 تعليمات مهمة:\n• الصيام من الساعة 12:00 منتصف الليل صيام كلي عن الأكل والشرب (حتى الماء) والتدخين\n• الحضور إلى برج الباطنة الأول - الدور الأرضي - مكتب الدخول - الساعة 6:00 صباحاً\n• إحضار الهوية الوطنية / الإقامة\n• للنساء الرجاء إزالة المكياج، طلاء الأظافر، والإكسسوارات قبل الحضور\n\n‼️ الرجاء إبلاغنا في حال أخذ أدوية مسيلة للدم أو إبر إنقاص الوزن\n‼️ بخصوص أدوية الضغط والسكر وغيرها، يرجى اتباع تعليمات المنسق المذكورة أثناء الاتصال\n\n⚠️ تنبيه: الرجاء الالتزام بالحضور في حال التأخير أو عدم الحضور سيتم إغلاق الطلب الجراحي\n\nمدينة الملك سعود الطبية - قسم تنسيق العمليات');
+  const m2 = encodeURIComponent('السلام عليكم ورحمة الله وبركاته\nعزيزي/عزيزتي ' + r.name + '\nنود إبلاغكم بأن موعد عمليتكم في مدينة الملك سعود الطبية قد تم تحديده يوم ' + dn + ' الموافق ' + ds + '\nوسيكون التنويم يوم ____ الموافق ____\n\n📌 تعليمات مهمة:\n• سيتم التواصل معكم في نفس يوم التنويم لتحديد وقت الحضور، يرجى الانتباه للجوال\n• إحضار الهوية الوطنية / الإقامة أثناء التنويم\n• للنساء: يرجى إزالة المكياج، طلاء الأظافر، والإكسسوارات قبل الحضور\n\n‼️ الرجاء إبلاغنا في حال أخذ أدوية مسيلة للدم أو إبر إنقاص الوزن\n\n⚠️ تنبيه: الرجاء الالتزام بالحضور، وفي حال عدم الحضور سيتم إغلاق الطلب الجراحي\n\nمدينة الملك سعود الطبية - قسم تنسيق العمليات');
+  const a1 = ok ? 'href="https://web.whatsapp.com/send?phone=' + ph + '&text=' + m1 + '" target="_blank"' : '';
+  const a2 = ok ? 'href="https://web.whatsapp.com/send?phone=' + ph + '&text=' + m2 + '" target="_blank"' : '';
+  return '<a class="wb wds' + (ok ? '' : ' off') + '" ' + a1 + '><span class="dot dg"></span> DS</a><a class="wb wr' + (ok ? '' : ' off') + '" ' + a2 + '><span class="dot db"></span> R</a>';
+}
+ 
 load();
 </script>
 </body>
