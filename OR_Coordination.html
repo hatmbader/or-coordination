@@ -5,87 +5,295 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OR Coordination — مدينة الملك سعود الطبية</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #f4f5f7; --surface: #fff; --border: #e2e5ea;
-    --tp: #0f1923; --ts: #64748b; --th: #94a3b8;
-    --blue: #1a56db; --bl: #ebf5ff; --bm: #93c5fd;
-    --green: #057a55; --gl: #e3fcef;
-    --amber: #92400e; --red: #991b1b; --gray: #f8fafc;
+    --bg:       #0b0f1a;
+    --bg2:      #111827;
+    --bg3:      #1a2235;
+    --surface:  #141c2e;
+    --card:     #1e2a42;
+    --border:   #263352;
+    --border2:  #2e3d60;
+    --tp:       #e8edf5;
+    --ts:       #7d91b5;
+    --th:       #4a5a7a;
+    --accent:   #3b82f6;
+    --accent2:  #60a5fa;
+    --accentgl: rgba(59,130,246,0.12);
+    --accentgb: rgba(59,130,246,0.06);
+    --green:    #10b981;
+    --greenl:   rgba(16,185,129,0.12);
+    --amber:    #f59e0b;
+    --amberl:   rgba(245,158,11,0.12);
+    --red:      #ef4444;
+    --redl:     rgba(239,68,68,0.12);
+    --cyan:     #06b6d4;
+    --cyanl:    rgba(6,182,212,0.1);
   }
-  body { font-family: 'IBM Plex Sans Arabic', sans-serif; background: var(--bg); color: var(--tp); min-height: 100vh; font-size: 14px; }
-  .hdr { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-  .hdr-logo { display: flex; align-items: center; gap: 10px; }
-  .logo-ic { width: 32px; height: 32px; background: var(--blue); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-  .logo-ic svg { width: 18px; height: 18px; fill: white; }
-  .hdr-title { font-size: 15px; font-weight: 600; }
-  .hdr-sub { font-size: 11px; color: var(--ts); }
-  .hdr-stats { display: flex; gap: 24px; }
-  .st-item { text-align: center; }
-  .st-num { font-size: 20px; font-weight: 600; }
-  .st-lbl { font-size: 10px; color: var(--ts); }
-  .main { padding: 20px 24px; }
-  .fc { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-  .fr { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
-  .fg { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 140px; }
-  .fg-lbl { font-size: 11px; font-weight: 500; color: var(--ts); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  body {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    background: var(--bg);
+    color: var(--tp);
+    min-height: 100vh;
+    font-size: 14px;
+  }
+
+  /* ── Header ── */
+  .hdr {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 28px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .hdr::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.4;
+  }
+  .hdr-logo { display: flex; align-items: center; gap: 12px; }
+  .logo-ic {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), #1d4ed8);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 16px rgba(59,130,246,0.4);
+  }
+  .logo-ic svg { width: 20px; height: 20px; fill: white; }
+  .hdr-title { font-size: 15px; font-weight: 700; color: var(--tp); letter-spacing: 0.3px; }
+  .hdr-sub { font-size: 11px; color: var(--ts); margin-top: 1px; }
+
+  /* ── Stats ── */
+  .hdr-stats { display: flex; gap: 6px; }
+  .st-item {
+    text-align: center;
+    padding: 6px 16px;
+    border-radius: 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    min-width: 80px;
+  }
+  .st-num { font-size: 22px; font-weight: 700; line-height: 1; }
+  .st-lbl { font-size: 10px; color: var(--ts); margin-top: 3px; letter-spacing: 0.3px; }
+
+  /* ── Main ── */
+  .main { padding: 22px 28px; }
+
+  /* ── Filter Card ── */
+  .fc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .fr { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+  .fg { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 150px; }
+  .fg-lbl {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--ts);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .fg-lbl::before {
+    content: '';
+    width: 3px; height: 12px;
+    background: var(--accent);
+    border-radius: 2px;
+    display: inline-block;
+  }
   .fps { display: flex; flex-wrap: wrap; gap: 6px; }
-  .pill { padding: 5px 12px; border-radius: 20px; font-size: 12px; border: 1px solid var(--border); background: var(--gray); color: var(--ts); cursor: pointer; transition: all 0.15s; user-select: none; white-space: nowrap; }
-  .pill:hover { border-color: var(--bm); color: var(--blue); }
-  .pill.on { background: var(--bl); border-color: var(--blue); color: var(--blue); font-weight: 500; }
-  .pill.all-pill.on { background: var(--blue); border-color: var(--blue); color: white; font-weight: 600; }
+
+  /* ── Pills ── */
+  .pill {
+    padding: 5px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    color: var(--ts);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .pill:hover { border-color: var(--accent); color: var(--accent2); background: var(--accentgb); }
+  .pill.on { background: var(--accentgl); border-color: var(--accent); color: var(--accent2); font-weight: 600; }
+  .pill.all-pill.on {
+    background: linear-gradient(135deg, #1d4ed8, var(--accent));
+    border-color: var(--accent);
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 0 10px rgba(59,130,246,0.3);
+  }
+
+  /* ── Actions ── */
   .fa { display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; }
-  .si { padding: 7px 12px; border-radius: 8px; font-size: 13px; border: 1px solid var(--border); background: var(--gray); color: var(--tp); font-family: inherit; width: 200px; }
-  .si:focus { outline: none; border-color: var(--blue); background: white; }
-  .btn { padding: 7px 14px; border-radius: 8px; font-size: 12px; border: 1px solid var(--border); background: white; color: var(--ts); cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-  .btn:hover { background: var(--bg); color: var(--blue); border-color: var(--bm); }
+  .si {
+    padding: 8px 13px;
+    border-radius: 9px;
+    font-size: 13px;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    color: var(--tp);
+    font-family: inherit;
+    width: 210px;
+    transition: all 0.15s;
+  }
+  .si::placeholder { color: var(--th); }
+  .si:focus { outline: none; border-color: var(--accent); background: var(--accentgb); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+  .btn {
+    padding: 8px 15px;
+    border-radius: 9px;
+    font-size: 12px;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    color: var(--ts);
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .btn:hover { background: var(--accentgb); color: var(--accent2); border-color: var(--accent); }
   .btn svg { width: 13px; height: 13px; }
-  .rb { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 0 2px; }
+  .btn-refresh {
+    background: linear-gradient(135deg, #1d4ed8, var(--accent));
+    border-color: transparent;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 0 12px rgba(59,130,246,0.3);
+  }
+  .btn-refresh:hover { opacity: 0.9; color: white; border-color: transparent; }
+
+  /* ── Results Bar ── */
+  .rb { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding: 0 2px; }
   .rc { font-size: 12px; color: var(--ts); }
-  .rc span { font-weight: 600; color: var(--tp); }
+  .rc span { font-weight: 700; color: var(--tp); }
   .lu { font-size: 11px; color: var(--th); }
-  .tc { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+
+  /* ── Table ── */
+  .tc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
   .tw { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  thead th { padding: 10px 14px; text-align: right; font-size: 11px; font-weight: 500; color: var(--ts); background: var(--gray); border-bottom: 1px solid var(--border); white-space: nowrap; }
+  thead th {
+    padding: 11px 16px;
+    text-align: right;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ts);
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
   tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
   tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: var(--gray); }
-  td { padding: 8px 14px; white-space: nowrap; vertical-align: middle; }
-  .mrn { font-family: monospace; font-size: 12px; color: var(--ts); }
-  .nm { font-weight: 500; }
+  tbody tr:hover { background: var(--accentgb); }
+  td { padding: 9px 16px; white-space: nowrap; vertical-align: middle; }
+  .mrn { font-family: monospace; font-size: 12px; color: var(--th); }
+  .nm { font-weight: 600; color: var(--tp); }
   .nd { color: var(--th); font-style: italic; font-size: 12px; }
-  .bdg { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; }
-  .br { background: var(--bl); color: var(--blue); }
-  .bd { background: var(--gl); color: var(--green); }
-  .ah { color: var(--red); font-weight: 500; }
-  .am { color: var(--amber); font-weight: 500; }
+
+  /* ── Badges ── */
+  .bdg { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .br { background: var(--accentgl); color: var(--accent2); border: 1px solid rgba(59,130,246,0.3); }
+  .bd { background: var(--greenl); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+
+  /* ── Wait colors ── */
+  .ah { color: var(--red); font-weight: 700; }
+  .am { color: var(--amber); font-weight: 600; }
   .al { color: var(--green); font-weight: 500; }
-  .pi { padding: 4px 8px; border-radius: 6px; font-size: 12px; border: 1px solid var(--border); background: var(--gray); color: var(--tp); font-family: inherit; width: 130px; direction: ltr; }
-  .pi:focus { outline: none; border-color: var(--blue); background: white; }
+
+  /* ── Phone input ── */
+  .pi {
+    padding: 5px 9px;
+    border-radius: 7px;
+    font-size: 12px;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    color: var(--tp);
+    font-family: inherit;
+    width: 135px;
+    direction: ltr;
+    transition: all 0.15s;
+  }
+  .pi:focus { outline: none; border-color: var(--accent); background: var(--accentgb); }
   .pi::placeholder { color: var(--th); font-size: 11px; }
+
+  /* ── WhatsApp buttons ── */
   .wbs { display: flex; gap: 5px; }
-  .wb { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 500; text-decoration: none; border: 1px solid; transition: all 0.15s; white-space: nowrap; }
-  .wds { background: var(--gl); color: var(--green); border-color: #6ee7b7; cursor: pointer; }
-  .wds:hover { background: #d1fae5; }
-  .wr { background: var(--bl); color: var(--blue); border-color: var(--bm); cursor: pointer; }
-  .wr:hover { background: #dbeafe; }
-  .wb.off { opacity: 0.35; pointer-events: none; }
+  .wb {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 11px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid;
+    transition: all 0.15s;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .wds { background: var(--greenl); color: var(--green); border-color: rgba(16,185,129,0.3); }
+  .wds:hover { background: rgba(16,185,129,0.2); box-shadow: 0 0 8px rgba(16,185,129,0.2); }
+  .wr { background: var(--accentgl); color: var(--accent2); border-color: rgba(59,130,246,0.3); }
+  .wr:hover { background: rgba(59,130,246,0.2); box-shadow: 0 0 8px rgba(59,130,246,0.2); }
+  .wb.off { opacity: 0.25; pointer-events: none; }
   .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
-  .dg { background: var(--green); }
-  .db { background: var(--blue); }
-  .loading { padding: 60px 20px; text-align: center; color: var(--ts); }
-  .spinner { width: 28px; height: 28px; border: 2px solid var(--border); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+  .dg { background: var(--green); box-shadow: 0 0 5px var(--green); }
+  .db { background: var(--accent2); box-shadow: 0 0 5px var(--accent); }
+
+  /* ── States ── */
+  .loading { padding: 70px 20px; text-align: center; color: var(--ts); }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 2px solid var(--border2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 14px;
+    box-shadow: 0 0 12px rgba(59,130,246,0.2);
+  }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .empty { padding: 60px 20px; text-align: center; color: var(--ts); }
-  .sc { font-size: 11px; color: var(--blue); margin-right: 4px; font-weight: 400; text-transform: none; }
-  .err { padding: 40px 20px; text-align: center; color: var(--ts); }
-  .err button { margin-top: 12px; padding: 8px 20px; border-radius: 8px; border: 1px solid var(--border); background: white; color: var(--blue); cursor: pointer; font-family: inherit; font-size: 13px; }
+  .empty { padding: 70px 20px; text-align: center; color: var(--ts); }
+  .err { padding: 50px 20px; text-align: center; color: var(--ts); }
+  .err button {
+    margin-top: 14px; padding: 9px 22px;
+    border-radius: 9px; border: 1px solid var(--border2);
+    background: var(--bg3); color: var(--accent2);
+    cursor: pointer; font-family: inherit; font-size: 13px;
+  }
+  .sc { font-size: 11px; color: var(--accent2); margin-right: 4px; font-weight: 400; text-transform: none; letter-spacing: 0; }
 </style>
 </head>
 <body>
- 
+
 <div class="hdr">
   <div class="hdr-logo">
     <div class="logo-ic">
@@ -97,26 +305,35 @@
     </div>
   </div>
   <div class="hdr-stats">
-    <div class="st-item"><div class="st-num" id="s-total" style="color:var(--blue)">—</div><div class="st-lbl">إجمالي المرضى</div></div>
-    <div class="st-item"><div class="st-num" id="s-sched" style="color:var(--green)">—</div><div class="st-lbl">مجدولون</div></div>
-    <div class="st-item"><div class="st-num" id="s-unsched" style="color:var(--amber)">—</div><div class="st-lbl">غير مجدولين</div></div>
+    <div class="st-item">
+      <div class="st-num" id="s-total" style="color:var(--accent2)">—</div>
+      <div class="st-lbl">إجمالي المرضى</div>
+    </div>
+    <div class="st-item">
+      <div class="st-num" id="s-sched" style="color:var(--green)">—</div>
+      <div class="st-lbl">مجدولون</div>
+    </div>
+    <div class="st-item">
+      <div class="st-num" id="s-unsched" style="color:var(--amber)">—</div>
+      <div class="st-lbl">غير مجدولين</div>
+    </div>
   </div>
 </div>
- 
+
 <div class="main">
   <div class="fc">
     <div class="fr">
- 
+
       <div class="fg">
         <div class="fg-lbl">الطبيب <span class="sc" id="sc"></span></div>
         <div class="fps" id="sp"></div>
       </div>
- 
+
       <div class="fg">
         <div class="fg-lbl">التخصص <span class="sc" id="spc"></span></div>
         <div class="fps" id="specp"></div>
       </div>
- 
+
       <div class="fg">
         <div class="fg-lbl">نوع الدخول</div>
         <div class="fps" id="tp">
@@ -125,7 +342,7 @@
           <span class="pill" data-val="Day Surgery">Day Surgery</span>
         </div>
       </div>
- 
+
       <div class="fg">
         <div class="fg-lbl">الجدولة</div>
         <div class="fps" id="schp">
@@ -134,47 +351,49 @@
           <span class="pill" data-val="no">غير مجدولين</span>
         </div>
       </div>
- 
+
       <div class="fa">
-        <input class="si" id="search" placeholder="بحث باسم المريض...">
-        <button class="btn" id="reset-btn">مسح الفلاتر</button>
-        <button class="btn" id="refresh-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg>
+        <input class="si" id="search" placeholder="🔍  بحث باسم المريض أو MRN...">
+        <button class="btn" id="reset-btn">↺ مسح الفلاتر</button>
+        <button class="btn btn-refresh" id="refresh-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg>
           تحديث
         </button>
       </div>
     </div>
   </div>
- 
+
   <div class="rb">
     <div class="rc">عرض <span id="shown">—</span> من <span id="total">—</span> مريض</div>
     <div class="lu" id="updated"></div>
   </div>
- 
-  <div class="tc"><div class="tw" id="container">
-    <div class="loading"><div class="spinner"></div><div>جاري تحميل البيانات...</div></div>
-  </div></div>
+
+  <div class="tc">
+    <div class="tw" id="container">
+      <div class="loading"><div class="spinner"></div><div>جاري تحميل البيانات...</div></div>
+    </div>
+  </div>
 </div>
- 
+
 <script>
 const SHEET_ID = '1VGQMxYgkcmQLurL9nG794Uv5vcIt43Aa8rBKknpZtPo';
 const TAB = 'Sheet1';
 const DAYS = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
- 
+
 let rows = [];
 let selS = new Set();
 let selSpec = new Set();
 let F = { type: 'all', sched: 'all' };
 let phones = {};
- 
+
 async function load() {
   document.getElementById('container').innerHTML = '<div class="loading"><div class="spinner"></div><div>جاري تحميل البيانات...</div></div>';
- 
+
   const urls = [
     'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(TAB) + '&headers=1&t=' + Date.now(),
     'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&gid=0&t=' + Date.now()
   ];
- 
+
   let csv = null;
   for (const url of urls) {
     try {
@@ -182,27 +401,26 @@ async function load() {
       if (res.ok) { csv = await res.text(); break; }
     } catch(e) { continue; }
   }
- 
+
   if (!csv) {
-    document.getElementById('container').innerHTML = '<div class="err">تعذر تحميل البيانات<br><small>تأكد أن الشيت مشارك للعموم</small><br><button onclick="load()">إعادة المحاولة</button></div>';
+    document.getElementById('container').innerHTML = '<div class="err">⚠️ تعذر تحميل البيانات<br><small>تأكد أن الشيت مشارك للعموم</small><br><button onclick="load()">إعادة المحاولة</button></div>';
     return;
   }
- 
+
   rows = parseCSV(csv);
- 
-  // إحصائيات مباشرة من البيانات
+
   const total = rows.length;
   const sched = rows.filter(r => pDate(r.date)).length;
   document.getElementById('s-total').textContent = total;
   document.getElementById('s-sched').textContent = sched;
   document.getElementById('s-unsched').textContent = total - sched;
- 
+
   buildSurgeonFilter();
   buildSpecialtyFilter();
-  render(); // يعرض البيانات مباشرة بعد التحميل
+  render();
   document.getElementById('updated').textContent = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-SA');
 }
- 
+
 function parseCSV(csv) {
   const lines = csv.trim().split('\n');
   return lines.slice(1).map(line => {
@@ -214,7 +432,7 @@ function parseCSV(csv) {
     };
   }).filter(r => r.mrn && r.mrn !== 'MRN' && r.name);
 }
- 
+
 function pLine(line) {
   const r = []; let cur = '', q = false;
   for (let i = 0; i < line.length; i++) {
@@ -226,12 +444,12 @@ function pLine(line) {
   r.push(cur.trim());
   return r;
 }
- 
+
 function buildSurgeonFilter() {
   const surgeons = [...new Set(rows.map(r => r.surgeon).filter(Boolean))].sort();
   const el = document.getElementById('sp');
   el.innerHTML = '';
- 
+
   const allPill = document.createElement('span');
   allPill.className = 'pill all-pill' + (selS.size === 0 ? ' on' : '');
   allPill.textContent = 'الكل';
@@ -243,7 +461,7 @@ function buildSurgeonFilter() {
     render();
   };
   el.appendChild(allPill);
- 
+
   surgeons.forEach(s => {
     const short = s.split(' ').slice(0, 2).join(' ');
     const p = document.createElement('span');
@@ -261,12 +479,12 @@ function buildSurgeonFilter() {
     el.appendChild(p);
   });
 }
- 
+
 function buildSpecialtyFilter() {
   const specs = [...new Set(rows.map(r => r.specialty).filter(Boolean))].sort();
   const el = document.getElementById('specp');
   el.innerHTML = '';
- 
+
   const allPill = document.createElement('span');
   allPill.className = 'pill all-pill' + (selSpec.size === 0 ? ' on' : '');
   allPill.textContent = 'الكل';
@@ -278,7 +496,7 @@ function buildSpecialtyFilter() {
     render();
   };
   el.appendChild(allPill);
- 
+
   specs.forEach(s => {
     const p = document.createElement('span');
     p.className = 'pill' + (selSpec.has(s) ? ' on' : '');
@@ -294,7 +512,7 @@ function buildSpecialtyFilter() {
     el.appendChild(p);
   });
 }
- 
+
 document.getElementById('tp').addEventListener('click', e => {
   const p = e.target.closest('.pill'); if (!p) return;
   F.type = p.dataset.val;
@@ -302,7 +520,7 @@ document.getElementById('tp').addEventListener('click', e => {
   p.classList.add('on');
   render();
 });
- 
+
 document.getElementById('schp').addEventListener('click', e => {
   const p = e.target.closest('.pill'); if (!p) return;
   F.sched = p.dataset.val;
@@ -310,9 +528,9 @@ document.getElementById('schp').addEventListener('click', e => {
   p.classList.add('on');
   render();
 });
- 
+
 document.getElementById('search').addEventListener('input', render);
- 
+
 document.getElementById('reset-btn').addEventListener('click', () => {
   selS.clear(); selSpec.clear(); F = { type: 'all', sched: 'all' };
   document.getElementById('search').value = '';
@@ -324,9 +542,9 @@ document.getElementById('reset-btn').addEventListener('click', () => {
   document.querySelectorAll('#schp .pill').forEach((p, i) => p.classList.toggle('on', i === 0));
   render();
 });
- 
+
 document.getElementById('refresh-btn').addEventListener('click', load);
- 
+
 function render() {
   const q = document.getElementById('search').value.toLowerCase();
   const filtered = rows.filter(r => {
@@ -339,17 +557,17 @@ function render() {
     if (q && !r.name.toLowerCase().includes(q) && !r.mrn.includes(q)) return false;
     return true;
   });
- 
+
   document.getElementById('shown').textContent = filtered.length;
   document.getElementById('total').textContent = rows.length;
- 
+
   if (!filtered.length) {
     document.getElementById('container').innerHTML = '<div class="empty">لا توجد نتائج مطابقة</div>';
     return;
   }
- 
+
   let html = '<table><thead><tr><th>MRN</th><th>اسم المريض</th><th>تاريخ العملية</th><th>الطبيب</th><th>التخصص</th><th>نوع الدخول</th><th>العملية</th><th>متوسط الانتظار</th><th>رقم الجوال</th><th>إرسال واتساب</th></tr></thead><tbody>';
- 
+
   filtered.forEach(r => {
     const idx = rows.indexOf(r);
     const tc = r.admType === 'Day Surgery' ? 'bd' : 'br';
@@ -369,11 +587,11 @@ function render() {
     html += '<td><div class="wbs" id="wa-' + idx + '">' + buildWA(r, idx, ph) + '</div></td>';
     html += '</tr>';
   });
- 
+
   html += '</tbody></table>';
   document.getElementById('container').innerHTML = html;
 }
- 
+
 function pDate(raw) {
   if (!raw || raw === 'Not scheduled' || !raw.trim()) return null;
   raw = raw.trim();
@@ -388,20 +606,20 @@ function pDate(raw) {
   const d = new Date(raw);
   return isNaN(d) ? null : d;
 }
- 
+
 function fDate(raw) {
   const d = pDate(raw);
   if (!d) return '<span class="nd">غير مجدول</span>';
   return '<span>' + pad(d.getDate()) + '/' + pad(d.getMonth()+1) + '/' + d.getFullYear() + '</span>';
 }
- 
+
 function pad(n) { return String(n).padStart(2, '0'); }
- 
+
 function updWA(idx) {
   const el = document.getElementById('wa-' + idx);
   if (el) el.innerHTML = buildWA(rows[idx], idx, phones[idx] || '');
 }
- 
+
 function buildWA(r, idx, phone) {
   const d = pDate(r.date);
   let ds = '___', dn = '____';
@@ -415,7 +633,7 @@ function buildWA(r, idx, phone) {
   const a2 = ok ? 'href="https://web.whatsapp.com/send?phone=' + ph + '&text=' + m2 + '" target="_blank"' : '';
   return '<a class="wb wds' + (ok ? '' : ' off') + '" ' + a1 + '><span class="dot dg"></span> DS</a><a class="wb wr' + (ok ? '' : ' off') + '" ' + a2 + '><span class="dot db"></span> R</a>';
 }
- 
+
 load();
 </script>
 </body>
