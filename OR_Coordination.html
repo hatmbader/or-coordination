@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OR Coordination — مدينة الملك سعود الطبية</title>
+<title>OR Coordination — King Saud Medical City</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --bg:       #0b0f1a;
@@ -31,14 +31,7 @@
     --cyan:     #06b6d4;
     --cyanl:    rgba(6,182,212,0.1);
   }
-
-  body {
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
-    background: var(--bg);
-    color: var(--tp);
-    min-height: 100vh;
-    font-size: 14px;
-  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tp); min-height: 100vh; font-size: 14px; }
 
   /* ── Header ── */
   .hdr {
@@ -52,7 +45,6 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(12px);
   }
   .hdr::after {
     content: '';
@@ -73,8 +65,6 @@
   .logo-ic svg { width: 20px; height: 20px; fill: white; }
   .hdr-title { font-size: 15px; font-weight: 700; color: var(--tp); letter-spacing: 0.3px; }
   .hdr-sub { font-size: 11px; color: var(--ts); margin-top: 1px; }
-
-  /* ── Stats ── */
   .hdr-stats { display: flex; gap: 6px; }
   .st-item {
     text-align: center;
@@ -85,10 +75,65 @@
     min-width: 80px;
   }
   .st-num { font-size: 22px; font-weight: 700; line-height: 1; }
-  .st-lbl { font-size: 10px; color: var(--ts); margin-top: 3px; letter-spacing: 0.3px; }
+  .st-lbl { font-size: 10px; color: var(--ts); margin-top: 3px; letter-spacing: 0.3px; text-transform: uppercase; }
 
   /* ── Main ── */
   .main { padding: 22px 28px; }
+
+  /* ── Specialty Stats Panel ── */
+  .spec-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .spec-panel-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ts);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .spec-panel-title::before {
+    content: '';
+    width: 3px; height: 12px;
+    background: var(--cyan);
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .spec-cards { display: flex; gap: 10px; flex-wrap: wrap; }
+  .spec-card {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 14px 18px;
+    min-width: 180px;
+    flex: 1;
+    transition: all 0.15s;
+    cursor: default;
+  }
+  .spec-card:hover { border-color: var(--cyan); background: var(--cyanl); }
+  .spec-card-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+  }
+  .spec-card-stats { display: flex; flex-direction: column; gap: 5px; }
+  .spec-stat { display: flex; justify-content: space-between; align-items: center; }
+  .spec-stat-lbl { font-size: 11px; color: var(--ts); }
+  .spec-stat-val { font-size: 13px; font-weight: 700; }
+  .sv-total { color: var(--accent2); }
+  .sv-sched { color: var(--green); }
+  .sv-unsched { color: var(--amber); }
+  .sv-avg { color: var(--red); }
+  .spec-divider { width: 100%; height: 1px; background: var(--border); margin: 6px 0; }
 
   /* ── Filter Card ── */
   .fc {
@@ -118,8 +163,6 @@
     display: inline-block;
   }
   .fps { display: flex; flex-wrap: wrap; gap: 6px; }
-
-  /* ── Pills ── */
   .pill {
     padding: 5px 13px;
     border-radius: 20px;
@@ -141,8 +184,6 @@
     font-weight: 700;
     box-shadow: 0 0 10px rgba(59,130,246,0.3);
   }
-
-  /* ── Actions ── */
   .fa { display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; }
   .si {
     padding: 8px 13px;
@@ -152,7 +193,7 @@
     background: var(--bg3);
     color: var(--tp);
     font-family: inherit;
-    width: 210px;
+    width: 220px;
     transition: all 0.15s;
   }
   .si::placeholder { color: var(--th); }
@@ -171,6 +212,7 @@
     gap: 6px;
     white-space: nowrap;
     transition: all 0.15s;
+    font-weight: 500;
   }
   .btn:hover { background: var(--accentgb); color: var(--accent2); border-color: var(--accent); }
   .btn svg { width: 13px; height: 13px; }
@@ -190,24 +232,19 @@
   .lu { font-size: 11px; color: var(--th); }
 
   /* ── Table ── */
-  .tc {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-  }
+  .tc { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
   .tw { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead th {
     padding: 11px 16px;
-    text-align: right;
-    font-size: 11px;
+    text-align: left;
+    font-size: 10px;
     font-weight: 600;
     color: var(--ts);
     background: var(--bg3);
     border-bottom: 1px solid var(--border);
     white-space: nowrap;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
   }
   tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
@@ -217,18 +254,12 @@
   .mrn { font-family: monospace; font-size: 12px; color: var(--th); }
   .nm { font-weight: 600; color: var(--tp); }
   .nd { color: var(--th); font-style: italic; font-size: 12px; }
-
-  /* ── Badges ── */
   .bdg { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
   .br { background: var(--accentgl); color: var(--accent2); border: 1px solid rgba(59,130,246,0.3); }
   .bd { background: var(--greenl); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
-
-  /* ── Wait colors ── */
   .ah { color: var(--red); font-weight: 700; }
   .am { color: var(--amber); font-weight: 600; }
   .al { color: var(--green); font-weight: 500; }
-
-  /* ── Phone input ── */
   .pi {
     padding: 5px 9px;
     border-radius: 7px;
@@ -243,22 +274,13 @@
   }
   .pi:focus { outline: none; border-color: var(--accent); background: var(--accentgb); }
   .pi::placeholder { color: var(--th); font-size: 11px; }
-
-  /* ── WhatsApp buttons ── */
   .wbs { display: flex; gap: 5px; }
   .wb {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 11px;
-    border-radius: 7px;
-    font-size: 11px;
-    font-weight: 600;
-    text-decoration: none;
-    border: 1px solid;
-    transition: all 0.15s;
-    white-space: nowrap;
-    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 11px; border-radius: 7px;
+    font-size: 11px; font-weight: 600;
+    text-decoration: none; border: 1px solid;
+    transition: all 0.15s; white-space: nowrap; cursor: pointer;
   }
   .wds { background: var(--greenl); color: var(--green); border-color: rgba(16,185,129,0.3); }
   .wds:hover { background: rgba(16,185,129,0.2); box-shadow: 0 0 8px rgba(16,185,129,0.2); }
@@ -268,8 +290,6 @@
   .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
   .dg { background: var(--green); box-shadow: 0 0 5px var(--green); }
   .db { background: var(--accent2); box-shadow: 0 0 5px var(--accent); }
-
-  /* ── States ── */
   .loading { padding: 70px 20px; text-align: center; color: var(--ts); }
   .spinner {
     width: 32px; height: 32px;
@@ -289,7 +309,7 @@
     background: var(--bg3); color: var(--accent2);
     cursor: pointer; font-family: inherit; font-size: 13px;
   }
-  .sc { font-size: 11px; color: var(--accent2); margin-right: 4px; font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .sc { font-size: 11px; color: var(--accent2); margin-left: 4px; font-weight: 400; text-transform: none; letter-spacing: 0; }
 </style>
 </head>
 <body>
@@ -301,76 +321,86 @@
     </div>
     <div>
       <div class="hdr-title">OR Coordination</div>
-      <div class="hdr-sub">مدينة الملك سعود الطبية — قسم تنسيق العمليات</div>
+      <div class="hdr-sub">King Saud Medical City — OR Coordination Department</div>
     </div>
   </div>
   <div class="hdr-stats">
     <div class="st-item">
       <div class="st-num" id="s-total" style="color:var(--accent2)">—</div>
-      <div class="st-lbl">إجمالي المرضى</div>
+      <div class="st-lbl">Total</div>
     </div>
     <div class="st-item">
       <div class="st-num" id="s-sched" style="color:var(--green)">—</div>
-      <div class="st-lbl">مجدولون</div>
+      <div class="st-lbl">Scheduled</div>
     </div>
     <div class="st-item">
       <div class="st-num" id="s-unsched" style="color:var(--amber)">—</div>
-      <div class="st-lbl">غير مجدولين</div>
+      <div class="st-lbl">Unscheduled</div>
     </div>
   </div>
 </div>
 
 <div class="main">
+
+  <!-- Specialty Stats Panel -->
+  <div class="spec-panel">
+    <div class="spec-panel-title">Specialty Statistics</div>
+    <div class="spec-cards" id="spec-cards">
+      <div class="loading" style="padding:20px;"><div class="spinner" style="width:20px;height:20px;margin:0 auto;"></div></div>
+    </div>
+  </div>
+
+  <!-- Filters -->
   <div class="fc">
     <div class="fr">
 
       <div class="fg">
-        <div class="fg-lbl">الطبيب <span class="sc" id="sc"></span></div>
+        <div class="fg-lbl">Surgeon <span class="sc" id="sc"></span></div>
         <div class="fps" id="sp"></div>
       </div>
 
       <div class="fg">
-        <div class="fg-lbl">التخصص <span class="sc" id="spc"></span></div>
+        <div class="fg-lbl">Specialty <span class="sc" id="spc"></span></div>
         <div class="fps" id="specp"></div>
       </div>
 
       <div class="fg">
-        <div class="fg-lbl">نوع الدخول</div>
+        <div class="fg-lbl">Admission Type</div>
         <div class="fps" id="tp">
-          <span class="pill all-pill on" data-val="all">الكل</span>
+          <span class="pill all-pill on" data-val="all">All</span>
           <span class="pill" data-val="Routine">Routine</span>
           <span class="pill" data-val="Day Surgery">Day Surgery</span>
         </div>
       </div>
 
       <div class="fg">
-        <div class="fg-lbl">الجدولة</div>
+        <div class="fg-lbl">Schedule Status</div>
         <div class="fps" id="schp">
-          <span class="pill all-pill on" data-val="all">الكل</span>
-          <span class="pill" data-val="yes">مجدولون</span>
-          <span class="pill" data-val="no">غير مجدولين</span>
+          <span class="pill all-pill on" data-val="all">All</span>
+          <span class="pill" data-val="yes">Scheduled</span>
+          <span class="pill" data-val="no">Unscheduled</span>
         </div>
       </div>
 
       <div class="fa">
-        <input class="si" id="search" placeholder="🔍  بحث باسم المريض أو MRN...">
-        <button class="btn" id="reset-btn">↺ مسح الفلاتر</button>
+        <input class="si" id="search" placeholder="🔍  Search by name or MRN...">
+        <button class="btn" id="reset-btn">↺ Clear Filters</button>
         <button class="btn btn-refresh" id="refresh-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg>
-          تحديث
+          Refresh
         </button>
       </div>
     </div>
   </div>
 
   <div class="rb">
-    <div class="rc">عرض <span id="shown">—</span> من <span id="total">—</span> مريض</div>
+    <div class="rc">Showing <span id="shown">—</span> of <span id="total">—</span> patients</div>
     <div class="lu" id="updated"></div>
   </div>
 
   <div class="tc">
     <div class="tw" id="container">
-      <div class="loading"><div class="spinner"></div><div>جاري تحميل البيانات...</div></div>
+      <div class="loading"><div class="spinner"></div><div>Loading data...</div></div>
     </div>
   </div>
 </div>
@@ -378,7 +408,7 @@
 <script>
 const SHEET_ID = '1VGQMxYgkcmQLurL9nG794Uv5vcIt43Aa8rBKknpZtPo';
 const TAB = 'Sheet1';
-const DAYS = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 let rows = [];
 let selS = new Set();
@@ -387,7 +417,7 @@ let F = { type: 'all', sched: 'all' };
 let phones = {};
 
 async function load() {
-  document.getElementById('container').innerHTML = '<div class="loading"><div class="spinner"></div><div>جاري تحميل البيانات...</div></div>';
+  document.getElementById('container').innerHTML = '<div class="loading"><div class="spinner"></div><div>Loading data...</div></div>';
 
   const urls = [
     'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(TAB) + '&headers=1&t=' + Date.now(),
@@ -403,22 +433,24 @@ async function load() {
   }
 
   if (!csv) {
-    document.getElementById('container').innerHTML = '<div class="err">⚠️ تعذر تحميل البيانات<br><small>تأكد أن الشيت مشارك للعموم</small><br><button onclick="load()">إعادة المحاولة</button></div>';
+    document.getElementById('container').innerHTML = '<div class="err">⚠️ Failed to load data<br><small>Make sure the sheet is shared publicly</small><br><button onclick="load()">Retry</button></div>';
     return;
   }
 
   rows = parseCSV(csv);
 
+  // Global stats
   const total = rows.length;
   const sched = rows.filter(r => pDate(r.date)).length;
   document.getElementById('s-total').textContent = total;
   document.getElementById('s-sched').textContent = sched;
   document.getElementById('s-unsched').textContent = total - sched;
 
+  buildSpecialtyStats();
   buildSurgeonFilter();
   buildSpecialtyFilter();
   render();
-  document.getElementById('updated').textContent = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-SA');
+  document.getElementById('updated').textContent = 'Last updated: ' + new Date().toLocaleTimeString('en-SA');
 }
 
 function parseCSV(csv) {
@@ -445,6 +477,50 @@ function pLine(line) {
   return r;
 }
 
+// ── Specialty Stats ────────────────────────────────────────────
+function buildSpecialtyStats() {
+  const specs = [...new Set(rows.map(r => r.specialty).filter(Boolean))].sort();
+  const el = document.getElementById('spec-cards');
+  el.innerHTML = '';
+
+  specs.forEach(spec => {
+    const group = rows.filter(r => r.specialty === spec);
+    const total = group.length;
+    const sched = group.filter(r => pDate(r.date)).length;
+    const unsched = total - sched;
+    const avgWait = total > 0 ? Math.round(group.reduce((s, r) => s + r.avgWT, 0) / total) : 0;
+    const avgColor = avgWait > 100 ? 'var(--red)' : avgWait > 60 ? 'var(--amber)' : 'var(--green)';
+
+    const card = document.createElement('div');
+    card.className = 'spec-card';
+    card.innerHTML = `
+      <div class="spec-card-name">${spec}</div>
+      <div class="spec-card-stats">
+        <div class="spec-stat">
+          <span class="spec-stat-lbl">Total</span>
+          <span class="spec-stat-val sv-total">${total}</span>
+        </div>
+        <div class="spec-divider"></div>
+        <div class="spec-stat">
+          <span class="spec-stat-lbl">Scheduled</span>
+          <span class="spec-stat-val sv-sched">${sched}</span>
+        </div>
+        <div class="spec-stat">
+          <span class="spec-stat-lbl">Unscheduled</span>
+          <span class="spec-stat-val sv-unsched">${unsched}</span>
+        </div>
+        <div class="spec-divider"></div>
+        <div class="spec-stat">
+          <span class="spec-stat-lbl">Avg Wait (days)</span>
+          <span class="spec-stat-val" style="color:${avgColor}">${avgWait}</span>
+        </div>
+      </div>
+    `;
+    el.appendChild(card);
+  });
+}
+
+// ── Surgeon Filter ─────────────────────────────────────────────
 function buildSurgeonFilter() {
   const surgeons = [...new Set(rows.map(r => r.surgeon).filter(Boolean))].sort();
   const el = document.getElementById('sp');
@@ -452,7 +528,7 @@ function buildSurgeonFilter() {
 
   const allPill = document.createElement('span');
   allPill.className = 'pill all-pill' + (selS.size === 0 ? ' on' : '');
-  allPill.textContent = 'الكل';
+  allPill.textContent = 'All';
   allPill.onclick = () => {
     selS.clear();
     document.querySelectorAll('#sp .pill:not(.all-pill)').forEach(p => p.classList.remove('on'));
@@ -466,20 +542,20 @@ function buildSurgeonFilter() {
     const short = s.split(' ').slice(0, 2).join(' ');
     const p = document.createElement('span');
     p.className = 'pill' + (selS.has(s) ? ' on' : '');
-    p.title = s;
-    p.textContent = short;
+    p.title = s; p.textContent = short;
     p.onclick = () => {
       if (selS.has(s)) { selS.delete(s); p.classList.remove('on'); }
       else { selS.add(s); p.classList.add('on'); }
       if (selS.size === 0) allPill.classList.add('on');
       else allPill.classList.remove('on');
-      document.getElementById('sc').textContent = selS.size > 0 ? '(' + selS.size + ' محدد)' : '';
+      document.getElementById('sc').textContent = selS.size > 0 ? '(' + selS.size + ' selected)' : '';
       render();
     };
     el.appendChild(p);
   });
 }
 
+// ── Specialty Filter ───────────────────────────────────────────
 function buildSpecialtyFilter() {
   const specs = [...new Set(rows.map(r => r.specialty).filter(Boolean))].sort();
   const el = document.getElementById('specp');
@@ -487,7 +563,7 @@ function buildSpecialtyFilter() {
 
   const allPill = document.createElement('span');
   allPill.className = 'pill all-pill' + (selSpec.size === 0 ? ' on' : '');
-  allPill.textContent = 'الكل';
+  allPill.textContent = 'All';
   allPill.onclick = () => {
     selSpec.clear();
     document.querySelectorAll('#specp .pill:not(.all-pill)').forEach(p => p.classList.remove('on'));
@@ -506,27 +582,26 @@ function buildSpecialtyFilter() {
       else { selSpec.add(s); p.classList.add('on'); }
       if (selSpec.size === 0) allPill.classList.add('on');
       else allPill.classList.remove('on');
-      document.getElementById('spc').textContent = selSpec.size > 0 ? '(' + selSpec.size + ' محدد)' : '';
+      document.getElementById('spc').textContent = selSpec.size > 0 ? '(' + selSpec.size + ' selected)' : '';
       render();
     };
     el.appendChild(p);
   });
 }
 
+// ── Filter Events ──────────────────────────────────────────────
 document.getElementById('tp').addEventListener('click', e => {
   const p = e.target.closest('.pill'); if (!p) return;
   F.type = p.dataset.val;
   document.querySelectorAll('#tp .pill').forEach(x => x.classList.remove('on'));
-  p.classList.add('on');
-  render();
+  p.classList.add('on'); render();
 });
 
 document.getElementById('schp').addEventListener('click', e => {
   const p = e.target.closest('.pill'); if (!p) return;
   F.sched = p.dataset.val;
   document.querySelectorAll('#schp .pill').forEach(x => x.classList.remove('on'));
-  p.classList.add('on');
-  render();
+  p.classList.add('on'); render();
 });
 
 document.getElementById('search').addEventListener('input', render);
@@ -545,6 +620,7 @@ document.getElementById('reset-btn').addEventListener('click', () => {
 
 document.getElementById('refresh-btn').addEventListener('click', load);
 
+// ── Render Table ───────────────────────────────────────────────
 function render() {
   const q = document.getElementById('search').value.toLowerCase();
   const filtered = rows.filter(r => {
@@ -562,11 +638,11 @@ function render() {
   document.getElementById('total').textContent = rows.length;
 
   if (!filtered.length) {
-    document.getElementById('container').innerHTML = '<div class="empty">لا توجد نتائج مطابقة</div>';
+    document.getElementById('container').innerHTML = '<div class="empty">No matching results found</div>';
     return;
   }
 
-  let html = '<table><thead><tr><th>MRN</th><th>اسم المريض</th><th>تاريخ العملية</th><th>الطبيب</th><th>التخصص</th><th>نوع الدخول</th><th>العملية</th><th>متوسط الانتظار</th><th>رقم الجوال</th><th>إرسال واتساب</th></tr></thead><tbody>';
+  let html = '<table><thead><tr><th>MRN</th><th>Patient Name</th><th>Surgery Date</th><th>Surgeon</th><th>Specialty</th><th>Admission Type</th><th>Procedure</th><th>Avg Wait (days)</th><th>Phone</th><th>Send WhatsApp</th></tr></thead><tbody>';
 
   filtered.forEach(r => {
     const idx = rows.indexOf(r);
@@ -592,6 +668,7 @@ function render() {
   document.getElementById('container').innerHTML = html;
 }
 
+// ── Helpers ────────────────────────────────────────────────────
 function pDate(raw) {
   if (!raw || raw === 'Not scheduled' || !raw.trim()) return null;
   raw = raw.trim();
@@ -609,7 +686,7 @@ function pDate(raw) {
 
 function fDate(raw) {
   const d = pDate(raw);
-  if (!d) return '<span class="nd">غير مجدول</span>';
+  if (!d) return '<span class="nd">Not Scheduled</span>';
   return '<span>' + pad(d.getDate()) + '/' + pad(d.getMonth()+1) + '/' + d.getFullYear() + '</span>';
 }
 
