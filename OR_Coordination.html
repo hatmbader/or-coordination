@@ -9,10 +9,8 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --bg:       #0b0f1a;
-    --bg2:      #111827;
     --bg3:      #1a2235;
     --surface:  #141c2e;
-    --card:     #1e2a42;
     --border:   #263352;
     --border2:  #2e3d60;
     --tp:       #e8edf5;
@@ -25,202 +23,88 @@
     --green:    #10b981;
     --greenl:   rgba(16,185,129,0.12);
     --amber:    #f59e0b;
-    --amberl:   rgba(245,158,11,0.12);
     --red:      #ef4444;
-    --redl:     rgba(239,68,68,0.12);
     --cyan:     #06b6d4;
-    --cyanl:    rgba(6,182,212,0.1);
   }
   body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tp); min-height: 100vh; font-size: 14px; }
 
   /* ── Header ── */
   .hdr {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 28px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 0 28px; height: 64px; display: flex; align-items: center;
+    justify-content: space-between; position: sticky; top: 0; z-index: 100;
   }
   .hdr::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0.4;
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.4;
   }
   .hdr-logo { display: flex; align-items: center; gap: 12px; }
   .logo-ic {
-    width: 36px; height: 36px;
-    background: linear-gradient(135deg, var(--accent), #1d4ed8);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent), #1d4ed8);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
     box-shadow: 0 0 16px rgba(59,130,246,0.4);
   }
   .logo-ic svg { width: 20px; height: 20px; fill: white; }
-  .hdr-title { font-size: 15px; font-weight: 700; color: var(--tp); letter-spacing: 0.3px; }
+  .hdr-title { font-size: 15px; font-weight: 700; color: var(--tp); }
   .hdr-sub { font-size: 11px; color: var(--ts); margin-top: 1px; }
+
+  /* ── Header Stats ── */
   .hdr-stats { display: flex; gap: 6px; }
   .st-item {
-    text-align: center;
-    padding: 6px 16px;
-    border-radius: 10px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    min-width: 80px;
+    text-align: center; padding: 6px 14px; border-radius: 10px;
+    background: var(--bg3); border: 1px solid var(--border); min-width: 76px;
+    transition: all 0.2s;
   }
-  .st-num { font-size: 22px; font-weight: 700; line-height: 1; }
+  .st-num { font-size: 20px; font-weight: 700; line-height: 1; }
   .st-lbl { font-size: 10px; color: var(--ts); margin-top: 3px; letter-spacing: 0.3px; text-transform: uppercase; }
+  .st-scope { font-size: 9px; color: var(--th); margin-top: 2px; font-style: italic; }
 
   /* ── Main ── */
-  .main { padding: 22px 28px; }
-
-  /* ── Specialty Stats Panel ── */
-  .spec-panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px 20px;
-    margin-bottom: 16px;
-  }
-  .spec-panel-title {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--ts);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .spec-panel-title::before {
-    content: '';
-    width: 3px; height: 12px;
-    background: var(--cyan);
-    border-radius: 2px;
-    display: inline-block;
-  }
-  .spec-cards { display: flex; gap: 10px; flex-wrap: wrap; }
-  .spec-card {
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    border-radius: 12px;
-    padding: 14px 18px;
-    min-width: 180px;
-    flex: 1;
-    transition: all 0.15s;
-    cursor: default;
-  }
-  .spec-card:hover { border-color: var(--cyan); background: var(--cyanl); }
-  .spec-card-name {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--cyan);
-    margin-bottom: 10px;
-    letter-spacing: 0.3px;
-  }
-  .spec-card-stats { display: flex; flex-direction: column; gap: 5px; }
-  .spec-stat { display: flex; justify-content: space-between; align-items: center; }
-  .spec-stat-lbl { font-size: 11px; color: var(--ts); }
-  .spec-stat-val { font-size: 13px; font-weight: 700; }
-  .sv-total { color: var(--accent2); }
-  .sv-sched { color: var(--green); }
-  .sv-unsched { color: var(--amber); }
-  .sv-avg { color: var(--red); }
-  .spec-divider { width: 100%; height: 1px; background: var(--border); margin: 6px 0; }
+  .main { padding: 20px 28px; }
 
   /* ── Filter Card ── */
-  .fc {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px 20px;
-    margin-bottom: 16px;
-  }
+  .fc { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 16px; }
   .fr { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
   .fg { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 150px; }
   .fg-lbl {
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--ts);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    font-size: 10px; font-weight: 600; color: var(--ts);
+    text-transform: uppercase; letter-spacing: 1px;
+    display: flex; align-items: center; gap: 6px;
   }
-  .fg-lbl::before {
-    content: '';
-    width: 3px; height: 12px;
-    background: var(--accent);
-    border-radius: 2px;
-    display: inline-block;
-  }
+  .fg-lbl::before { content: ''; width: 3px; height: 12px; background: var(--accent); border-radius: 2px; display: inline-block; }
+  .fg-lbl.cyan-bar::before { background: var(--cyan); }
   .fps { display: flex; flex-wrap: wrap; gap: 6px; }
   .pill {
-    padding: 5px 13px;
-    border-radius: 20px;
-    font-size: 12px;
-    border: 1px solid var(--border2);
-    background: var(--bg3);
-    color: var(--ts);
-    cursor: pointer;
-    transition: all 0.15s;
-    user-select: none;
-    white-space: nowrap;
+    padding: 5px 13px; border-radius: 20px; font-size: 12px;
+    border: 1px solid var(--border2); background: var(--bg3); color: var(--ts);
+    cursor: pointer; transition: all 0.15s; user-select: none; white-space: nowrap;
   }
   .pill:hover { border-color: var(--accent); color: var(--accent2); background: var(--accentgb); }
   .pill.on { background: var(--accentgl); border-color: var(--accent); color: var(--accent2); font-weight: 600; }
   .pill.all-pill.on {
     background: linear-gradient(135deg, #1d4ed8, var(--accent));
-    border-color: var(--accent);
-    color: white;
-    font-weight: 700;
+    border-color: var(--accent); color: white; font-weight: 700;
     box-shadow: 0 0 10px rgba(59,130,246,0.3);
   }
   .fa { display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; }
   .si {
-    padding: 8px 13px;
-    border-radius: 9px;
-    font-size: 13px;
-    border: 1px solid var(--border2);
-    background: var(--bg3);
-    color: var(--tp);
-    font-family: inherit;
-    width: 220px;
-    transition: all 0.15s;
+    padding: 8px 13px; border-radius: 9px; font-size: 13px;
+    border: 1px solid var(--border2); background: var(--bg3); color: var(--tp);
+    font-family: inherit; width: 220px; transition: all 0.15s;
   }
   .si::placeholder { color: var(--th); }
   .si:focus { outline: none; border-color: var(--accent); background: var(--accentgb); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
   .btn {
-    padding: 8px 15px;
-    border-radius: 9px;
-    font-size: 12px;
-    border: 1px solid var(--border2);
-    background: var(--bg3);
-    color: var(--ts);
-    cursor: pointer;
-    font-family: inherit;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-    transition: all 0.15s;
-    font-weight: 500;
+    padding: 8px 15px; border-radius: 9px; font-size: 12px;
+    border: 1px solid var(--border2); background: var(--bg3); color: var(--ts);
+    cursor: pointer; font-family: inherit; display: flex; align-items: center;
+    gap: 6px; white-space: nowrap; transition: all 0.15s; font-weight: 500;
   }
   .btn:hover { background: var(--accentgb); color: var(--accent2); border-color: var(--accent); }
   .btn svg { width: 13px; height: 13px; }
   .btn-refresh {
     background: linear-gradient(135deg, #1d4ed8, var(--accent));
-    border-color: transparent;
-    color: white;
-    font-weight: 600;
+    border-color: transparent; color: white; font-weight: 600;
     box-shadow: 0 0 12px rgba(59,130,246,0.3);
   }
   .btn-refresh:hover { opacity: 0.9; color: white; border-color: transparent; }
@@ -236,16 +120,9 @@
   .tw { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead th {
-    padding: 11px 16px;
-    text-align: left;
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--ts);
-    background: var(--bg3);
-    border-bottom: 1px solid var(--border);
-    white-space: nowrap;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
+    padding: 11px 16px; text-align: left; font-size: 10px; font-weight: 600;
+    color: var(--ts); background: var(--bg3); border-bottom: 1px solid var(--border);
+    white-space: nowrap; letter-spacing: 0.6px; text-transform: uppercase;
   }
   tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
   tbody tr:last-child { border-bottom: none; }
@@ -261,26 +138,17 @@
   .am { color: var(--amber); font-weight: 600; }
   .al { color: var(--green); font-weight: 500; }
   .pi {
-    padding: 5px 9px;
-    border-radius: 7px;
-    font-size: 12px;
-    border: 1px solid var(--border2);
-    background: var(--bg3);
-    color: var(--tp);
-    font-family: inherit;
-    width: 135px;
-    direction: ltr;
-    transition: all 0.15s;
+    padding: 5px 9px; border-radius: 7px; font-size: 12px;
+    border: 1px solid var(--border2); background: var(--bg3); color: var(--tp);
+    font-family: inherit; width: 135px; direction: ltr; transition: all 0.15s;
   }
   .pi:focus { outline: none; border-color: var(--accent); background: var(--accentgb); }
   .pi::placeholder { color: var(--th); font-size: 11px; }
   .wbs { display: flex; gap: 5px; }
   .wb {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 5px 11px; border-radius: 7px;
-    font-size: 11px; font-weight: 600;
-    text-decoration: none; border: 1px solid;
-    transition: all 0.15s; white-space: nowrap; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px;
+    border-radius: 7px; font-size: 11px; font-weight: 600; text-decoration: none;
+    border: 1px solid; transition: all 0.15s; white-space: nowrap; cursor: pointer;
   }
   .wds { background: var(--greenl); color: var(--green); border-color: rgba(16,185,129,0.3); }
   .wds:hover { background: rgba(16,185,129,0.2); box-shadow: 0 0 8px rgba(16,185,129,0.2); }
@@ -292,21 +160,16 @@
   .db { background: var(--accent2); box-shadow: 0 0 5px var(--accent); }
   .loading { padding: 70px 20px; text-align: center; color: var(--ts); }
   .spinner {
-    width: 32px; height: 32px;
-    border: 2px solid var(--border2);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin: 0 auto 14px;
-    box-shadow: 0 0 12px rgba(59,130,246,0.2);
+    width: 32px; height: 32px; border: 2px solid var(--border2);
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin 0.8s linear infinite; margin: 0 auto 14px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
   .empty { padding: 70px 20px; text-align: center; color: var(--ts); }
   .err { padding: 50px 20px; text-align: center; color: var(--ts); }
   .err button {
-    margin-top: 14px; padding: 9px 22px;
-    border-radius: 9px; border: 1px solid var(--border2);
-    background: var(--bg3); color: var(--accent2);
+    margin-top: 14px; padding: 9px 22px; border-radius: 9px;
+    border: 1px solid var(--border2); background: var(--bg3); color: var(--accent2);
     cursor: pointer; font-family: inherit; font-size: 13px;
   }
   .sc { font-size: 11px; color: var(--accent2); margin-left: 4px; font-weight: 400; text-transform: none; letter-spacing: 0; }
@@ -328,6 +191,7 @@
     <div class="st-item">
       <div class="st-num" id="s-total" style="color:var(--accent2)">—</div>
       <div class="st-lbl">Total</div>
+      <div class="st-scope" id="scope-lbl">All</div>
     </div>
     <div class="st-item">
       <div class="st-num" id="s-sched" style="color:var(--green)">—</div>
@@ -337,33 +201,31 @@
       <div class="st-num" id="s-unsched" style="color:var(--amber)">—</div>
       <div class="st-lbl">Unscheduled</div>
     </div>
+    <div class="st-item">
+      <div class="st-num" id="s-avgwt" style="color:var(--red)">—</div>
+      <div class="st-lbl">Avg Wait</div>
+      <div class="st-scope">days</div>
+    </div>
   </div>
 </div>
 
 <div class="main">
-
-  <!-- Specialty Stats Panel -->
-  <div class="spec-panel">
-    <div class="spec-panel-title">Specialty Statistics</div>
-    <div class="spec-cards" id="spec-cards">
-      <div class="loading" style="padding:20px;"><div class="spinner" style="width:20px;height:20px;margin:0 auto;"></div></div>
-    </div>
-  </div>
-
-  <!-- Filters -->
   <div class="fc">
     <div class="fr">
 
+      <!-- Specialty Filter -->
+      <div class="fg">
+        <div class="fg-lbl cyan-bar">Specialty <span class="sc" id="spc"></span></div>
+        <div class="fps" id="specp"></div>
+      </div>
+
+      <!-- Surgeon Filter — يتغير بناءً على التخصص -->
       <div class="fg">
         <div class="fg-lbl">Surgeon <span class="sc" id="sc"></span></div>
         <div class="fps" id="sp"></div>
       </div>
 
-      <div class="fg">
-        <div class="fg-lbl">Specialty <span class="sc" id="spc"></span></div>
-        <div class="fps" id="specp"></div>
-      </div>
-
+      <!-- Admission Type -->
       <div class="fg">
         <div class="fg-lbl">Admission Type</div>
         <div class="fps" id="tp">
@@ -373,6 +235,7 @@
         </div>
       </div>
 
+      <!-- Schedule Status -->
       <div class="fg">
         <div class="fg-lbl">Schedule Status</div>
         <div class="fps" id="schp">
@@ -411,127 +274,122 @@ const TAB = 'Sheet1';
 const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 let rows = [];
-let selS = new Set();
 let selSpec = new Set();
+let selS = new Set();
 let F = { type: 'all', sched: 'all' };
 let phones = {};
 
+// ── Load ───────────────────────────────────────────────────────
 async function load() {
   document.getElementById('container').innerHTML = '<div class="loading"><div class="spinner"></div><div>Loading data...</div></div>';
-
   const urls = [
-    'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(TAB) + '&headers=1&t=' + Date.now(),
-    'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&gid=0&t=' + Date.now()
+    'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:csv&sheet='+encodeURIComponent(TAB)+'&headers=1&t='+Date.now(),
+    'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/export?format=csv&gid=0&t='+Date.now()
   ];
-
   let csv = null;
   for (const url of urls) {
-    try {
-      const res = await fetch(url, { cache: 'no-store' });
-      if (res.ok) { csv = await res.text(); break; }
-    } catch(e) { continue; }
+    try { const r = await fetch(url,{cache:'no-store'}); if(r.ok){csv=await r.text();break;} } catch(e){}
   }
-
   if (!csv) {
-    document.getElementById('container').innerHTML = '<div class="err">⚠️ Failed to load data<br><small>Make sure the sheet is shared publicly</small><br><button onclick="load()">Retry</button></div>';
+    document.getElementById('container').innerHTML='<div class="err">⚠️ Failed to load data<br><small>Make sure the sheet is shared publicly</small><br><button onclick="load()">Retry</button></div>';
     return;
   }
-
   rows = parseCSV(csv);
-
-  // Global stats
-  const total = rows.length;
-  const sched = rows.filter(r => pDate(r.date)).length;
-  document.getElementById('s-total').textContent = total;
-  document.getElementById('s-sched').textContent = sched;
-  document.getElementById('s-unsched').textContent = total - sched;
-
-  buildSpecialtyStats();
-  buildSurgeonFilter();
   buildSpecialtyFilter();
+  buildSurgeonFilter(); // كل الأطباء في البداية
+  updateHeaderStats();
   render();
-  document.getElementById('updated').textContent = 'Last updated: ' + new Date().toLocaleTimeString('en-SA');
+  document.getElementById('updated').textContent = 'Last updated: '+new Date().toLocaleTimeString('en-SA');
 }
 
 function parseCSV(csv) {
-  const lines = csv.trim().split('\n');
-  return lines.slice(1).map(line => {
+  return csv.trim().split('\n').slice(1).map(line => {
     const c = pLine(line);
-    return {
-      mrn: c[0]||'', date: c[1]||'', name: c[2]||'',
-      specialty: c[3]||'', admType: c[4]||'', surgeon: c[5]||'',
-      avgWT: parseFloat(c[6])||0, procedure: c[7]||''
-    };
-  }).filter(r => r.mrn && r.mrn !== 'MRN' && r.name);
+    return { mrn:c[0]||'', date:c[1]||'', name:c[2]||'', specialty:c[3]||'', admType:c[4]||'', surgeon:c[5]||'', avgWT:parseFloat(c[6])||0, procedure:c[7]||'' };
+  }).filter(r => r.mrn && r.mrn!=='MRN' && r.name);
 }
 
 function pLine(line) {
-  const r = []; let cur = '', q = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
-    if (ch === '"') q = !q;
-    else if (ch === ',' && !q) { r.push(cur.trim()); cur = ''; }
-    else cur += ch;
+  const r=[]; let cur='',q=false;
+  for(let i=0;i<line.length;i++){
+    const ch=line[i];
+    if(ch==='"') q=!q;
+    else if(ch===','&&!q){r.push(cur.trim());cur='';}
+    else cur+=ch;
   }
-  r.push(cur.trim());
-  return r;
+  r.push(cur.trim()); return r;
 }
 
-// ── Specialty Stats ────────────────────────────────────────────
-function buildSpecialtyStats() {
-  const specs = [...new Set(rows.map(r => r.specialty).filter(Boolean))].sort();
-  const el = document.getElementById('spec-cards');
+// ── Header Stats — تتغير مع التخصص المختار ───────────────────
+function updateHeaderStats() {
+  const scope = selSpec.size === 0 ? rows : rows.filter(r => selSpec.has(r.specialty));
+  const total = scope.length;
+  const sched = scope.filter(r => pDate(r.date)).length;
+  const avg   = total > 0 ? Math.round(scope.reduce((a,r)=>a+r.avgWT,0)/total) : 0;
+  const avgColor = avg > 100 ? 'var(--red)' : avg > 60 ? 'var(--amber)' : 'var(--green)';
+
+  document.getElementById('s-total').textContent   = total;
+  document.getElementById('s-sched').textContent   = sched;
+  document.getElementById('s-unsched').textContent = total - sched;
+  document.getElementById('s-avgwt').textContent   = avg || '—';
+  document.getElementById('s-avgwt').style.color   = avgColor;
+  document.getElementById('scope-lbl').textContent =
+    selSpec.size === 0 ? 'All' : [...selSpec].join(', ');
+}
+
+// ── Specialty Filter ───────────────────────────────────────────
+function buildSpecialtyFilter() {
+  const specs = [...new Set(rows.map(r=>r.specialty).filter(Boolean))].sort();
+  const el = document.getElementById('specp');
   el.innerHTML = '';
 
-  specs.forEach(spec => {
-    const group = rows.filter(r => r.specialty === spec);
-    const total = group.length;
-    const sched = group.filter(r => pDate(r.date)).length;
-    const unsched = total - sched;
-    const avgWait = total > 0 ? Math.round(group.reduce((s, r) => s + r.avgWT, 0) / total) : 0;
-    const avgColor = avgWait > 100 ? 'var(--red)' : avgWait > 60 ? 'var(--amber)' : 'var(--green)';
+  const allPill = document.createElement('span');
+  allPill.className = 'pill all-pill' + (selSpec.size===0?' on':'');
+  allPill.textContent = 'All';
+  allPill.onclick = () => {
+    selSpec.clear(); selS.clear();
+    document.querySelectorAll('#specp .pill:not(.all-pill)').forEach(p=>p.classList.remove('on'));
+    allPill.classList.add('on');
+    document.getElementById('spc').textContent = '';
+    buildSurgeonFilter(); // إعادة بناء كل الأطباء
+    updateHeaderStats();
+    render();
+  };
+  el.appendChild(allPill);
 
-    const card = document.createElement('div');
-    card.className = 'spec-card';
-    card.innerHTML = `
-      <div class="spec-card-name">${spec}</div>
-      <div class="spec-card-stats">
-        <div class="spec-stat">
-          <span class="spec-stat-lbl">Total</span>
-          <span class="spec-stat-val sv-total">${total}</span>
-        </div>
-        <div class="spec-divider"></div>
-        <div class="spec-stat">
-          <span class="spec-stat-lbl">Scheduled</span>
-          <span class="spec-stat-val sv-sched">${sched}</span>
-        </div>
-        <div class="spec-stat">
-          <span class="spec-stat-lbl">Unscheduled</span>
-          <span class="spec-stat-val sv-unsched">${unsched}</span>
-        </div>
-        <div class="spec-divider"></div>
-        <div class="spec-stat">
-          <span class="spec-stat-lbl">Avg Wait (days)</span>
-          <span class="spec-stat-val" style="color:${avgColor}">${avgWait}</span>
-        </div>
-      </div>
-    `;
-    el.appendChild(card);
+  specs.forEach(s => {
+    const p = document.createElement('span');
+    p.className = 'pill'+(selSpec.has(s)?' on':'');
+    p.textContent = s;
+    p.onclick = () => {
+      if (selSpec.has(s)) { selSpec.delete(s); p.classList.remove('on'); }
+      else { selSpec.add(s); p.classList.add('on'); }
+      allPill.classList.toggle('on', selSpec.size===0);
+      document.getElementById('spc').textContent = selSpec.size>0?'('+selSpec.size+' selected)':'';
+      selS.clear(); // reset surgeon selection when specialty changes
+      buildSurgeonFilter(); // ← يبني أطباء التخصص المختار فقط
+      updateHeaderStats();
+      render();
+    };
+    el.appendChild(p);
   });
 }
 
-// ── Surgeon Filter ─────────────────────────────────────────────
+// ── Surgeon Filter — يتغير بناءً على التخصص ──────────────────
 function buildSurgeonFilter() {
-  const surgeons = [...new Set(rows.map(r => r.surgeon).filter(Boolean))].sort();
+  // لو في تخصص مختار، اعرض أطباء التخصص فقط
+  const sourceRows = selSpec.size > 0 ? rows.filter(r=>selSpec.has(r.specialty)) : rows;
+  const surgeons = [...new Set(sourceRows.map(r=>r.surgeon).filter(Boolean))].sort();
+
   const el = document.getElementById('sp');
   el.innerHTML = '';
 
   const allPill = document.createElement('span');
-  allPill.className = 'pill all-pill' + (selS.size === 0 ? ' on' : '');
+  allPill.className = 'pill all-pill on';
   allPill.textContent = 'All';
   allPill.onclick = () => {
     selS.clear();
-    document.querySelectorAll('#sp .pill:not(.all-pill)').forEach(p => p.classList.remove('on'));
+    document.querySelectorAll('#sp .pill:not(.all-pill)').forEach(p=>p.classList.remove('on'));
     allPill.classList.add('on');
     document.getElementById('sc').textContent = '';
     render();
@@ -539,97 +397,59 @@ function buildSurgeonFilter() {
   el.appendChild(allPill);
 
   surgeons.forEach(s => {
-    const short = s.split(' ').slice(0, 2).join(' ');
     const p = document.createElement('span');
-    p.className = 'pill' + (selS.has(s) ? ' on' : '');
-    p.title = s; p.textContent = short;
+    p.className = 'pill'+(selS.has(s)?' on':'');
+    p.title = s;
+    p.textContent = s.split(' ').slice(0,2).join(' ');
     p.onclick = () => {
       if (selS.has(s)) { selS.delete(s); p.classList.remove('on'); }
       else { selS.add(s); p.classList.add('on'); }
-      if (selS.size === 0) allPill.classList.add('on');
-      else allPill.classList.remove('on');
-      document.getElementById('sc').textContent = selS.size > 0 ? '(' + selS.size + ' selected)' : '';
+      allPill.classList.toggle('on', selS.size===0);
+      document.getElementById('sc').textContent = selS.size>0?'('+selS.size+' selected)':'';
       render();
     };
     el.appendChild(p);
   });
 }
 
-// ── Specialty Filter ───────────────────────────────────────────
-function buildSpecialtyFilter() {
-  const specs = [...new Set(rows.map(r => r.specialty).filter(Boolean))].sort();
-  const el = document.getElementById('specp');
-  el.innerHTML = '';
-
-  const allPill = document.createElement('span');
-  allPill.className = 'pill all-pill' + (selSpec.size === 0 ? ' on' : '');
-  allPill.textContent = 'All';
-  allPill.onclick = () => {
-    selSpec.clear();
-    document.querySelectorAll('#specp .pill:not(.all-pill)').forEach(p => p.classList.remove('on'));
-    allPill.classList.add('on');
-    document.getElementById('spc').textContent = '';
-    render();
-  };
-  el.appendChild(allPill);
-
-  specs.forEach(s => {
-    const p = document.createElement('span');
-    p.className = 'pill' + (selSpec.has(s) ? ' on' : '');
-    p.textContent = s;
-    p.onclick = () => {
-      if (selSpec.has(s)) { selSpec.delete(s); p.classList.remove('on'); }
-      else { selSpec.add(s); p.classList.add('on'); }
-      if (selSpec.size === 0) allPill.classList.add('on');
-      else allPill.classList.remove('on');
-      document.getElementById('spc').textContent = selSpec.size > 0 ? '(' + selSpec.size + ' selected)' : '';
-      render();
-    };
-    el.appendChild(p);
-  });
-}
-
-// ── Filter Events ──────────────────────────────────────────────
+// ── Other Filters ──────────────────────────────────────────────
 document.getElementById('tp').addEventListener('click', e => {
-  const p = e.target.closest('.pill'); if (!p) return;
+  const p = e.target.closest('.pill'); if(!p) return;
   F.type = p.dataset.val;
-  document.querySelectorAll('#tp .pill').forEach(x => x.classList.remove('on'));
+  document.querySelectorAll('#tp .pill').forEach(x=>x.classList.remove('on'));
   p.classList.add('on'); render();
 });
-
 document.getElementById('schp').addEventListener('click', e => {
-  const p = e.target.closest('.pill'); if (!p) return;
+  const p = e.target.closest('.pill'); if(!p) return;
   F.sched = p.dataset.val;
-  document.querySelectorAll('#schp .pill').forEach(x => x.classList.remove('on'));
+  document.querySelectorAll('#schp .pill').forEach(x=>x.classList.remove('on'));
   p.classList.add('on'); render();
 });
-
 document.getElementById('search').addEventListener('input', render);
-
 document.getElementById('reset-btn').addEventListener('click', () => {
-  selS.clear(); selSpec.clear(); F = { type: 'all', sched: 'all' };
-  document.getElementById('search').value = '';
-  document.getElementById('sc').textContent = '';
-  document.getElementById('spc').textContent = '';
-  document.querySelectorAll('#sp .pill').forEach((p, i) => p.classList.toggle('on', i === 0));
-  document.querySelectorAll('#specp .pill').forEach((p, i) => p.classList.toggle('on', i === 0));
-  document.querySelectorAll('#tp .pill').forEach((p, i) => p.classList.toggle('on', i === 0));
-  document.querySelectorAll('#schp .pill').forEach((p, i) => p.classList.toggle('on', i === 0));
+  selSpec.clear(); selS.clear(); F={type:'all',sched:'all'};
+  document.getElementById('search').value='';
+  document.getElementById('sc').textContent='';
+  document.getElementById('spc').textContent='';
+  document.querySelectorAll('#specp .pill').forEach((p,i)=>p.classList.toggle('on',i===0));
+  document.querySelectorAll('#tp .pill').forEach((p,i)=>p.classList.toggle('on',i===0));
+  document.querySelectorAll('#schp .pill').forEach((p,i)=>p.classList.toggle('on',i===0));
+  buildSurgeonFilter();
+  updateHeaderStats();
   render();
 });
-
 document.getElementById('refresh-btn').addEventListener('click', load);
 
-// ── Render Table ───────────────────────────────────────────────
+// ── Render ─────────────────────────────────────────────────────
 function render() {
   const q = document.getElementById('search').value.toLowerCase();
   const filtered = rows.filter(r => {
-    if (selS.size > 0 && !selS.has(r.surgeon)) return false;
-    if (selSpec.size > 0 && !selSpec.has(r.specialty)) return false;
-    if (F.type !== 'all' && r.admType !== F.type) return false;
+    if (selSpec.size>0 && !selSpec.has(r.specialty)) return false;
+    if (selS.size>0 && !selS.has(r.surgeon)) return false;
+    if (F.type!=='all' && r.admType!==F.type) return false;
     const hd = !!pDate(r.date);
-    if (F.sched === 'yes' && !hd) return false;
-    if (F.sched === 'no' && hd) return false;
+    if (F.sched==='yes' && !hd) return false;
+    if (F.sched==='no' && hd) return false;
     if (q && !r.name.toLowerCase().includes(q) && !r.mrn.includes(q)) return false;
     return true;
   });
@@ -638,77 +458,56 @@ function render() {
   document.getElementById('total').textContent = rows.length;
 
   if (!filtered.length) {
-    document.getElementById('container').innerHTML = '<div class="empty">No matching results found</div>';
+    document.getElementById('container').innerHTML='<div class="empty">No matching results found</div>';
     return;
   }
 
-  let html = '<table><thead><tr><th>MRN</th><th>Patient Name</th><th>Surgery Date</th><th>Surgeon</th><th>Specialty</th><th>Admission Type</th><th>Procedure</th><th>Avg Wait (days)</th><th>Phone</th><th>Send WhatsApp</th></tr></thead><tbody>';
-
+  let html='<table><thead><tr><th>MRN</th><th>Patient Name</th><th>Surgery Date</th><th>Surgeon</th><th>Specialty</th><th>Admission Type</th><th>Procedure</th><th>Avg Wait (days)</th><th>Phone</th><th>Send WhatsApp</th></tr></thead><tbody>';
   filtered.forEach(r => {
-    const idx = rows.indexOf(r);
-    const tc = r.admType === 'Day Surgery' ? 'bd' : 'br';
-    const ac = r.avgWT > 100 ? 'ah' : r.avgWT > 60 ? 'am' : 'al';
-    const ss = r.surgeon.split(' ').slice(0, 3).join(' ');
-    const ph = phones[idx] || '';
-    html += '<tr>';
-    html += '<td class="mrn">' + r.mrn + '</td>';
-    html += '<td class="nm">' + r.name + '</td>';
-    html += '<td>' + fDate(r.date) + '</td>';
-    html += '<td title="' + r.surgeon + '">' + ss + '</td>';
-    html += '<td>' + (r.specialty || '—') + '</td>';
-    html += '<td><span class="bdg ' + tc + '">' + (r.admType || '—') + '</span></td>';
-    html += '<td>' + (r.procedure || '—') + '</td>';
-    html += '<td class="' + ac + '">' + (r.avgWT || '—') + '</td>';
-    html += '<td><input class="pi" placeholder="05XXXXXXXX" value="' + ph + '" oninput="phones[' + idx + ']=this.value;updWA(' + idx + ')"></td>';
-    html += '<td><div class="wbs" id="wa-' + idx + '">' + buildWA(r, idx, ph) + '</div></td>';
-    html += '</tr>';
+    const idx=rows.indexOf(r);
+    const tc=r.admType==='Day Surgery'?'bd':'br';
+    const ac=r.avgWT>100?'ah':r.avgWT>60?'am':'al';
+    const ph=phones[idx]||'';
+    html+='<tr>';
+    html+='<td class="mrn">'+r.mrn+'</td>';
+    html+='<td class="nm">'+r.name+'</td>';
+    html+='<td>'+fDate(r.date)+'</td>';
+    html+='<td title="'+r.surgeon+'">'+r.surgeon.split(' ').slice(0,3).join(' ')+'</td>';
+    html+='<td>'+(r.specialty||'—')+'</td>';
+    html+='<td><span class="bdg '+tc+'">'+(r.admType||'—')+'</span></td>';
+    html+='<td>'+(r.procedure||'—')+'</td>';
+    html+='<td class="'+ac+'">'+(r.avgWT||'—')+'</td>';
+    html+='<td><input class="pi" placeholder="05XXXXXXXX" value="'+ph+'" oninput="phones['+idx+']=this.value;updWA('+idx+')"></td>';
+    html+='<td><div class="wbs" id="wa-'+idx+'">'+buildWA(r,idx,ph)+'</div></td>';
+    html+='</tr>';
   });
-
-  html += '</tbody></table>';
-  document.getElementById('container').innerHTML = html;
+  html+='</tbody></table>';
+  document.getElementById('container').innerHTML=html;
 }
 
 // ── Helpers ────────────────────────────────────────────────────
 function pDate(raw) {
-  if (!raw || raw === 'Not scheduled' || !raw.trim()) return null;
-  raw = raw.trim();
-  let m = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-  if (m) return new Date(+m[3], +m[1]-1, +m[2]);
-  m = raw.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
-  if (m) return new Date(+m[3], +m[2]-1, +m[1]);
-  if (/^\d+(\.\d+)?$/.test(raw)) {
-    const s = parseFloat(raw);
-    if (s > 40000 && s < 60000) return new Date(Math.round((s - 25569) * 86400000));
-  }
-  const d = new Date(raw);
-  return isNaN(d) ? null : d;
+  if(!raw||raw==='Not scheduled'||!raw.trim()) return null;
+  raw=raw.trim();
+  let m=raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if(m) return new Date(+m[3],+m[1]-1,+m[2]);
+  m=raw.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+  if(m) return new Date(+m[3],+m[2]-1,+m[1]);
+  if(/^\d+(\.\d+)?$/.test(raw)){const s=parseFloat(raw);if(s>40000&&s<60000)return new Date(Math.round((s-25569)*86400000));}
+  const d=new Date(raw); return isNaN(d)?null:d;
 }
-
-function fDate(raw) {
-  const d = pDate(raw);
-  if (!d) return '<span class="nd">Not Scheduled</span>';
-  return '<span>' + pad(d.getDate()) + '/' + pad(d.getMonth()+1) + '/' + d.getFullYear() + '</span>';
-}
-
-function pad(n) { return String(n).padStart(2, '0'); }
-
-function updWA(idx) {
-  const el = document.getElementById('wa-' + idx);
-  if (el) el.innerHTML = buildWA(rows[idx], idx, phones[idx] || '');
-}
-
-function buildWA(r, idx, phone) {
-  const d = pDate(r.date);
-  let ds = '___', dn = '____';
-  if (d) { ds = pad(d.getDate()) + '-' + pad(d.getMonth()+1) + '-' + d.getFullYear(); dn = DAYS[d.getDay()]; }
-  const cl = phone.replace(/\D/g, '');
-  const ok = cl.length >= 9;
-  const ph = '966' + cl.replace(/^0/, '');
-  const m1 = encodeURIComponent('السلام عليكم ورحمة الله وبركاته\nعزيزي/عزيزتي ' + r.name + '\nنود إبلاغكم بأن موعد عمليتكم في مدينة الملك سعود الطبية قد تم تحديده يوم ' + dn + ' الموافق ' + ds + '\n\n📌 تعليمات مهمة:\n• الصيام من الساعة 12:00 منتصف الليل صيام كلي عن الأكل والشرب (حتى الماء) والتدخين\n• الحضور إلى برج الباطنة الأول - الدور الأرضي - مكتب الدخول - الساعة 6:00 صباحاً\n• إحضار الهوية الوطنية / الإقامة\n• للنساء الرجاء إزالة المكياج، طلاء الأظافر، والإكسسوارات قبل الحضور\n\n‼️ الرجاء إبلاغنا في حال أخذ أدوية مسيلة للدم أو إبر إنقاص الوزن\n‼️ بخصوص أدوية الضغط والسكر وغيرها، يرجى اتباع تعليمات المنسق المذكورة أثناء الاتصال\n\n⚠️ تنبيه: الرجاء الالتزام بالحضور في حال التأخير أو عدم الحضور سيتم إغلاق الطلب الجراحي\n\nمدينة الملك سعود الطبية - قسم تنسيق العمليات');
-  const m2 = encodeURIComponent('السلام عليكم ورحمة الله وبركاته\nعزيزي/عزيزتي ' + r.name + '\nنود إبلاغكم بأن موعد عمليتكم في مدينة الملك سعود الطبية قد تم تحديده يوم ' + dn + ' الموافق ' + ds + '\nوسيكون التنويم يوم ____ الموافق ____\n\n📌 تعليمات مهمة:\n• سيتم التواصل معكم في نفس يوم التنويم لتحديد وقت الحضور، يرجى الانتباه للجوال\n• إحضار الهوية الوطنية / الإقامة أثناء التنويم\n• للنساء: يرجى إزالة المكياج، طلاء الأظافر، والإكسسوارات قبل الحضور\n\n‼️ الرجاء إبلاغنا في حال أخذ أدوية مسيلة للدم أو إبر إنقاص الوزن\n\n⚠️ تنبيه: الرجاء الالتزام بالحضور، وفي حال عدم الحضور سيتم إغلاق الطلب الجراحي\n\nمدينة الملك سعود الطبية - قسم تنسيق العمليات');
-  const a1 = ok ? 'href="https://web.whatsapp.com/send?phone=' + ph + '&text=' + m1 + '" target="_blank"' : '';
-  const a2 = ok ? 'href="https://web.whatsapp.com/send?phone=' + ph + '&text=' + m2 + '" target="_blank"' : '';
-  return '<a class="wb wds' + (ok ? '' : ' off') + '" ' + a1 + '><span class="dot dg"></span> DS</a><a class="wb wr' + (ok ? '' : ' off') + '" ' + a2 + '><span class="dot db"></span> R</a>';
+function fDate(raw){const d=pDate(raw);if(!d)return '<span class="nd">Not Scheduled</span>';return '<span>'+pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+'</span>';}
+function pad(n){return String(n).padStart(2,'0');}
+function updWA(idx){const el=document.getElementById('wa-'+idx);if(el)el.innerHTML=buildWA(rows[idx],idx,phones[idx]||'');}
+function buildWA(r,idx,phone){
+  const d=pDate(r.date);let ds='___',dn='____';
+  if(d){ds=pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear();dn=DAYS[d.getDay()];}
+  const cl=phone.replace(/\D/g,'');const ok=cl.length>=9;const ph='966'+cl.replace(/^0/,'');
+  const m1=encodeURIComponent('السلام عليكم ورحمة الله وبركاته\nعزيزي/عزيزتي '+r.name+'\nنود إبلاغكم بأن موعد عمليتكم في مدينة الملك سعود الطبية قد تم تحديده يوم '+dn+' الموافق '+ds+'\n\n📌 تعليمات مهمة:\n• الصيام من الساعة 12:00 منتصف الليل صيام كلي عن الأكل والشرب (حتى الماء) والتدخين\n• الحضور إلى برج الباطنة الأول - الدور الأرضي - مكتب الدخول - الساعة 6:00 صباحاً\n• إحضار الهوية الوطنية / الإقامة\n• للنساء الرجاء إزالة المكياج، طلاء الأظافر، والإكسسوارات قبل الحضور\n\n‼️ الرجاء إبلاغنا في حال أخذ أدوية مسيلة للدم أو إبر إنقاص الوزن\n‼️ بخصوص أدوية الضغط والسكر وغيرها، يرجى اتباع تعليمات المنسق المذكورة أثناء الاتصال\n\n⚠️ تنبيه: الرجاء الالتزام بالحضور في حال التأخير أو عدم الحضور سيتم إغلاق الطلب الجراحي\n\nمدينة الملك سعود الطبية - قسم تنسيق العمليات');
+  const m2=encodeURIComponent('السلام عليكم ورحمة الله وبركاته\nعزيزي/عزيزتي '+r.name+'\nنود إبلاغكم بأن موعد عمليتكم في مدينة الملك سعود الطبية قد تم تحديده يوم '+dn+' الموافق '+ds+'\nوسيكون التنويم يوم ____ الموافق ____\n\n📌 تعليمات مهمة:\n• سيتم التواصل معكم في نفس يوم التنويم لتحديد وقت الحضور، يرجى الانتباه للجوال\n• إحضار الهوية الوطنية / الإقامة أثناء التنويم\n• للنساء: يرجى إزالة المكياج، طلاء الأظافر، والإكسسوارات قبل الحضور\n\n‼️ الرجاء إبلاغنا في حال أخذ أدوية مسيلة للدم أو إبر إنقاص الوزن\n\n⚠️ تنبيه: الرجاء الالتزام بالحضور، وفي حال عدم الحضور سيتم إغلاق الطلب الجراحي\n\nمدينة الملك سعود الطبية - قسم تنسيق العمليات');
+  const a1=ok?'href="https://web.whatsapp.com/send?phone='+ph+'&text='+m1+'" target="_blank"':'';
+  const a2=ok?'href="https://web.whatsapp.com/send?phone='+ph+'&text='+m2+'" target="_blank"':'';
+  return '<a class="wb wds'+(ok?'':' off')+'" '+a1+'><span class="dot dg"></span> DS</a><a class="wb wr'+(ok?'':' off')+'" '+a2+'><span class="dot db"></span> R</a>';
 }
 
 load();
