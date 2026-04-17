@@ -23,8 +23,12 @@
     --green:    #10b981;
     --greenl:   rgba(16,185,129,0.12);
     --amber:    #f59e0b;
+    --amberl:   rgba(245,158,11,0.12);
     --red:      #ef4444;
+    --redl:     rgba(239,68,68,0.12);
     --cyan:     #06b6d4;
+    --purple:   #a855f7;
+    --purplel:  rgba(168,85,247,0.12);
   }
   body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tp); min-height: 100vh; font-size: 14px; }
 
@@ -47,13 +51,10 @@
   .logo-ic svg { width: 20px; height: 20px; fill: white; }
   .hdr-title { font-size: 15px; font-weight: 700; color: var(--tp); }
   .hdr-sub { font-size: 11px; color: var(--ts); margin-top: 1px; }
-
-  /* ── Header Stats ── */
   .hdr-stats { display: flex; gap: 6px; }
   .st-item {
     text-align: center; padding: 6px 14px; border-radius: 10px;
     background: var(--bg3); border: 1px solid var(--border); min-width: 76px;
-    transition: all 0.2s;
   }
   .st-num { font-size: 20px; font-weight: 700; line-height: 1; }
   .st-lbl { font-size: 10px; color: var(--ts); margin-top: 3px; letter-spacing: 0.3px; text-transform: uppercase; }
@@ -86,6 +87,11 @@
     border-color: var(--accent); color: white; font-weight: 700;
     box-shadow: 0 0 10px rgba(59,130,246,0.3);
   }
+  /* +36 days pill special style */
+  .pill.p36 { border-color: rgba(168,85,247,0.4); color: var(--purple); }
+  .pill.p36:hover { background: var(--purplel); border-color: var(--purple); }
+  .pill.p36.on { background: var(--purplel); border-color: var(--purple); color: var(--purple); font-weight: 700; box-shadow: 0 0 10px rgba(168,85,247,0.2); }
+
   .fa { display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; }
   .si {
     padding: 8px 13px; border-radius: 9px; font-size: 13px;
@@ -127,6 +133,8 @@
   tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
   tbody tr:last-child { border-bottom: none; }
   tbody tr:hover { background: var(--accentgb); }
+  tbody tr.overdue { background: rgba(168,85,247,0.04); }
+  tbody tr.overdue:hover { background: rgba(168,85,247,0.08); }
   td { padding: 9px 16px; white-space: nowrap; vertical-align: middle; }
   .mrn { font-family: monospace; font-size: 12px; color: var(--th); }
   .nm { font-weight: 600; color: var(--tp); }
@@ -137,6 +145,12 @@
   .ah { color: var(--red); font-weight: 700; }
   .am { color: var(--amber); font-weight: 600; }
   .al { color: var(--green); font-weight: 500; }
+
+  /* date badge with edited indicator */
+  .date-edited { color: var(--cyan); font-weight: 600; }
+  .date-edited::after { content: ' ✎'; font-size: 10px; opacity: 0.7; }
+
+  /* ── Editable inputs ── */
   .pi {
     padding: 5px 9px; border-radius: 7px; font-size: 12px;
     border: 1px solid var(--border2); background: var(--bg3); color: var(--tp);
@@ -144,6 +158,15 @@
   }
   .pi:focus { outline: none; border-color: var(--accent); background: var(--accentgb); }
   .pi::placeholder { color: var(--th); font-size: 11px; }
+  .di {
+    padding: 5px 9px; border-radius: 7px; font-size: 12px;
+    border: 1px solid var(--border2); background: var(--bg3); color: var(--tp);
+    font-family: inherit; width: 130px; direction: ltr; transition: all 0.15s;
+  }
+  .di:focus { outline: none; border-color: var(--cyan); background: rgba(6,182,212,0.06); }
+  .di.has-edit { border-color: rgba(6,182,212,0.5); color: var(--cyan); }
+
+  /* ── WhatsApp ── */
   .wbs { display: flex; gap: 5px; }
   .wb {
     display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px;
@@ -151,27 +174,20 @@
     border: 1px solid; transition: all 0.15s; white-space: nowrap; cursor: pointer;
   }
   .wds { background: var(--greenl); color: var(--green); border-color: rgba(16,185,129,0.3); }
-  .wds:hover { background: rgba(16,185,129,0.2); box-shadow: 0 0 8px rgba(16,185,129,0.2); }
+  .wds:hover { background: rgba(16,185,129,0.2); }
   .wr { background: var(--accentgl); color: var(--accent2); border-color: rgba(59,130,246,0.3); }
-  .wr:hover { background: rgba(59,130,246,0.2); box-shadow: 0 0 8px rgba(59,130,246,0.2); }
+  .wr:hover { background: rgba(59,130,246,0.2); }
   .wb.off { opacity: 0.25; pointer-events: none; }
   .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
   .dg { background: var(--green); box-shadow: 0 0 5px var(--green); }
   .db { background: var(--accent2); box-shadow: 0 0 5px var(--accent); }
+
   .loading { padding: 70px 20px; text-align: center; color: var(--ts); }
-  .spinner {
-    width: 32px; height: 32px; border: 2px solid var(--border2);
-    border-top-color: var(--accent); border-radius: 50%;
-    animation: spin 0.8s linear infinite; margin: 0 auto 14px;
-  }
+  .spinner { width: 32px; height: 32px; border: 2px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .empty { padding: 70px 20px; text-align: center; color: var(--ts); }
   .err { padding: 50px 20px; text-align: center; color: var(--ts); }
-  .err button {
-    margin-top: 14px; padding: 9px 22px; border-radius: 9px;
-    border: 1px solid var(--border2); background: var(--bg3); color: var(--accent2);
-    cursor: pointer; font-family: inherit; font-size: 13px;
-  }
+  .err button { margin-top: 14px; padding: 9px 22px; border-radius: 9px; border: 1px solid var(--border2); background: var(--bg3); color: var(--accent2); cursor: pointer; font-family: inherit; font-size: 13px; }
   .sc { font-size: 11px; color: var(--accent2); margin-left: 4px; font-weight: 400; text-transform: none; letter-spacing: 0; }
 </style>
 </head>
@@ -213,19 +229,16 @@
   <div class="fc">
     <div class="fr">
 
-      <!-- Specialty Filter -->
       <div class="fg">
         <div class="fg-lbl cyan-bar">Specialty <span class="sc" id="spc"></span></div>
         <div class="fps" id="specp"></div>
       </div>
 
-      <!-- Surgeon Filter — يتغير بناءً على التخصص -->
       <div class="fg">
         <div class="fg-lbl">Surgeon <span class="sc" id="sc"></span></div>
         <div class="fps" id="sp"></div>
       </div>
 
-      <!-- Admission Type -->
       <div class="fg">
         <div class="fg-lbl">Admission Type</div>
         <div class="fps" id="tp">
@@ -235,13 +248,13 @@
         </div>
       </div>
 
-      <!-- Schedule Status -->
       <div class="fg">
         <div class="fg-lbl">Schedule Status</div>
         <div class="fps" id="schp">
           <span class="pill all-pill on" data-val="all">All</span>
           <span class="pill" data-val="yes">Scheduled</span>
           <span class="pill" data-val="no">Unscheduled</span>
+          <span class="pill p36" data-val="36">+36 Days</span>
         </div>
       </div>
 
@@ -272,14 +285,16 @@
 const SHEET_ID = '1VGQMxYgkcmQLurL9nG794Uv5vcIt43Aa8rBKknpZtPo';
 const TAB = 'Sheet1';
 const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+const DAY36 = new Date(TODAY); DAY36.setDate(DAY36.getDate()+36);
 
 let rows = [];
 let selSpec = new Set();
 let selS = new Set();
-let F = { type: 'all', sched: 'all' };
+let F = { type:'all', sched:'all' };
 let phones = {};
+let editedDates = {}; // تواريخ معدلة يدوياً: idx -> 'DD/MM/YYYY'
 
-// ── Load ───────────────────────────────────────────────────────
 async function load() {
   document.getElementById('container').innerHTML = '<div class="loading"><div class="spinner"></div><div>Loading data...</div></div>';
   const urls = [
@@ -288,7 +303,7 @@ async function load() {
   ];
   let csv = null;
   for (const url of urls) {
-    try { const r = await fetch(url,{cache:'no-store'}); if(r.ok){csv=await r.text();break;} } catch(e){}
+    try { const r=await fetch(url,{cache:'no-store'}); if(r.ok){csv=await r.text();break;} } catch(e){}
   }
   if (!csv) {
     document.getElementById('container').innerHTML='<div class="err">⚠️ Failed to load data<br><small>Make sure the sheet is shared publicly</small><br><button onclick="load()">Retry</button></div>';
@@ -296,211 +311,229 @@ async function load() {
   }
   rows = parseCSV(csv);
   buildSpecialtyFilter();
-  buildSurgeonFilter(); // كل الأطباء في البداية
+  buildSurgeonFilter();
   updateHeaderStats();
   render();
-  document.getElementById('updated').textContent = 'Last updated: '+new Date().toLocaleTimeString('en-SA');
+  document.getElementById('updated').textContent='Last updated: '+new Date().toLocaleTimeString('en-SA');
 }
 
 function parseCSV(csv) {
   return csv.trim().split('\n').slice(1).map(line => {
-    const c = pLine(line);
+    const c=pLine(line);
     return { mrn:c[0]||'', date:c[1]||'', name:c[2]||'', specialty:c[3]||'', admType:c[4]||'', surgeon:c[5]||'', avgWT:parseFloat(c[6])||0, procedure:c[7]||'' };
-  }).filter(r => r.mrn && r.mrn!=='MRN' && r.name);
+  }).filter(r=>r.mrn&&r.mrn!=='MRN'&&r.name);
 }
 
 function pLine(line) {
   const r=[]; let cur='',q=false;
-  for(let i=0;i<line.length;i++){
-    const ch=line[i];
-    if(ch==='"') q=!q;
-    else if(ch===','&&!q){r.push(cur.trim());cur='';}
-    else cur+=ch;
-  }
+  for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"')q=!q;else if(ch===','&&!q){r.push(cur.trim());cur='';}else cur+=ch;}
   r.push(cur.trim()); return r;
 }
 
-// ── Header Stats — تتغير مع التخصص المختار ───────────────────
-function updateHeaderStats() {
-  const scope = selSpec.size === 0 ? rows : rows.filter(r => selSpec.has(r.specialty));
-  const total = scope.length;
-  const sched = scope.filter(r => pDate(r.date)).length;
-  const avg   = total > 0 ? Math.round(scope.reduce((a,r)=>a+r.avgWT,0)/total) : 0;
-  const avgColor = avg > 100 ? 'var(--red)' : avg > 60 ? 'var(--amber)' : 'var(--green)';
+// الحصول على تاريخ الصف — يعطي الأولوية للتاريخ المعدل
+function getDate(idx) {
+  return editedDates[idx] !== undefined ? editedDates[idx] : rows[idx].date;
+}
 
+// ── Header Stats ───────────────────────────────────────────────
+function updateHeaderStats() {
+  const scope = selSpec.size===0 ? rows : rows.filter(r=>selSpec.has(r.specialty));
+  const total = scope.length;
+  const sched = scope.filter((_,i)=>pDate(getDate(rows.indexOf(_)))).length;
+  const avg   = total>0 ? Math.round(scope.reduce((a,r)=>a+r.avgWT,0)/total) : 0;
+  const avgColor = avg>100?'var(--red)':avg>60?'var(--amber)':'var(--green)';
   document.getElementById('s-total').textContent   = total;
   document.getElementById('s-sched').textContent   = sched;
-  document.getElementById('s-unsched').textContent = total - sched;
-  document.getElementById('s-avgwt').textContent   = avg || '—';
+  document.getElementById('s-unsched').textContent = total-sched;
+  document.getElementById('s-avgwt').textContent   = avg||'—';
   document.getElementById('s-avgwt').style.color   = avgColor;
-  document.getElementById('scope-lbl').textContent =
-    selSpec.size === 0 ? 'All' : [...selSpec].join(', ');
+  document.getElementById('scope-lbl').textContent = selSpec.size===0?'All':[...selSpec].join(', ');
 }
 
 // ── Specialty Filter ───────────────────────────────────────────
 function buildSpecialtyFilter() {
-  const specs = [...new Set(rows.map(r=>r.specialty).filter(Boolean))].sort();
-  const el = document.getElementById('specp');
-  el.innerHTML = '';
-
-  const allPill = document.createElement('span');
-  allPill.className = 'pill all-pill' + (selSpec.size===0?' on':'');
-  allPill.textContent = 'All';
-  allPill.onclick = () => {
-    selSpec.clear(); selS.clear();
+  const specs=[...new Set(rows.map(r=>r.specialty).filter(Boolean))].sort();
+  const el=document.getElementById('specp'); el.innerHTML='';
+  const allPill=document.createElement('span');
+  allPill.className='pill all-pill'+(selSpec.size===0?' on':'');
+  allPill.textContent='All';
+  allPill.onclick=()=>{
+    selSpec.clear();selS.clear();
     document.querySelectorAll('#specp .pill:not(.all-pill)').forEach(p=>p.classList.remove('on'));
-    allPill.classList.add('on');
-    document.getElementById('spc').textContent = '';
-    buildSurgeonFilter(); // إعادة بناء كل الأطباء
-    updateHeaderStats();
-    render();
+    allPill.classList.add('on');document.getElementById('spc').textContent='';
+    buildSurgeonFilter();updateHeaderStats();render();
   };
   el.appendChild(allPill);
-
-  specs.forEach(s => {
-    const p = document.createElement('span');
-    p.className = 'pill'+(selSpec.has(s)?' on':'');
-    p.textContent = s;
-    p.onclick = () => {
-      if (selSpec.has(s)) { selSpec.delete(s); p.classList.remove('on'); }
-      else { selSpec.add(s); p.classList.add('on'); }
-      allPill.classList.toggle('on', selSpec.size===0);
-      document.getElementById('spc').textContent = selSpec.size>0?'('+selSpec.size+' selected)':'';
-      selS.clear(); // reset surgeon selection when specialty changes
-      buildSurgeonFilter(); // ← يبني أطباء التخصص المختار فقط
-      updateHeaderStats();
-      render();
+  specs.forEach(s=>{
+    const p=document.createElement('span');
+    p.className='pill'+(selSpec.has(s)?' on':'');p.textContent=s;
+    p.onclick=()=>{
+      if(selSpec.has(s)){selSpec.delete(s);p.classList.remove('on');}
+      else{selSpec.add(s);p.classList.add('on');}
+      allPill.classList.toggle('on',selSpec.size===0);
+      document.getElementById('spc').textContent=selSpec.size>0?'('+selSpec.size+' selected)':'';
+      selS.clear();buildSurgeonFilter();updateHeaderStats();render();
     };
     el.appendChild(p);
   });
 }
 
-// ── Surgeon Filter — يتغير بناءً على التخصص ──────────────────
+// ── Surgeon Filter ─────────────────────────────────────────────
 function buildSurgeonFilter() {
-  // لو في تخصص مختار، اعرض أطباء التخصص فقط
-  const sourceRows = selSpec.size > 0 ? rows.filter(r=>selSpec.has(r.specialty)) : rows;
-  const surgeons = [...new Set(sourceRows.map(r=>r.surgeon).filter(Boolean))].sort();
-
-  const el = document.getElementById('sp');
-  el.innerHTML = '';
-
-  const allPill = document.createElement('span');
-  allPill.className = 'pill all-pill on';
-  allPill.textContent = 'All';
-  allPill.onclick = () => {
+  const src=selSpec.size>0?rows.filter(r=>selSpec.has(r.specialty)):rows;
+  const surgeons=[...new Set(src.map(r=>r.surgeon).filter(Boolean))].sort();
+  const el=document.getElementById('sp'); el.innerHTML='';
+  const allPill=document.createElement('span');
+  allPill.className='pill all-pill on';allPill.textContent='All';
+  allPill.onclick=()=>{
     selS.clear();
     document.querySelectorAll('#sp .pill:not(.all-pill)').forEach(p=>p.classList.remove('on'));
-    allPill.classList.add('on');
-    document.getElementById('sc').textContent = '';
-    render();
+    allPill.classList.add('on');document.getElementById('sc').textContent='';render();
   };
   el.appendChild(allPill);
-
-  surgeons.forEach(s => {
-    const p = document.createElement('span');
-    p.className = 'pill'+(selS.has(s)?' on':'');
-    p.title = s;
-    p.textContent = s.split(' ').slice(0,2).join(' ');
-    p.onclick = () => {
-      if (selS.has(s)) { selS.delete(s); p.classList.remove('on'); }
-      else { selS.add(s); p.classList.add('on'); }
-      allPill.classList.toggle('on', selS.size===0);
-      document.getElementById('sc').textContent = selS.size>0?'('+selS.size+' selected)':'';
+  surgeons.forEach(s=>{
+    const p=document.createElement('span');
+    p.className='pill'+(selS.has(s)?' on':'');
+    p.title=s;p.textContent=s.split(' ').slice(0,2).join(' ');
+    p.onclick=()=>{
+      if(selS.has(s)){selS.delete(s);p.classList.remove('on');}
+      else{selS.add(s);p.classList.add('on');}
+      allPill.classList.toggle('on',selS.size===0);
+      document.getElementById('sc').textContent=selS.size>0?'('+selS.size+' selected)':'';
       render();
     };
     el.appendChild(p);
   });
 }
 
-// ── Other Filters ──────────────────────────────────────────────
-document.getElementById('tp').addEventListener('click', e => {
-  const p = e.target.closest('.pill'); if(!p) return;
-  F.type = p.dataset.val;
+// ── Filter Events ──────────────────────────────────────────────
+document.getElementById('tp').addEventListener('click',e=>{
+  const p=e.target.closest('.pill');if(!p)return;
+  F.type=p.dataset.val;
   document.querySelectorAll('#tp .pill').forEach(x=>x.classList.remove('on'));
-  p.classList.add('on'); render();
+  p.classList.add('on');render();
 });
-document.getElementById('schp').addEventListener('click', e => {
-  const p = e.target.closest('.pill'); if(!p) return;
-  F.sched = p.dataset.val;
+document.getElementById('schp').addEventListener('click',e=>{
+  const p=e.target.closest('.pill');if(!p)return;
+  F.sched=p.dataset.val;
   document.querySelectorAll('#schp .pill').forEach(x=>x.classList.remove('on'));
-  p.classList.add('on'); render();
+  p.classList.add('on');render();
 });
-document.getElementById('search').addEventListener('input', render);
-document.getElementById('reset-btn').addEventListener('click', () => {
-  selSpec.clear(); selS.clear(); F={type:'all',sched:'all'};
+document.getElementById('search').addEventListener('input',render);
+document.getElementById('reset-btn').addEventListener('click',()=>{
+  selSpec.clear();selS.clear();F={type:'all',sched:'all'};
   document.getElementById('search').value='';
-  document.getElementById('sc').textContent='';
-  document.getElementById('spc').textContent='';
+  document.getElementById('sc').textContent='';document.getElementById('spc').textContent='';
   document.querySelectorAll('#specp .pill').forEach((p,i)=>p.classList.toggle('on',i===0));
   document.querySelectorAll('#tp .pill').forEach((p,i)=>p.classList.toggle('on',i===0));
   document.querySelectorAll('#schp .pill').forEach((p,i)=>p.classList.toggle('on',i===0));
-  buildSurgeonFilter();
-  updateHeaderStats();
-  render();
+  buildSurgeonFilter();updateHeaderStats();render();
 });
-document.getElementById('refresh-btn').addEventListener('click', load);
+document.getElementById('refresh-btn').addEventListener('click',load);
 
 // ── Render ─────────────────────────────────────────────────────
 function render() {
-  const q = document.getElementById('search').value.toLowerCase();
-  const filtered = rows.filter(r => {
-    if (selSpec.size>0 && !selSpec.has(r.specialty)) return false;
-    if (selS.size>0 && !selS.has(r.surgeon)) return false;
-    if (F.type!=='all' && r.admType!==F.type) return false;
-    const hd = !!pDate(r.date);
-    if (F.sched==='yes' && !hd) return false;
-    if (F.sched==='no' && hd) return false;
-    if (q && !r.name.toLowerCase().includes(q) && !r.mrn.includes(q)) return false;
+  const q=document.getElementById('search').value.toLowerCase();
+  const filtered=rows.filter((r,i)=>{
+    if(selSpec.size>0&&!selSpec.has(r.specialty))return false;
+    if(selS.size>0&&!selS.has(r.surgeon))return false;
+    if(F.type!=='all'&&r.admType!==F.type)return false;
+    const d=pDate(getDate(i));
+    const hd=!!d;
+    if(F.sched==='yes'&&!hd)return false;
+    if(F.sched==='no'&&hd)return false;
+    if(F.sched==='36'){
+      // مجدول وتاريخه بعد 36 يوم أو أكثر من اليوم
+      if(!hd)return false;
+      if(d<DAY36)return false;
+    }
+    if(q&&!r.name.toLowerCase().includes(q)&&!r.mrn.includes(q))return false;
     return true;
   });
 
-  document.getElementById('shown').textContent = filtered.length;
-  document.getElementById('total').textContent = rows.length;
+  document.getElementById('shown').textContent=filtered.length;
+  document.getElementById('total').textContent=rows.length;
 
-  if (!filtered.length) {
+  if(!filtered.length){
     document.getElementById('container').innerHTML='<div class="empty">No matching results found</div>';
     return;
   }
 
-  let html='<table><thead><tr><th>MRN</th><th>Patient Name</th><th>Surgery Date</th><th>Surgeon</th><th>Specialty</th><th>Admission Type</th><th>Procedure</th><th>Avg Wait (days)</th><th>Phone</th><th>Send WhatsApp</th></tr></thead><tbody>';
-  filtered.forEach(r => {
+  let html='<table><thead><tr>'
+    +'<th>MRN</th><th>Patient Name</th><th>Surgery Date</th><th>Edit Date</th>'
+    +'<th>Surgeon</th><th>Specialty</th><th>Admission Type</th><th>Procedure</th>'
+    +'<th>Avg Wait (days)</th><th>Phone</th><th>Send WhatsApp</th>'
+    +'</tr></thead><tbody>';
+
+  filtered.forEach(r=>{
     const idx=rows.indexOf(r);
     const tc=r.admType==='Day Surgery'?'bd':'br';
     const ac=r.avgWT>100?'ah':r.avgWT>60?'am':'al';
     const ph=phones[idx]||'';
-    html+='<tr>';
+    const effDate=getDate(idx);
+    const d=pDate(effDate);
+    const isOverdue=d&&d>=DAY36;
+    const hasEdit=editedDates[idx]!==undefined;
+    const editVal=hasEdit?editedDates[idx]:'';
+
+    html+='<tr'+(isOverdue?' class="overdue"':'')+'>';
     html+='<td class="mrn">'+r.mrn+'</td>';
     html+='<td class="nm">'+r.name+'</td>';
+    // تاريخ العملية من قاعدة البيانات
     html+='<td>'+fDate(r.date)+'</td>';
+    // خانة التاريخ القابلة للتعديل
+    html+='<td><input class="di'+(hasEdit?' has-edit':'')+'" placeholder="DD/MM/YYYY" value="'+editVal+'" oninput="onDateEdit('+idx+',this)" title="Override surgery date locally"></td>';
     html+='<td title="'+r.surgeon+'">'+r.surgeon.split(' ').slice(0,3).join(' ')+'</td>';
     html+='<td>'+(r.specialty||'—')+'</td>';
     html+='<td><span class="bdg '+tc+'">'+(r.admType||'—')+'</span></td>';
     html+='<td>'+(r.procedure||'—')+'</td>';
     html+='<td class="'+ac+'">'+(r.avgWT||'—')+'</td>';
     html+='<td><input class="pi" placeholder="05XXXXXXXX" value="'+ph+'" oninput="phones['+idx+']=this.value;updWA('+idx+')"></td>';
-    html+='<td><div class="wbs" id="wa-'+idx+'">'+buildWA(r,idx,ph)+'</div></td>';
+    html+='<td><div class="wbs" id="wa-'+idx+'">'+buildWA(r,idx,ph,effDate)+'</div></td>';
     html+='</tr>';
   });
+
   html+='</tbody></table>';
   document.getElementById('container').innerHTML=html;
 }
 
+// ── Date Edit Handler ──────────────────────────────────────────
+function onDateEdit(idx, input) {
+  const val = input.value.trim();
+  if (val === '') {
+    delete editedDates[idx];
+    input.classList.remove('has-edit');
+  } else {
+    editedDates[idx] = val;
+    input.classList.add('has-edit');
+  }
+  // تحديث زر الواتساب بالتاريخ الجديد
+  updWA(idx);
+}
+
 // ── Helpers ────────────────────────────────────────────────────
 function pDate(raw) {
-  if(!raw||raw==='Not scheduled'||!raw.trim()) return null;
+  if(!raw||raw==='Not scheduled'||!raw.trim())return null;
   raw=raw.trim();
   let m=raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-  if(m) return new Date(+m[3],+m[1]-1,+m[2]);
+  if(m)return new Date(+m[3],+m[1]-1,+m[2]);
   m=raw.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
-  if(m) return new Date(+m[3],+m[2]-1,+m[1]);
+  if(m)return new Date(+m[3],+m[2]-1,+m[1]);
   if(/^\d+(\.\d+)?$/.test(raw)){const s=parseFloat(raw);if(s>40000&&s<60000)return new Date(Math.round((s-25569)*86400000));}
-  const d=new Date(raw); return isNaN(d)?null:d;
+  const d=new Date(raw);return isNaN(d)?null:d;
 }
-function fDate(raw){const d=pDate(raw);if(!d)return '<span class="nd">Not Scheduled</span>';return '<span>'+pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+'</span>';}
+function fDate(raw){
+  const d=pDate(raw);
+  if(!d)return '<span class="nd">Not Scheduled</span>';
+  return '<span>'+pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+'</span>';
+}
 function pad(n){return String(n).padStart(2,'0');}
-function updWA(idx){const el=document.getElementById('wa-'+idx);if(el)el.innerHTML=buildWA(rows[idx],idx,phones[idx]||'');}
-function buildWA(r,idx,phone){
-  const d=pDate(r.date);let ds='___',dn='____';
+function updWA(idx){
+  const el=document.getElementById('wa-'+idx);
+  if(el)el.innerHTML=buildWA(rows[idx],idx,phones[idx]||'',getDate(idx));
+}
+function buildWA(r,idx,phone,dateRaw){
+  const d=pDate(dateRaw);let ds='___',dn='____';
   if(d){ds=pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear();dn=DAYS[d.getDay()];}
   const cl=phone.replace(/\D/g,'');const ok=cl.length>=9;const ph='966'+cl.replace(/^0/,'');
   const m1=encodeURIComponent('السلام عليكم ورحمة الله وبركاته\nعزيزي/عزيزتي '+r.name+'\nنود إبلاغكم بأن موعد عمليتكم في مدينة الملك سعود الطبية قد تم تحديده يوم '+dn+' الموافق '+ds+'\n\n📌 تعليمات مهمة:\n• الصيام من الساعة 12:00 منتصف الليل صيام كلي عن الأكل والشرب (حتى الماء) والتدخين\n• الحضور إلى برج الباطنة الأول - الدور الأرضي - مكتب الدخول - الساعة 6:00 صباحاً\n• إحضار الهوية الوطنية / الإقامة\n• للنساء الرجاء إزالة المكياج، طلاء الأظافر، والإكسسوارات قبل الحضور\n\n‼️ الرجاء إبلاغنا في حال أخذ أدوية مسيلة للدم أو إبر إنقاص الوزن\n‼️ بخصوص أدوية الضغط والسكر وغيرها، يرجى اتباع تعليمات المنسق المذكورة أثناء الاتصال\n\n⚠️ تنبيه: الرجاء الالتزام بالحضور في حال التأخير أو عدم الحضور سيتم إغلاق الطلب الجراحي\n\nمدينة الملك سعود الطبية - قسم تنسيق العمليات');
