@@ -129,7 +129,7 @@
 
   /* WhatsApp */
   .wbs { display: flex; gap: 5px; }
-  .wb { display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px; border-radius: 7px; font-size: 11px; font-weight: 600; text-decoration: none; border: 1px solid; transition: all 0.15s; white-space: nowrap; cursor: pointer; }
+  .wb { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; text-decoration: none; border: 1px solid; transition: all 0.15s; white-space: nowrap; cursor: pointer; }
   .wds { background: var(--greenl); color: var(--green); border-color: #a7f3d0; }
   .wds:hover { background: #a7f3d0; }
   .wr { background: var(--bluel); color: var(--blue); border-color: #bfdbfe; }
@@ -177,11 +177,6 @@
       <div class="st-lbl">Avg Wait</div>
       <div class="st-scope">days</div>
     </div>
-    <div class="st-item">
-      <div class="st-num" id="s-notcontacted" style="color:#f9a8d4">—</div>
-      <div class="st-lbl">Not Contacted</div>
-    </div>
-  </div>
 </div>
 
 <div class="main">
@@ -264,7 +259,21 @@ const STATUS_CLS    = ['s0','s1','s2','s3','s4'];
 
 let rows=[], selSpec=new Set(), selS=new Set();
 let F={type:'all',sched:'all',status:'all'};
-let phones={}, editedDates={}, statuses={};
+let phones={}, editedDates={};
+
+// تحميل الحالات من localStorage
+function loadStatuses(){
+  try{ return JSON.parse(localStorage.getItem('or_statuses')||'{}'); }catch(e){ return {}; }
+}
+function saveStatuses(){
+  try{ localStorage.setItem('or_statuses', JSON.stringify(mrnStatuses)); }catch(e){}
+}
+let mrnStatuses = loadStatuses(); // { mrn: statusNum }
+
+function getStatus(idx){
+  const mrn=rows[idx]&&rows[idx].mrn;
+  return mrn&&mrnStatuses[mrn]!==undefined ? mrnStatuses[mrn] : 0;
+}
 
 async function load() {
   document.getElementById('container').innerHTML='<div class="loading"><div class="spinner"></div><div>Loading data...</div></div>';
@@ -302,7 +311,7 @@ function updateHeaderStats(){
   document.getElementById('s-unsched').textContent=total-sched;
   document.getElementById('s-avgwt').textContent=avg||'—';
   document.getElementById('s-avgwt').style.color=avgColor;
-  document.getElementById('s-notcontacted').textContent=notContacted;
+  const ncEl=document.getElementById('s-notcontacted');if(ncEl)ncEl.textContent=notContacted;
   document.getElementById('scope-lbl').textContent=selSpec.size===0?'All':[...selSpec].join(', ');
 }
 
@@ -350,12 +359,14 @@ document.getElementById('reset-btn').addEventListener('click',()=>{
 });
 document.getElementById('refresh-btn').addEventListener('click',load);
 
-// تغيير الـ Status بالضغط
+// تغيير الـ Status بالضغط والحفظ في localStorage
 function cycleStatus(idx){
+  const mrn=rows[idx]&&rows[idx].mrn;
+  if(!mrn)return;
   const cur=getStatus(idx);
-  statuses[idx]=(cur+1)%5;
+  mrnStatuses[mrn]=(cur+1)%5;
+  saveStatuses();
   updateHeaderStats();
-  // تحديث الزر فقط بدون إعادة رسم الجدول كله
   const btn=document.getElementById('st-'+idx);
   if(btn){const s=getStatus(idx);btn.className='status-btn '+STATUS_CLS[s];btn.textContent=STATUS_LABELS[s];}
 }
@@ -380,7 +391,7 @@ function render(){
 
   if(!filtered.length){document.getElementById('container').innerHTML='<div class="empty">No matching results found</div>';return;}
 
-  let html='<table><thead><tr><th>MRN</th><th>Patient Name</th><th>Contact Status</th><th>Surgery Date</th><th>Edit Date</th><th>Surgeon</th><th>Specialty</th><th>Admission Type</th><th>Procedure</th><th>Avg Wait</th><th>Phone</th><th>Send WhatsApp</th></tr></thead><tbody>';
+  let html='<table><thead><tr><th>MRN</th><th>Patient Name</th><th>Contact Status</th><th>Surgery Date</th><th>Edit Date</th><th>Surgeon</th><th>Specialty</th><th>Admission Type</th><th>Procedure</th><th>Avg Wait</th><th>Phone</th><th style="min-width:110px">WhatsApp</th></tr></thead><tbody>';
   filtered.forEach(r=>{
     const idx=rows.indexOf(r);
     const tc=r.admType==='Day Surgery'?'bd':'br';
