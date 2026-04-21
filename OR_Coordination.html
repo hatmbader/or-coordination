@@ -336,7 +336,7 @@ function render(){
 
   if(!filtered.length){ document.getElementById('container').innerHTML='<div class="empty">No matching results found</div>'; return; }
 
-  let html='<table><thead><tr><th>MRN</th><th>Patient Name</th><th>Contact Status</th><th>Surgery Date</th><th>Edit Date</th><th>Surgeon</th><th>Specialty</th><th>Admission Type</th><th>Procedure</th><th>Avg Wait</th><th>Phone</th><th>WhatsApp</th></tr></thead><tbody>';
+  let html='<table><thead><tr><th>MRN</th><th>Contact Status</th><th>Patient Name</th><th>Surgery Date</th><th>Edit Date</th><th>Surgeon</th><th style="max-width:80px;width:80px;">Specialty</th><th>Admission Type</th><th>Procedure</th><th>Avg Wait</th><th>Phone</th><th>WhatsApp</th></tr></thead><tbody>';
   filtered.forEach(r=>{
     const idx=rows.indexOf(r);
     const tc=r.admType==='Day Surgery'?'bd':'br';
@@ -350,12 +350,12 @@ function render(){
     const st=getStatus(idx);
     html+='<tr'+(isOverdue?' class="overdue"':'')+'>'; 
     html+='<td class="mrn">'+r.mrn+'</td>';
-    html+='<td class="nm">'+r.name+'</td>';
     html+='<td><button class="status-btn '+STATUS_CLS[st]+'" id="st-'+idx+'" onclick="cycleStatus('+idx+')">'+STATUS_LABELS[st]+'</button></td>';
+    html+='<td class="nm">'+r.name+'</td>';
     html+='<td>'+fDate(r.date)+'</td>';
     html+='<td><input class="di'+(hasEdit?' has-edit':'')+'" placeholder="DD/MM/YYYY" value="'+editVal+'" oninput="onDateEdit('+idx+',this)"></td>';
     html+='<td title="'+r.surgeon+'">'+r.surgeon.split(' ').slice(0,3).join(' ')+'</td>';
-    html+='<td>'+(r.specialty||'—')+'</td>';
+    html+='<td style="max-width:80px;overflow:hidden;text-overflow:ellipsis;" title="'+(r.specialty||'')+'">'+(r.specialty||'—')+'</td>';
     html+='<td><span class="bdg '+tc+'">'+(r.admType||'—')+'</span></td>';
     html+='<td>'+(r.procedure||'—')+'</td>';
     html+='<td class="'+ac+'">'+(r.avgWT||'—')+'</td>';
