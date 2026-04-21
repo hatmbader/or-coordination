@@ -8,112 +8,111 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg:       #0b0f1a;
-    --bg3:      #1a2235;
-    --surface:  #141c2e;
-    --border:   #263352;
-    --border2:  #2e3d60;
-    --tp:       #e8edf5;
-    --ts:       #7d91b5;
-    --th:       #4a5a7a;
-    --accent:   #3b82f6;
-    --accent2:  #60a5fa;
-    --accentgl: rgba(59,130,246,0.12);
-    --accentgb: rgba(59,130,246,0.06);
-    --green:    #10b981;
-    --greenl:   rgba(16,185,129,0.12);
-    --amber:    #f59e0b;
-    --amberl:   rgba(245,158,11,0.12);
-    --red:      #ef4444;
-    --redl:     rgba(239,68,68,0.12);
-    --cyan:     #06b6d4;
-    --purple:   #a855f7;
-    --purplel:  rgba(168,85,247,0.12);
+    --bg:       #fffbf5;
+    --bg2:      #fef3c7;
+    --bg3:      #fffbf5;
+    --surface:  #ffffff;
+    --border:   #fde68a;
+    --border2:  #f59e0b;
+    --tp:       #1c1917;
+    --ts:       #78716c;
+    --th:       #a8a29e;
+    --brown:    #78350f;
+    --brown2:   #92400e;
+    --gold:     #f59e0b;
+    --gold2:    #fbbf24;
+    --goldl:    #fef3c7;
+    --green:    #059669;
+    --greenl:   #d1fae5;
+    --amber:    #d97706;
+    --amberl:   #fef3c7;
+    --red:      #dc2626;
+    --redl:     #fee2e2;
+    --blue:     #1d4ed8;
+    --bluel:    #dbeafe;
   }
   body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tp); min-height: 100vh; font-size: 14px; }
 
   /* ── Header ── */
   .hdr {
-    background: var(--surface); border-bottom: 1px solid var(--border);
-    padding: 0 28px; height: 64px; display: flex; align-items: center;
-    justify-content: space-between; position: sticky; top: 0; z-index: 100;
-  }
-  .hdr::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.4;
+    background: var(--brown);
+    padding: 0 28px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 12px rgba(120,53,15,0.15);
   }
   .hdr-logo { display: flex; align-items: center; gap: 12px; }
   .logo-ic {
-    width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent), #1d4ed8);
+    width: 36px; height: 36px; background: var(--gold);
     border-radius: 10px; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 16px rgba(59,130,246,0.4);
+    box-shadow: 0 0 12px rgba(245,158,11,0.4);
+    font-size: 20px; font-weight: 800; color: white; line-height: 1;
   }
-  .logo-ic svg { width: 20px; height: 20px; fill: white; }
-  .hdr-title { font-size: 15px; font-weight: 700; color: var(--tp); }
-  .hdr-sub { font-size: 11px; color: var(--ts); margin-top: 1px; }
+  .hdr-title { font-size: 15px; font-weight: 700; color: #fef3c7; }
+  .hdr-sub { font-size: 11px; color: #d97706; margin-top: 1px; }
+
+  /* ── Header Stats ── */
   .hdr-stats { display: flex; gap: 6px; }
   .st-item {
     text-align: center; padding: 6px 14px; border-radius: 10px;
-    background: var(--bg3); border: 1px solid var(--border); min-width: 76px;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(245,158,11,0.3); min-width: 76px;
   }
   .st-num { font-size: 20px; font-weight: 700; line-height: 1; }
-  .st-lbl { font-size: 10px; color: var(--ts); margin-top: 3px; letter-spacing: 0.3px; text-transform: uppercase; }
-  .st-scope { font-size: 9px; color: var(--th); margin-top: 2px; font-style: italic; }
+  .st-lbl { font-size: 10px; color: #d97706; margin-top: 3px; letter-spacing: 0.3px; text-transform: uppercase; }
+  .st-scope { font-size: 9px; color: rgba(253,243,199,0.6); margin-top: 2px; font-style: italic; }
 
   /* ── Main ── */
   .main { padding: 20px 28px; }
 
   /* ── Filter Card ── */
-  .fc { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 16px; }
+  .fc {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px 20px; margin-bottom: 16px;
+    box-shadow: 0 1px 4px rgba(120,53,15,0.06);
+  }
   .fr { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
   .fg { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 150px; }
   .fg-lbl {
-    font-size: 10px; font-weight: 600; color: var(--ts);
+    font-size: 10px; font-weight: 600; color: var(--brown2);
     text-transform: uppercase; letter-spacing: 1px;
     display: flex; align-items: center; gap: 6px;
   }
-  .fg-lbl::before { content: ''; width: 3px; height: 12px; background: var(--accent); border-radius: 2px; display: inline-block; }
-  .fg-lbl.cyan-bar::before { background: var(--cyan); }
+  .fg-lbl::before { content: ''; width: 3px; height: 12px; background: var(--gold); border-radius: 2px; display: inline-block; }
+  .fg-lbl.green-bar::before { background: var(--green); }
   .fps { display: flex; flex-wrap: wrap; gap: 6px; }
   .pill {
     padding: 5px 13px; border-radius: 20px; font-size: 12px;
-    border: 1px solid var(--border2); background: var(--bg3); color: var(--ts);
+    border: 1px solid var(--border); background: var(--goldl); color: var(--brown2);
     cursor: pointer; transition: all 0.15s; user-select: none; white-space: nowrap;
   }
-  .pill:hover { border-color: var(--accent); color: var(--accent2); background: var(--accentgb); }
-  .pill.on { background: var(--accentgl); border-color: var(--accent); color: var(--accent2); font-weight: 600; }
-  .pill.all-pill.on {
-    background: linear-gradient(135deg, #1d4ed8, var(--accent));
-    border-color: var(--accent); color: white; font-weight: 700;
-    box-shadow: 0 0 10px rgba(59,130,246,0.3);
-  }
-  /* +36 days pill special style */
-  .pill.p36 { border-color: rgba(168,85,247,0.4); color: var(--purple); }
-  .pill.p36:hover { background: var(--purplel); border-color: var(--purple); }
-  .pill.p36.on { background: var(--purplel); border-color: var(--purple); color: var(--purple); font-weight: 700; box-shadow: 0 0 10px rgba(168,85,247,0.2); }
+  .pill:hover { border-color: var(--gold); background: var(--bg2); }
+  .pill.on { background: var(--brown); border-color: var(--brown); color: white; font-weight: 600; }
+  .pill.all-pill.on { background: var(--brown); border-color: var(--brown); color: #fef3c7; font-weight: 700; box-shadow: 0 2px 8px rgba(120,53,15,0.25); }
+  .pill.p36 { border-color: #f97316; color: #c2410c; background: #fff7ed; }
+  .pill.p36:hover { background: #ffedd5; }
+  .pill.p36.on { background: #c2410c; border-color: #c2410c; color: white; font-weight: 700; }
 
   .fa { display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; }
   .si {
     padding: 8px 13px; border-radius: 9px; font-size: 13px;
-    border: 1px solid var(--border2); background: var(--bg3); color: var(--tp);
+    border: 1px solid var(--border); background: var(--goldl); color: var(--tp);
     font-family: inherit; width: 220px; transition: all 0.15s;
   }
   .si::placeholder { color: var(--th); }
-  .si:focus { outline: none; border-color: var(--accent); background: var(--accentgb); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+  .si:focus { outline: none; border-color: var(--gold); background: white; box-shadow: 0 0 0 3px rgba(245,158,11,0.1); }
   .btn {
     padding: 8px 15px; border-radius: 9px; font-size: 12px;
-    border: 1px solid var(--border2); background: var(--bg3); color: var(--ts);
+    border: 1px solid var(--border); background: var(--goldl); color: var(--brown2);
     cursor: pointer; font-family: inherit; display: flex; align-items: center;
     gap: 6px; white-space: nowrap; transition: all 0.15s; font-weight: 500;
   }
-  .btn:hover { background: var(--accentgb); color: var(--accent2); border-color: var(--accent); }
+  .btn:hover { background: var(--bg2); border-color: var(--gold); color: var(--brown); }
   .btn svg { width: 13px; height: 13px; }
   .btn-refresh {
-    background: linear-gradient(135deg, #1d4ed8, var(--accent));
-    border-color: transparent; color: white; font-weight: 600;
-    box-shadow: 0 0 12px rgba(59,130,246,0.3);
+    background: var(--brown); border-color: var(--brown); color: #fef3c7; font-weight: 600;
+    box-shadow: 0 2px 8px rgba(120,53,15,0.2);
   }
-  .btn-refresh:hover { opacity: 0.9; color: white; border-color: transparent; }
+  .btn-refresh:hover { background: var(--brown2); border-color: var(--brown2); color: white; }
 
   /* ── Results Bar ── */
   .rb { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding: 0 2px; }
@@ -122,82 +121,72 @@
   .lu { font-size: 11px; color: var(--th); }
 
   /* ── Table ── */
-  .tc { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .tc { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: 0 1px 4px rgba(120,53,15,0.06); }
   .tw { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead th {
     padding: 11px 16px; text-align: left; font-size: 10px; font-weight: 600;
-    color: var(--ts); background: var(--bg3); border-bottom: 1px solid var(--border);
+    color: var(--brown2); background: var(--goldl); border-bottom: 1px solid var(--border);
     white-space: nowrap; letter-spacing: 0.6px; text-transform: uppercase;
   }
-  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+  tbody tr { border-bottom: 1px solid #fef9ee; transition: background 0.1s; }
   tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: var(--accentgb); }
-  tbody tr.overdue { background: rgba(168,85,247,0.04); }
-  tbody tr.overdue:hover { background: rgba(168,85,247,0.08); }
+  tbody tr:hover { background: #fffbf0; }
+  tbody tr.overdue { background: #fff7ed; }
+  tbody tr.overdue:hover { background: #ffedd5; }
   td { padding: 9px 16px; white-space: nowrap; vertical-align: middle; }
   .mrn { font-family: monospace; font-size: 12px; color: var(--th); }
   .nm { font-weight: 600; color: var(--tp); }
   .nd { color: var(--th); font-style: italic; font-size: 12px; }
   .bdg { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-  .br { background: var(--accentgl); color: var(--accent2); border: 1px solid rgba(59,130,246,0.3); }
-  .bd { background: var(--greenl); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+  .br { background: var(--bluel); color: var(--blue); border: 1px solid #bfdbfe; }
+  .bd { background: var(--greenl); color: var(--green); border: 1px solid #a7f3d0; }
   .ah { color: var(--red); font-weight: 700; }
   .am { color: var(--amber); font-weight: 600; }
   .al { color: var(--green); font-weight: 500; }
 
-  /* date badge with edited indicator */
-  .date-edited { color: var(--cyan); font-weight: 600; }
-  .date-edited::after { content: ' ✎'; font-size: 10px; opacity: 0.7; }
-
-  /* ── Editable inputs ── */
-  .pi {
+  /* inputs */
+  .pi, .di {
     padding: 5px 9px; border-radius: 7px; font-size: 12px;
-    border: 1px solid var(--border2); background: var(--bg3); color: var(--tp);
-    font-family: inherit; width: 135px; direction: ltr; transition: all 0.15s;
+    border: 1px solid var(--border); background: var(--goldl); color: var(--tp);
+    font-family: inherit; direction: ltr; transition: all 0.15s;
   }
-  .pi:focus { outline: none; border-color: var(--accent); background: var(--accentgb); }
-  .pi::placeholder { color: var(--th); font-size: 11px; }
-  .di {
-    padding: 5px 9px; border-radius: 7px; font-size: 12px;
-    border: 1px solid var(--border2); background: var(--bg3); color: var(--tp);
-    font-family: inherit; width: 130px; direction: ltr; transition: all 0.15s;
-  }
-  .di:focus { outline: none; border-color: var(--cyan); background: rgba(6,182,212,0.06); }
-  .di.has-edit { border-color: rgba(6,182,212,0.5); color: var(--cyan); }
+  .pi { width: 135px; }
+  .di { width: 130px; }
+  .pi:focus, .di:focus { outline: none; border-color: var(--gold); background: white; }
+  .pi::placeholder, .di::placeholder { color: var(--th); font-size: 11px; }
+  .di.has-edit { border-color: var(--green); color: var(--green); background: var(--greenl); }
 
-  /* ── WhatsApp ── */
+  /* WhatsApp */
   .wbs { display: flex; gap: 5px; }
   .wb {
     display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px;
     border-radius: 7px; font-size: 11px; font-weight: 600; text-decoration: none;
     border: 1px solid; transition: all 0.15s; white-space: nowrap; cursor: pointer;
   }
-  .wds { background: var(--greenl); color: var(--green); border-color: rgba(16,185,129,0.3); }
-  .wds:hover { background: rgba(16,185,129,0.2); }
-  .wr { background: var(--accentgl); color: var(--accent2); border-color: rgba(59,130,246,0.3); }
-  .wr:hover { background: rgba(59,130,246,0.2); }
-  .wb.off { opacity: 0.25; pointer-events: none; }
+  .wds { background: var(--greenl); color: var(--green); border-color: #a7f3d0; }
+  .wds:hover { background: #a7f3d0; }
+  .wr { background: var(--bluel); color: var(--blue); border-color: #bfdbfe; }
+  .wr:hover { background: #bfdbfe; }
+  .wb.off { opacity: 0.3; pointer-events: none; }
   .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
-  .dg { background: var(--green); box-shadow: 0 0 5px var(--green); }
-  .db { background: var(--accent2); box-shadow: 0 0 5px var(--accent); }
+  .dg { background: var(--green); }
+  .db { background: var(--blue); }
 
   .loading { padding: 70px 20px; text-align: center; color: var(--ts); }
-  .spinner { width: 32px; height: 32px; border: 2px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
+  .spinner { width: 32px; height: 32px; border: 2px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .empty { padding: 70px 20px; text-align: center; color: var(--ts); }
   .err { padding: 50px 20px; text-align: center; color: var(--ts); }
-  .err button { margin-top: 14px; padding: 9px 22px; border-radius: 9px; border: 1px solid var(--border2); background: var(--bg3); color: var(--accent2); cursor: pointer; font-family: inherit; font-size: 13px; }
-  .sc { font-size: 11px; color: var(--accent2); margin-left: 4px; font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .err button { margin-top: 14px; padding: 9px 22px; border-radius: 9px; border: 1px solid var(--border); background: var(--goldl); color: var(--brown); cursor: pointer; font-family: inherit; font-size: 13px; }
+  .sc { font-size: 11px; color: var(--brown); margin-left: 4px; font-weight: 400; text-transform: none; letter-spacing: 0; }
 </style>
 </head>
 <body>
 
 <div class="hdr">
   <div class="hdr-logo">
-    <div class="logo-ic">
-      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
-    </div>
+    <div class="logo-ic">+</div>
     <div>
       <div class="hdr-title">OR Coordination</div>
       <div class="hdr-sub">King Saud Medical City — OR Coordination Department</div>
@@ -205,20 +194,20 @@
   </div>
   <div class="hdr-stats">
     <div class="st-item">
-      <div class="st-num" id="s-total" style="color:var(--accent2)">—</div>
+      <div class="st-num" id="s-total" style="color:#fef3c7">—</div>
       <div class="st-lbl">Total</div>
       <div class="st-scope" id="scope-lbl">All</div>
     </div>
     <div class="st-item">
-      <div class="st-num" id="s-sched" style="color:var(--green)">—</div>
+      <div class="st-num" id="s-sched" style="color:#86efac">—</div>
       <div class="st-lbl">Scheduled</div>
     </div>
     <div class="st-item">
-      <div class="st-num" id="s-unsched" style="color:var(--amber)">—</div>
+      <div class="st-num" id="s-unsched" style="color:#fcd34d">—</div>
       <div class="st-lbl">Unscheduled</div>
     </div>
     <div class="st-item">
-      <div class="st-num" id="s-avgwt" style="color:var(--red)">—</div>
+      <div class="st-num" id="s-avgwt" style="color:#fca5a5">—</div>
       <div class="st-lbl">Avg Wait</div>
       <div class="st-scope">days</div>
     </div>
@@ -230,7 +219,7 @@
     <div class="fr">
 
       <div class="fg">
-        <div class="fg-lbl cyan-bar">Specialty <span class="sc" id="spc"></span></div>
+        <div class="fg-lbl green-bar">Specialty <span class="sc" id="spc"></span></div>
         <div class="fps" id="specp"></div>
       </div>
 
@@ -288,142 +277,79 @@ const DAYS = ['الأحد','الاثنين','الثلاثاء','الأربعاء
 const TODAY = new Date(); TODAY.setHours(0,0,0,0);
 const DAY36 = new Date(TODAY); DAY36.setDate(DAY36.getDate()+36);
 
-let rows = [];
-let selSpec = new Set();
-let selS = new Set();
-let F = { type:'all', sched:'all' };
-let phones = {};
-let editedDates = {}; // تواريخ معدلة يدوياً: idx -> 'DD/MM/YYYY'
+let rows=[], selSpec=new Set(), selS=new Set(), F={type:'all',sched:'all'}, phones={}, editedDates={};
 
 async function load() {
-  document.getElementById('container').innerHTML = '<div class="loading"><div class="spinner"></div><div>Loading data...</div></div>';
-  const urls = [
+  document.getElementById('container').innerHTML='<div class="loading"><div class="spinner"></div><div>Loading data...</div></div>';
+  const urls=[
     'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:csv&sheet='+encodeURIComponent(TAB)+'&headers=1&t='+Date.now(),
     'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/export?format=csv&gid=0&t='+Date.now()
   ];
-  let csv = null;
-  for (const url of urls) {
-    try { const r=await fetch(url,{cache:'no-store'}); if(r.ok){csv=await r.text();break;} } catch(e){}
-  }
-  if (!csv) {
-    document.getElementById('container').innerHTML='<div class="err">⚠️ Failed to load data<br><small>Make sure the sheet is shared publicly</small><br><button onclick="load()">Retry</button></div>';
-    return;
-  }
-  rows = parseCSV(csv);
-  buildSpecialtyFilter();
-  buildSurgeonFilter();
-  updateHeaderStats();
-  render();
+  let csv=null;
+  for(const url of urls){try{const r=await fetch(url,{cache:'no-store'});if(r.ok){csv=await r.text();break;}}catch(e){}}
+  if(!csv){document.getElementById('container').innerHTML='<div class="err">⚠️ Failed to load data<br><small>Make sure the sheet is shared publicly</small><br><button onclick="load()">Retry</button></div>';return;}
+  rows=parseCSV(csv);
+  buildSpecialtyFilter(); buildSurgeonFilter(); updateHeaderStats(); render();
   document.getElementById('updated').textContent='Last updated: '+new Date().toLocaleTimeString('en-SA');
 }
 
-function parseCSV(csv) {
-  return csv.trim().split('\n').slice(1).map(line => {
+function parseCSV(csv){
+  return csv.trim().split('\n').slice(1).map(line=>{
     const c=pLine(line);
-    return { mrn:c[0]||'', date:c[1]||'', name:c[2]||'', specialty:c[3]||'', admType:c[4]||'', surgeon:c[5]||'', avgWT:parseFloat(c[6])||0, procedure:c[7]||'' };
+    return{mrn:c[0]||'',date:c[1]||'',name:c[2]||'',specialty:c[3]||'',admType:c[4]||'',surgeon:c[5]||'',avgWT:parseFloat(c[6])||0,procedure:c[7]||''};
   }).filter(r=>r.mrn&&r.mrn!=='MRN'&&r.name);
 }
+function pLine(line){const r=[];let cur='',q=false;for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"')q=!q;else if(ch===','&&!q){r.push(cur.trim());cur='';}else cur+=ch;}r.push(cur.trim());return r;}
+function getDate(idx){return editedDates[idx]!==undefined?editedDates[idx]:rows[idx].date;}
 
-function pLine(line) {
-  const r=[]; let cur='',q=false;
-  for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"')q=!q;else if(ch===','&&!q){r.push(cur.trim());cur='';}else cur+=ch;}
-  r.push(cur.trim()); return r;
+function updateHeaderStats(){
+  const scope=selSpec.size===0?rows:rows.filter(r=>selSpec.has(r.specialty));
+  const total=scope.length;
+  const sched=scope.filter((_,i)=>pDate(getDate(rows.indexOf(_)))).length;
+  const avg=total>0?Math.round(scope.reduce((a,r)=>a+r.avgWT,0)/total):0;
+  const avgColor=avg>100?'#fca5a5':avg>60?'#fcd34d':'#86efac';
+  document.getElementById('s-total').textContent=total;
+  document.getElementById('s-sched').textContent=sched;
+  document.getElementById('s-unsched').textContent=total-sched;
+  document.getElementById('s-avgwt').textContent=avg||'—';
+  document.getElementById('s-avgwt').style.color=avgColor;
+  document.getElementById('scope-lbl').textContent=selSpec.size===0?'All':[...selSpec].join(', ');
 }
 
-// الحصول على تاريخ الصف — يعطي الأولوية للتاريخ المعدل
-function getDate(idx) {
-  return editedDates[idx] !== undefined ? editedDates[idx] : rows[idx].date;
-}
-
-// ── Header Stats ───────────────────────────────────────────────
-function updateHeaderStats() {
-  const scope = selSpec.size===0 ? rows : rows.filter(r=>selSpec.has(r.specialty));
-  const total = scope.length;
-  const sched = scope.filter((_,i)=>pDate(getDate(rows.indexOf(_)))).length;
-  const avg   = total>0 ? Math.round(scope.reduce((a,r)=>a+r.avgWT,0)/total) : 0;
-  const avgColor = avg>100?'var(--red)':avg>60?'var(--amber)':'var(--green)';
-  document.getElementById('s-total').textContent   = total;
-  document.getElementById('s-sched').textContent   = sched;
-  document.getElementById('s-unsched').textContent = total-sched;
-  document.getElementById('s-avgwt').textContent   = avg||'—';
-  document.getElementById('s-avgwt').style.color   = avgColor;
-  document.getElementById('scope-lbl').textContent = selSpec.size===0?'All':[...selSpec].join(', ');
-}
-
-// ── Specialty Filter ───────────────────────────────────────────
-function buildSpecialtyFilter() {
+function buildSpecialtyFilter(){
   const specs=[...new Set(rows.map(r=>r.specialty).filter(Boolean))].sort();
-  const el=document.getElementById('specp'); el.innerHTML='';
-  const allPill=document.createElement('span');
-  allPill.className='pill all-pill'+(selSpec.size===0?' on':'');
-  allPill.textContent='All';
-  allPill.onclick=()=>{
-    selSpec.clear();selS.clear();
-    document.querySelectorAll('#specp .pill:not(.all-pill)').forEach(p=>p.classList.remove('on'));
-    allPill.classList.add('on');document.getElementById('spc').textContent='';
-    buildSurgeonFilter();updateHeaderStats();render();
-  };
-  el.appendChild(allPill);
+  const el=document.getElementById('specp');el.innerHTML='';
+  const ap=document.createElement('span');
+  ap.className='pill all-pill'+(selSpec.size===0?' on':'');ap.textContent='All';
+  ap.onclick=()=>{selSpec.clear();selS.clear();document.querySelectorAll('#specp .pill:not(.all-pill)').forEach(p=>p.classList.remove('on'));ap.classList.add('on');document.getElementById('spc').textContent='';buildSurgeonFilter();updateHeaderStats();render();};
+  el.appendChild(ap);
   specs.forEach(s=>{
-    const p=document.createElement('span');
-    p.className='pill'+(selSpec.has(s)?' on':'');p.textContent=s;
-    p.onclick=()=>{
-      if(selSpec.has(s)){selSpec.delete(s);p.classList.remove('on');}
-      else{selSpec.add(s);p.classList.add('on');}
-      allPill.classList.toggle('on',selSpec.size===0);
-      document.getElementById('spc').textContent=selSpec.size>0?'('+selSpec.size+' selected)':'';
-      selS.clear();buildSurgeonFilter();updateHeaderStats();render();
-    };
+    const p=document.createElement('span');p.className='pill'+(selSpec.has(s)?' on':'');p.textContent=s;
+    p.onclick=()=>{if(selSpec.has(s)){selSpec.delete(s);p.classList.remove('on');}else{selSpec.add(s);p.classList.add('on');}ap.classList.toggle('on',selSpec.size===0);document.getElementById('spc').textContent=selSpec.size>0?'('+selSpec.size+' selected)':'';selS.clear();buildSurgeonFilter();updateHeaderStats();render();};
     el.appendChild(p);
   });
 }
 
-// ── Surgeon Filter ─────────────────────────────────────────────
-function buildSurgeonFilter() {
+function buildSurgeonFilter(){
   const src=selSpec.size>0?rows.filter(r=>selSpec.has(r.specialty)):rows;
   const surgeons=[...new Set(src.map(r=>r.surgeon).filter(Boolean))].sort();
-  const el=document.getElementById('sp'); el.innerHTML='';
-  const allPill=document.createElement('span');
-  allPill.className='pill all-pill on';allPill.textContent='All';
-  allPill.onclick=()=>{
-    selS.clear();
-    document.querySelectorAll('#sp .pill:not(.all-pill)').forEach(p=>p.classList.remove('on'));
-    allPill.classList.add('on');document.getElementById('sc').textContent='';render();
-  };
-  el.appendChild(allPill);
+  const el=document.getElementById('sp');el.innerHTML='';
+  const ap=document.createElement('span');ap.className='pill all-pill on';ap.textContent='All';
+  ap.onclick=()=>{selS.clear();document.querySelectorAll('#sp .pill:not(.all-pill)').forEach(p=>p.classList.remove('on'));ap.classList.add('on');document.getElementById('sc').textContent='';render();};
+  el.appendChild(ap);
   surgeons.forEach(s=>{
-    const p=document.createElement('span');
-    p.className='pill'+(selS.has(s)?' on':'');
-    p.title=s;p.textContent=s.split(' ').slice(0,2).join(' ');
-    p.onclick=()=>{
-      if(selS.has(s)){selS.delete(s);p.classList.remove('on');}
-      else{selS.add(s);p.classList.add('on');}
-      allPill.classList.toggle('on',selS.size===0);
-      document.getElementById('sc').textContent=selS.size>0?'('+selS.size+' selected)':'';
-      render();
-    };
+    const p=document.createElement('span');p.className='pill'+(selS.has(s)?' on':'');p.title=s;p.textContent=s.split(' ').slice(0,2).join(' ');
+    p.onclick=()=>{if(selS.has(s)){selS.delete(s);p.classList.remove('on');}else{selS.add(s);p.classList.add('on');}ap.classList.toggle('on',selS.size===0);document.getElementById('sc').textContent=selS.size>0?'('+selS.size+' selected)':'';render();};
     el.appendChild(p);
   });
 }
 
-// ── Filter Events ──────────────────────────────────────────────
-document.getElementById('tp').addEventListener('click',e=>{
-  const p=e.target.closest('.pill');if(!p)return;
-  F.type=p.dataset.val;
-  document.querySelectorAll('#tp .pill').forEach(x=>x.classList.remove('on'));
-  p.classList.add('on');render();
-});
-document.getElementById('schp').addEventListener('click',e=>{
-  const p=e.target.closest('.pill');if(!p)return;
-  F.sched=p.dataset.val;
-  document.querySelectorAll('#schp .pill').forEach(x=>x.classList.remove('on'));
-  p.classList.add('on');render();
-});
+document.getElementById('tp').addEventListener('click',e=>{const p=e.target.closest('.pill');if(!p)return;F.type=p.dataset.val;document.querySelectorAll('#tp .pill').forEach(x=>x.classList.remove('on'));p.classList.add('on');render();});
+document.getElementById('schp').addEventListener('click',e=>{const p=e.target.closest('.pill');if(!p)return;F.sched=p.dataset.val;document.querySelectorAll('#schp .pill').forEach(x=>x.classList.remove('on'));p.classList.add('on');render();});
 document.getElementById('search').addEventListener('input',render);
 document.getElementById('reset-btn').addEventListener('click',()=>{
   selSpec.clear();selS.clear();F={type:'all',sched:'all'};
-  document.getElementById('search').value='';
-  document.getElementById('sc').textContent='';document.getElementById('spc').textContent='';
+  document.getElementById('search').value='';document.getElementById('sc').textContent='';document.getElementById('spc').textContent='';
   document.querySelectorAll('#specp .pill').forEach((p,i)=>p.classList.toggle('on',i===0));
   document.querySelectorAll('#tp .pill').forEach((p,i)=>p.classList.toggle('on',i===0));
   document.querySelectorAll('#schp .pill').forEach((p,i)=>p.classList.toggle('on',i===0));
@@ -431,22 +357,16 @@ document.getElementById('reset-btn').addEventListener('click',()=>{
 });
 document.getElementById('refresh-btn').addEventListener('click',load);
 
-// ── Render ─────────────────────────────────────────────────────
-function render() {
+function render(){
   const q=document.getElementById('search').value.toLowerCase();
   const filtered=rows.filter((r,i)=>{
     if(selSpec.size>0&&!selSpec.has(r.specialty))return false;
     if(selS.size>0&&!selS.has(r.surgeon))return false;
     if(F.type!=='all'&&r.admType!==F.type)return false;
-    const d=pDate(getDate(i));
-    const hd=!!d;
+    const d=pDate(getDate(i));const hd=!!d;
     if(F.sched==='yes'&&!hd)return false;
     if(F.sched==='no'&&hd)return false;
-    if(F.sched==='36'){
-      // مجدول وتاريخه بعد 36 يوم أو أكثر من اليوم
-      if(!hd)return false;
-      if(d<DAY36)return false;
-    }
+    if(F.sched==='36'){if(!hd)return false;if(d<DAY36)return false;}
     if(q&&!r.name.toLowerCase().includes(q)&&!r.mrn.includes(q))return false;
     return true;
   });
@@ -454,17 +374,9 @@ function render() {
   document.getElementById('shown').textContent=filtered.length;
   document.getElementById('total').textContent=rows.length;
 
-  if(!filtered.length){
-    document.getElementById('container').innerHTML='<div class="empty">No matching results found</div>';
-    return;
-  }
+  if(!filtered.length){document.getElementById('container').innerHTML='<div class="empty">No matching results found</div>';return;}
 
-  let html='<table><thead><tr>'
-    +'<th>MRN</th><th>Patient Name</th><th>Surgery Date</th><th>Edit Date</th>'
-    +'<th>Surgeon</th><th>Specialty</th><th>Admission Type</th><th>Procedure</th>'
-    +'<th>Avg Wait (days)</th><th>Phone</th><th>Send WhatsApp</th>'
-    +'</tr></thead><tbody>';
-
+  let html='<table><thead><tr><th>MRN</th><th>Patient Name</th><th>Surgery Date</th><th>Edit Date</th><th>Surgeon</th><th>Specialty</th><th>Admission Type</th><th>Procedure</th><th>Avg Wait (days)</th><th>Phone</th><th>Send WhatsApp</th></tr></thead><tbody>';
   filtered.forEach(r=>{
     const idx=rows.indexOf(r);
     const tc=r.admType==='Day Surgery'?'bd':'br';
@@ -475,14 +387,11 @@ function render() {
     const isOverdue=d&&d>=DAY36;
     const hasEdit=editedDates[idx]!==undefined;
     const editVal=hasEdit?editedDates[idx]:'';
-
     html+='<tr'+(isOverdue?' class="overdue"':'')+'>';
     html+='<td class="mrn">'+r.mrn+'</td>';
     html+='<td class="nm">'+r.name+'</td>';
-    // تاريخ العملية من قاعدة البيانات
     html+='<td>'+fDate(r.date)+'</td>';
-    // خانة التاريخ القابلة للتعديل
-    html+='<td><input class="di'+(hasEdit?' has-edit':'')+'" placeholder="DD/MM/YYYY" value="'+editVal+'" oninput="onDateEdit('+idx+',this)" title="Override surgery date locally"></td>';
+    html+='<td><input class="di'+(hasEdit?' has-edit':'')+'" placeholder="DD/MM/YYYY" value="'+editVal+'" oninput="onDateEdit('+idx+',this)"></td>';
     html+='<td title="'+r.surgeon+'">'+r.surgeon.split(' ').slice(0,3).join(' ')+'</td>';
     html+='<td>'+(r.specialty||'—')+'</td>';
     html+='<td><span class="bdg '+tc+'">'+(r.admType||'—')+'</span></td>';
@@ -492,46 +401,27 @@ function render() {
     html+='<td><div class="wbs" id="wa-'+idx+'">'+buildWA(r,idx,ph,effDate)+'</div></td>';
     html+='</tr>';
   });
-
   html+='</tbody></table>';
   document.getElementById('container').innerHTML=html;
 }
 
-// ── Date Edit Handler ──────────────────────────────────────────
-function onDateEdit(idx, input) {
-  const val = input.value.trim();
-  if (val === '') {
-    delete editedDates[idx];
-    input.classList.remove('has-edit');
-  } else {
-    editedDates[idx] = val;
-    input.classList.add('has-edit');
-  }
-  // تحديث زر الواتساب بالتاريخ الجديد
+function onDateEdit(idx,input){
+  const val=input.value.trim();
+  if(val===''){delete editedDates[idx];input.classList.remove('has-edit');}
+  else{editedDates[idx]=val;input.classList.add('has-edit');}
   updWA(idx);
 }
 
-// ── Helpers ────────────────────────────────────────────────────
-function pDate(raw) {
-  if(!raw||raw==='Not scheduled'||!raw.trim())return null;
-  raw=raw.trim();
-  let m=raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-  if(m)return new Date(+m[3],+m[1]-1,+m[2]);
-  m=raw.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
-  if(m)return new Date(+m[3],+m[2]-1,+m[1]);
+function pDate(raw){
+  if(!raw||raw==='Not scheduled'||!raw.trim())return null;raw=raw.trim();
+  let m=raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(m)return new Date(+m[3],+m[1]-1,+m[2]);
+  m=raw.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);if(m)return new Date(+m[3],+m[2]-1,+m[1]);
   if(/^\d+(\.\d+)?$/.test(raw)){const s=parseFloat(raw);if(s>40000&&s<60000)return new Date(Math.round((s-25569)*86400000));}
   const d=new Date(raw);return isNaN(d)?null:d;
 }
-function fDate(raw){
-  const d=pDate(raw);
-  if(!d)return '<span class="nd">Not Scheduled</span>';
-  return '<span>'+pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+'</span>';
-}
+function fDate(raw){const d=pDate(raw);if(!d)return '<span class="nd">Not Scheduled</span>';return '<span>'+pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+'</span>';}
 function pad(n){return String(n).padStart(2,'0');}
-function updWA(idx){
-  const el=document.getElementById('wa-'+idx);
-  if(el)el.innerHTML=buildWA(rows[idx],idx,phones[idx]||'',getDate(idx));
-}
+function updWA(idx){const el=document.getElementById('wa-'+idx);if(el)el.innerHTML=buildWA(rows[idx],idx,phones[idx]||'',getDate(idx));}
 function buildWA(r,idx,phone,dateRaw){
   const d=pDate(dateRaw);let ds='___',dn='____';
   if(d){ds=pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear();dn=DAYS[d.getDay()];}
