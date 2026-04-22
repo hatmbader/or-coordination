@@ -200,20 +200,20 @@
         </div>
       </div>
 
-      <div class="fa">
-        <input class="si" id="search" placeholder="🔍  Search by name or MRN...">
-        <button class="btn" id="reset-btn">↺ Clear Filters</button>
-        <button class="btn btn-refresh" id="refresh-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg>
-          Refresh
-        </button>
-      </div>
+
     </div>
   </div>
 
   <div class="rb">
-    <div class="rc">Showing <span id="shown">—</span> of <span id="total">—</span> patients</div>
-    <div class="lu" id="updated"></div>
+    <div class="rc">Showing <span id="shown">—</span> of <span id="total">—</span> patients &nbsp;·&nbsp; <span style="color:var(--th);font-size:11px;" id="updated"></span></div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <input class="si" id="search" placeholder="🔍  Search..." style="width:180px;">
+      <button class="btn" id="reset-btn">↺ Clear</button>
+      <button class="btn btn-refresh" id="refresh-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg>
+        Refresh
+      </button>
+    </div>
   </div>
   <div class="tc"><div class="tw" id="container">
     <div class="loading"><div class="spinner"></div><div>Loading data...</div></div>
@@ -234,7 +234,7 @@ const WA_IC_BLUE='<svg class="wa-ic" viewBox="0 0 24 24" fill="#1d4ed8"><path d=
 
 let rows=[], selSpec=new Set(), selS=new Set();
 let F={type:'all',sched:'all',status:'all'};
-let phones={}, editedDates={};
+let phones={}, editedDates={}, sortDir=0; // 0=none, 1=desc, -1=asc
 
 function loadStatuses(){ try{ return JSON.parse(localStorage.getItem('or_statuses')||'{}'); }catch(e){ return {}; } }
 function saveStatuses(){ try{ localStorage.setItem('or_statuses',JSON.stringify(mrnStatuses)); }catch(e){} }
@@ -323,6 +323,13 @@ document.getElementById('reset-btn').addEventListener('click',()=>{
 });
 document.getElementById('refresh-btn').addEventListener('click',load);
 
+function toggleSort(){
+  sortDir = sortDir===1 ? -1 : 1;
+  const icon=document.getElementById('sort-icon');
+  if(icon) icon.textContent = sortDir===1 ? '↓' : '↑';
+  render();
+}
+
 function cycleStatus(idx){
   const mrn=rows[idx]&&rows[idx].mrn; if(!mrn)return;
   mrnStatuses[mrn]=((getStatus(idx))+1)%5;
@@ -346,12 +353,13 @@ function render(){
     return true;
   });
 
+  if(sortDir!==0) filtered.sort((a,b)=> sortDir===1 ? b.avgWT-a.avgWT : a.avgWT-b.avgWT);
   document.getElementById('shown').textContent=filtered.length;
   document.getElementById('total').textContent=rows.length;
 
   if(!filtered.length){ document.getElementById('container').innerHTML='<div class="empty">No matching results found</div>'; return; }
 
-  let html='<table><thead><tr><th>MRN</th><th>Contact Status</th><th>Patient Name</th><th>Surgery Date</th><th>Edit Date</th><th>Surgeon</th><th style="max-width:80px;width:80px;">Specialty</th><th style="width:90px;max-width:90px;">Admission Type</th><th>Procedure</th><th style="width:70px;max-width:70px;">Avg Wait</th><th>Phone</th><th>WhatsApp</th></tr></thead><tbody>';
+  let html='<table><thead><tr><th>MRN</th><th>Contact Status</th><th>Patient Name</th><th>Surgery Date</th><th>Edit Date</th><th>Surgeon</th><th style="max-width:80px;width:80px;">Specialty</th><th style="width:90px;max-width:90px;">Admission Type</th><th>Procedure</th><th style="width:70px;max-width:70px;cursor:pointer;user-select:none;" onclick="toggleSort()" id="avgwt-th">Avg Wait <span id="sort-icon">↕</span></th><th>Phone</th><th>WhatsApp</th></tr></thead><tbody>';
   filtered.forEach(r=>{
     const idx=rows.indexOf(r);
     const tc=r.admType==='Day Surgery'?'bd':'br';
