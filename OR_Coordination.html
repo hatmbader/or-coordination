@@ -39,6 +39,9 @@
   .fg-lbl { font-size:10px; font-weight:600; color:#475569; text-transform:uppercase; letter-spacing:1px; display:flex; align-items:center; gap:6px; }
   .fg-lbl::before { content:''; width:3px; height:12px; background:#38bdf8; border-radius:2px; display:inline-block; }
   .fg-lbl.green-bar::before { background:var(--green); }
+  .surgeon-section { transition: all 0.2s; }
+  .surgeon-section.hidden { opacity:0.4; pointer-events:none; }
+  .surgeon-hint { font-size:10px; color:var(--th); font-style:italic; }
   .fg-lbl.purple-bar::before { background:var(--purple); }
 
   /* Pills */
@@ -161,9 +164,9 @@
         <div class="fps" id="specp"></div>
       </div>
 
-      <div class="fg" style="min-width:200px;">
+      <div class="fg surgeon-section hidden" id="surgeon-section" style="min-width:200px;">
         <div class="fg-lbl">Surgeon <span class="sc" id="sc"></span></div>
-        <div class="fps" id="sp"></div>
+        <div class="fps" id="sp"><span class="surgeon-hint">← Select a specialty first</span></div>
       </div>
 
       <div class="fg">
@@ -287,6 +290,15 @@ function buildSpecialtyFilter(){
 }
 
 function buildSurgeonFilter(){
+  const sec=document.getElementById('surgeon-section');
+  if(selSpec.size===0){
+    if(sec){sec.classList.add('hidden');}
+    document.getElementById('sp').innerHTML='<span class="surgeon-hint">← Select a specialty first</span>';
+    selS.clear();
+    document.getElementById('sc').textContent='';
+    return;
+  }
+  if(sec){sec.classList.remove('hidden');}
   const src=selSpec.size>0?rows.filter(r=>selSpec.has(r.specialty)):rows;
   const surgeons=[...new Set(src.map(r=>r.surgeon).filter(Boolean))].sort();
   const el=document.getElementById('sp'); el.innerHTML='';
