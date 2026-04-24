@@ -57,6 +57,9 @@
   .pill.p36 { border-color:#f97316; color:#c2410c; background:#fff7ed; }
   .pill.p36:hover { background:#ffedd5; }
   .pill.p36.on { background:#c2410c; border-color:#c2410c; color:white; font-weight:700; }
+  .pill.p36n { border-color:#059669; color:#059669; background:#d1fae5; }
+  .pill.p36n:hover { background:#a7f3d0; }
+  .pill.p36n.on { background:#059669; border-color:#059669; color:white; font-weight:700; }
 
   .fa { display:flex; align-items:flex-end; gap:8px; flex-wrap:wrap; }
   .si { padding:8px 13px; border-radius:9px; font-size:13px; border:1px solid var(--border); background:var(--goldl); color:var(--tp); font-family:inherit; width:220px; transition:all 0.15s; }
@@ -152,6 +155,7 @@
     <div class="st-item"><div class="st-num" id="s-sched" style="color:#86efac">—</div><div class="st-lbl">Scheduled</div></div>
     <div class="st-item"><div class="st-num" id="s-unsched" style="color:#fcd34d">—</div><div class="st-lbl">Unscheduled</div></div>
     <div class="st-item"><div class="st-num" id="s-avgwt" style="color:#fca5a5">—</div><div class="st-lbl">Avg Wait</div><div class="st-scope">days</div></div>
+    <div class="st-item"><div class="st-num" id="s-next36" style="color:#34d399">—</div><div class="st-lbl">Next 36 Days</div><div class="st-scope" id="s-next36-pct">—%</div></div>
   </div>
 </div>
 
@@ -185,6 +189,7 @@
           <span class="pill" data-val="yes">Scheduled</span>
           <span class="pill" data-val="no">Unscheduled</span>
           <span class="pill p36" data-val="36">+36 Days</span>
+          <span class="pill p36n" data-val="n36">-36 Days</span>
         </div>
       </div>
 
@@ -243,6 +248,16 @@ let mrnStatuses=loadStatuses();
 function getStatus(idx){ const mrn=rows[idx]&&rows[idx].mrn; return (mrn&&mrnStatuses[mrn]!==undefined)?mrnStatuses[mrn]:0; }
 function getDate(idx){ return editedDates[idx]!==undefined?editedDates[idx]:rows[idx].date; }
 
+// يحسب نافذة الـ 36 يوم من أقرب أحد
+function getNext36Window(){
+  const now=new Date(); now.setHours(0,0,0,0);
+  const day=now.getDay(); // 0=الأحد
+  const daysUntilSun = day===0 ? 7 : 7-day; // الأحد القادم دائماً
+  const nextSun=new Date(now); nextSun.setDate(now.getDate()+daysUntilSun);
+  const end=new Date(nextSun); end.setDate(nextSun.getDate()+36);
+  return {start:nextSun, end:end};
+}
+
 async function load(){
   document.getElementById('container').innerHTML='<div class="loading"><div class="spinner"></div><div>Loading data...</div></div>';
   const urls=[
@@ -277,6 +292,15 @@ function updateHeaderStats(){
   document.getElementById('s-avgwt').textContent=avg||'—';
   document.getElementById('s-avgwt').style.color=avgColor;
   document.getElementById('scope-lbl').textContent=selSpec.size===0?'All':[...selSpec].join(', ');
+  // حساب المجدولين خلال 36 يوم من الأحد القادم
+  const win=getNext36Window();
+  const next36=rows.filter((_,i)=>{
+    const d=pDate(getDate(i));
+    return d && d>=win.start && d<win.end;
+  }).length;
+  const pct=total>0?Math.round(next36/total*100):0;
+  document.getElementById('s-next36').textContent=next36;
+  document.getElementById('s-next36-pct').textContent=pct+'%';
 }
 
 function buildSpecialtyFilter(){
@@ -348,6 +372,11 @@ function render(){
     if(F.sched==='yes'&&!hd)return false;
     if(F.sched==='no'&&hd)return false;
     if(F.sched==='36'){if(!hd)return false; if(d<DAY36)return false;}
+    if(F.sched==='n36'){
+      const w=getNext36Window();
+      if(!hd)return false;
+      if(d<w.start||d>=w.end)return false;
+    }
     if(F.status!=='all'&&getStatus(i)!==parseInt(F.status))return false;
     if(q&&!r.name.toLowerCase().includes(q)&&!r.mrn.includes(q))return false;
     return true;
