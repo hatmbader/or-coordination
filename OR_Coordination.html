@@ -18,38 +18,28 @@
     --purple:#7c3aed; --purplel:#ede9fe;
   }
   body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--tp); min-height:100vh; font-size:14px; }
-
-  /* Header */
   .hdr { background:#1e293b; padding:0 28px; height:64px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(30,41,59,0.15); }
   .hdr-logo { display:flex; align-items:center; gap:12px; }
   .logo-ic { width:36px; height:36px; background:#38bdf8; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:white; }
   .hdr-title { font-size:15px; font-weight:700; color:#f1f5f9; }
   .hdr-sub { font-size:11px; color:#94a3b8; margin-top:1px; }
-  .hdr-stats { display:flex; gap:6px; }
+  .hdr-stats { display:flex; gap:6px; align-items:center; }
   .st-item { text-align:center; padding:6px 14px; border-radius:10px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); min-width:76px; }
   .st-num { font-size:20px; font-weight:700; line-height:1; }
   .st-lbl { font-size:10px; color:#94a3b8; margin-top:3px; text-transform:uppercase; }
   .st-scope { font-size:9px; color:rgba(148,163,184,0.8); margin-top:2px; font-style:italic; }
-
-  /* Main */
   .main { padding:20px 28px; }
-  .fc { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px 20px; margin-bottom:16px; box-shadow:0 1px 4px rgba(120,53,15,0.06); }
+  .fc { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px 20px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.04); }
   .fr { display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start; }
   .fg { display:flex; flex-direction:column; gap:8px; flex:1; min-width:140px; }
   .fg-lbl { font-size:10px; font-weight:600; color:#475569; text-transform:uppercase; letter-spacing:1px; display:flex; align-items:center; gap:6px; }
   .fg-lbl::before { content:''; width:3px; height:12px; background:#38bdf8; border-radius:2px; display:inline-block; }
   .fg-lbl.green-bar::before { background:var(--green); }
-  .surgeon-section { transition: all 0.2s; }
+  .fg-lbl.purple-bar::before { background:var(--purple); }
+  .surgeon-section { transition:all 0.2s; }
   .surgeon-section.hidden { opacity:0.4; pointer-events:none; }
   .surgeon-hint { font-size:10px; color:var(--th); font-style:italic; }
-  .fg-lbl.purple-bar::before { background:var(--purple); }
-
-  /* Pills */
   .fps { display:flex; flex-wrap:wrap; gap:6px; }
-  .fps.scrollable { max-height:72px; overflow-y:auto; padding-bottom:2px; }
-  .fps.scrollable::-webkit-scrollbar { width:4px; }
-  .fps.scrollable::-webkit-scrollbar-track { background:transparent; }
-  .fps.scrollable::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
   .pill { padding:5px 12px; border-radius:20px; font-size:12px; border:1px solid var(--border); background:var(--goldl); color:var(--brown2); cursor:pointer; transition:all 0.15s; user-select:none; white-space:nowrap; }
   .pill:hover { border-color:var(--gold); background:var(--bg2); }
   .pill.on { background:#1e293b; border-color:#1e293b; color:white; font-weight:600; }
@@ -60,79 +50,58 @@
   .pill.p36n { border-color:#059669; color:#059669; background:#d1fae5; }
   .pill.p36n:hover { background:#a7f3d0; }
   .pill.p36n.on { background:#059669; border-color:#059669; color:white; font-weight:700; }
-
-  .fa { display:flex; align-items:flex-end; gap:8px; flex-wrap:wrap; }
-  .si { padding:8px 13px; border-radius:9px; font-size:13px; border:1px solid var(--border); background:var(--goldl); color:var(--tp); font-family:inherit; width:220px; transition:all 0.15s; }
+  .si { padding:8px 13px; border-radius:9px; font-size:13px; border:1px solid var(--border); background:var(--goldl); color:var(--tp); font-family:inherit; transition:all 0.15s; }
   .si::placeholder { color:var(--th); }
-  .si:focus { outline:none; border-color:var(--gold); background:white; box-shadow:0 0 0 3px rgba(245,158,11,0.1); }
+  .si:focus { outline:none; border-color:var(--gold); background:white; }
   .btn { padding:8px 15px; border-radius:9px; font-size:12px; border:1px solid var(--border); background:var(--goldl); color:var(--brown2); cursor:pointer; font-family:inherit; display:flex; align-items:center; gap:6px; white-space:nowrap; transition:all 0.15s; font-weight:500; }
   .btn:hover { background:var(--bg2); border-color:var(--gold); color:var(--brown); }
   .btn svg { width:13px; height:13px; }
-  .btn-refresh { background:#1e293b; border-color:#1e293b; color:#f1f5f9; font-weight:600; box-shadow:0 2px 8px rgba(30,41,59,0.2); }
+  .btn-refresh { background:#1e293b; border-color:#1e293b; color:#f1f5f9; font-weight:600; }
   .btn-refresh:hover { background:#334155; border-color:#334155; color:white; }
-
-  /* Results */
   .rb { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding:0 2px; }
   .rc { font-size:12px; color:var(--ts); }
   .rc span { font-weight:700; color:var(--tp); }
-  .lu { font-size:11px; color:var(--th); }
-
-  /* Table */
-  .tc { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:0 1px 4px rgba(120,53,15,0.06); }
+  .tc { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.04); }
   .tw { overflow-x:auto; }
   table { width:100%; border-collapse:collapse; font-size:13px; }
   thead th { padding:11px 16px; text-align:left; font-size:10px; font-weight:600; color:#475569; background:#f8fafc; border-bottom:1px solid var(--border); white-space:nowrap; letter-spacing:0.6px; text-transform:uppercase; }
-  tbody tr { border-bottom:1px solid #f0ebe3; transition:background 0.1s; }
+  tbody tr { border-bottom:1px solid #f1f5f9; transition:background 0.1s; }
   tbody tr:last-child { border-bottom:none; }
-  tbody tr:hover { background:#f5f0eb; }
-  tbody tr.overdue { background:#f0ebe4; }
-  tbody tr.overdue:hover { background:#e8e0d6; }
+  tbody tr:hover { background:#f8fafc; }
+  tbody tr.overdue { background:#fef9ee; }
+  tbody tr.overdue:hover { background:#fef3c7; }
   td { padding:9px 16px; white-space:nowrap; vertical-align:middle; }
   .mrn { font-family:monospace; font-size:12px; color:var(--th); }
   .nm { font-weight:600; color:var(--tp); }
   .nd { color:var(--th); font-style:italic; font-size:12px; }
   .bdg { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
-  .br { background:var(--bluel); color:var(--blue); border:1px solid #bfdbfe; }
+  .br { background:var(--bluel); color:var(--blue); border:1px solid #bae6fd; }
   .bd { background:var(--greenl); color:var(--green); border:1px solid #a7f3d0; }
   .ah { color:var(--red); font-weight:700; }
   .am { color:var(--amber); font-weight:600; }
   .al { color:var(--green); font-weight:500; }
-
-  /* Status */
   .status-btn { display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; border:1px solid; cursor:pointer; transition:all 0.15s; white-space:nowrap; font-family:inherit; }
   .s0 { background:#f3f4f6; color:#6b7280; border-color:#d1d5db; }
-  .s0:hover { background:#e5e7eb; }
   .s1 { background:#fef9c3; color:#854d0e; border-color:#fde047; }
-  .s1:hover { background:#fef08a; }
   .s2 { background:var(--greenl); color:var(--green); border-color:#a7f3d0; }
-  .s2:hover { background:#a7f3d0; }
   .s3 { background:var(--redl); color:var(--red); border-color:#fca5a5; }
-  .s3:hover { background:#fca5a5; }
   .s4 { background:var(--purplel); color:var(--purple); border-color:#c4b5fd; }
-  .s4:hover { background:#c4b5fd; }
-
-  /* Inputs */
   .pi,.di { padding:5px 9px; border-radius:7px; font-size:12px; border:1px solid var(--border); background:var(--goldl); color:var(--tp); font-family:inherit; direction:ltr; transition:all 0.15s; }
   .pi { width:130px; }
   .di { width:110px; }
   .pi:focus,.di:focus { outline:none; border-color:var(--gold); background:white; }
   .pi::placeholder,.di::placeholder { color:var(--th); font-size:11px; }
   .di.has-edit { border-color:var(--green); color:var(--green); background:var(--greenl); }
-
-  /* WhatsApp — icon + text */
   .wbs { display:flex; gap:5px; }
-  .wb { display:inline-flex; align-items:center; gap:5px; padding:5px 12px; border-radius:6px; font-size:11px; font-weight:700; text-decoration:none; border:1px solid; transition:all 0.15s; white-space:nowrap; cursor:pointer; min-width:52px; justify-content:center; }
+  .wb { display:inline-flex; align-items:center; gap:5px; padding:5px 10px; border-radius:6px; font-size:11px; font-weight:700; text-decoration:none; border:1px solid; transition:all 0.15s; white-space:nowrap; cursor:pointer; min-width:48px; justify-content:center; }
   .wds { background:var(--greenl); color:#065f46; border-color:#a7f3d0; }
   .wds:hover { background:#a7f3d0; }
   .wr { background:var(--bluel); color:#1e3a8a; border-color:#bfdbfe; }
   .wr:hover { background:#bfdbfe; }
-  .wf { background:var(--purplel); color:#5b21b6; border-color:#c4b5fd; }
-  .wf:hover { background:#c4b5fd; }
   .wb.off { opacity:0.3; pointer-events:none; }
   .wa-ic { width:13px; height:13px; flex-shrink:0; }
-
   .loading { padding:70px 20px; text-align:center; color:var(--ts); }
-  .spinner { width:32px; height:32px; border:2px solid var(--border); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 14px; }
+  .spinner { width:32px; height:32px; border:2px solid var(--border); border-top-color:#38bdf8; border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 14px; }
   @keyframes spin { to { transform:rotate(360deg); } }
   .empty { padding:70px 20px; text-align:center; color:var(--ts); }
   .err { padding:50px 20px; text-align:center; color:var(--ts); }
@@ -151,7 +120,7 @@
     </div>
   </div>
   <div class="hdr-stats">
-    <div class="st-item"><div class="st-num" id="s-total" style="color:#fef3c7">—</div><div class="st-lbl">Total</div><div class="st-scope" id="scope-lbl">All</div></div>
+    <div class="st-item"><div class="st-num" id="s-total" style="color:#7dd3fc">—</div><div class="st-lbl">Total</div><div class="st-scope" id="scope-lbl">All</div></div>
     <div class="st-item"><div class="st-num" id="s-sched" style="color:#86efac">—</div><div class="st-lbl">Scheduled</div></div>
     <div class="st-item"><div class="st-num" id="s-unsched" style="color:#fcd34d">—</div><div class="st-lbl">Unscheduled</div></div>
     <div class="st-item"><div class="st-num" id="s-avgwt" style="color:#fca5a5">—</div><div class="st-lbl">Avg Wait</div><div class="st-scope">days</div></div>
@@ -166,17 +135,14 @@
 <div class="main">
   <div class="fc">
     <div class="fr">
-
       <div class="fg">
         <div class="fg-lbl green-bar">Specialty <span class="sc" id="spc"></span></div>
         <div class="fps" id="specp"></div>
       </div>
-
       <div class="fg surgeon-section hidden" id="surgeon-section" style="min-width:200px;">
         <div class="fg-lbl">Surgeon <span class="sc" id="sc"></span></div>
         <div class="fps" id="sp"><span class="surgeon-hint">← Select a specialty first</span></div>
       </div>
-
       <div class="fg">
         <div class="fg-lbl">Admission Type</div>
         <div class="fps" id="tp">
@@ -185,7 +151,6 @@
           <span class="pill" data-val="Day Surgery">Day Surgery</span>
         </div>
       </div>
-
       <div class="fg">
         <div class="fg-lbl">Schedule Status</div>
         <div class="fps" id="schp">
@@ -196,7 +161,6 @@
           <span class="pill p36n" data-val="n36">-36 Days</span>
         </div>
       </div>
-
       <div class="fg">
         <div class="fg-lbl purple-bar">Contact Status</div>
         <div class="fps" id="statusp">
@@ -208,8 +172,6 @@
           <span class="pill" data-val="4">📤 Sent</span>
         </div>
       </div>
-
-
     </div>
   </div>
 
@@ -238,12 +200,11 @@ const DAY36=new Date(TODAY); DAY36.setDate(DAY36.getDate()+36);
 const STATUS_LABELS=['⬜ Not Contacted','🟡 No Answer','🟢 Confirmed','🔴 Issue','📤 Sent'];
 const STATUS_CLS=['s0','s1','s2','s3','s4'];
 const WA_IC_GREEN='<svg class="wa-ic" viewBox="0 0 24 24" fill="#059669"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>';
-const WA_IC_FORM='<svg class="wa-ic" viewBox="0 0 24 24" fill="#7c3aed"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>';
 const WA_IC_BLUE='<svg class="wa-ic" viewBox="0 0 24 24" fill="#1d4ed8"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>';
 
 let rows=[], selSpec=new Set(), selS=new Set();
 let F={type:'all',sched:'all',status:'all'};
-let phones={}, editedDates={}, sortDir=0; // 0=none, 1=desc, -1=asc
+let phones={}, editedDates={}, sortDir=0;
 
 function loadStatuses(){ try{ return JSON.parse(localStorage.getItem('or_statuses')||'{}'); }catch(e){ return {}; } }
 function saveStatuses(){ try{ localStorage.setItem('or_statuses',JSON.stringify(mrnStatuses)); }catch(e){} }
@@ -252,17 +213,11 @@ let mrnStatuses=loadStatuses();
 function getStatus(idx){ const mrn=rows[idx]&&rows[idx].mrn; return (mrn&&mrnStatuses[mrn]!==undefined)?mrnStatuses[mrn]:0; }
 function getDate(idx){ return editedDates[idx]!==undefined?editedDates[idx]:rows[idx].date; }
 
-// يحسب نافذة الـ 36 يوم:
-// - تبدأ من اليوم دائماً (عشان المرضى من اليوم للأحد القادم يظهرون)
-// - تنتهي بعد 36 يوم من الأحد القادم
-// - كل أحد تتجدد تلقائياً
 function getNext36Window(){
   const now=new Date(); now.setHours(0,0,0,0);
-  const day=now.getDay(); // 0=الأحد
-  const daysUntilSun = day===0 ? 7 : 7-day; // الأحد القادم دائماً
-  const nextSun=new Date(now); nextSun.setDate(now.getDate()+daysUntilSun);
-  const end=new Date(nextSun); end.setDate(nextSun.getDate()+36);
-  return {start:now, end:end}; // تبدأ من اليوم
+  const tomorrow=new Date(now); tomorrow.setDate(now.getDate()+1);
+  const end=new Date(tomorrow); end.setDate(tomorrow.getDate()+36);
+  return {start:tomorrow, end:end};
 }
 
 async function load(){
@@ -299,12 +254,8 @@ function updateHeaderStats(){
   document.getElementById('s-avgwt').textContent=avg||'—';
   document.getElementById('s-avgwt').style.color=avgColor;
   document.getElementById('scope-lbl').textContent=selSpec.size===0?'All':[...selSpec].join(', ');
-  // حساب المجدولين خلال 36 يوم من الأحد القادم
   const win=getNext36Window();
-  const next36=rows.filter((_,i)=>{
-    const d=pDate(getDate(i));
-    return d && d>=win.start && d<win.end;
-  }).length;
+  const next36=rows.filter((_,i)=>{ const d=pDate(getDate(i)); return d&&d>=win.start&&d<win.end; }).length;
   const pct=total>0?Math.round(next36/total*100):0;
   document.getElementById('s-next36').textContent=next36;
   document.getElementById('s-next36-pct').textContent=pct+'%';
@@ -322,15 +273,9 @@ function buildSpecialtyFilter(){
 
 function buildSurgeonFilter(){
   const sec=document.getElementById('surgeon-section');
-  if(selSpec.size===0){
-    if(sec){sec.classList.add('hidden');}
-    document.getElementById('sp').innerHTML='<span class="surgeon-hint">← Select a specialty first</span>';
-    selS.clear();
-    document.getElementById('sc').textContent='';
-    return;
-  }
-  if(sec){sec.classList.remove('hidden');}
-  const src=selSpec.size>0?rows.filter(r=>selSpec.has(r.specialty)):rows;
+  if(selSpec.size===0){ if(sec)sec.classList.add('hidden'); document.getElementById('sp').innerHTML='<span class="surgeon-hint">← Select a specialty first</span>'; selS.clear(); document.getElementById('sc').textContent=''; return; }
+  if(sec)sec.classList.remove('hidden');
+  const src=rows.filter(r=>selSpec.has(r.specialty));
   const surgeons=[...new Set(src.map(r=>r.surgeon).filter(Boolean))].sort();
   const el=document.getElementById('sp'); el.innerHTML='';
   const ap=document.createElement('span'); ap.className='pill all-pill'+(selS.size===0?' on':''); ap.textContent='All';
@@ -354,12 +299,7 @@ document.getElementById('reset-btn').addEventListener('click',()=>{
 });
 document.getElementById('refresh-btn').addEventListener('click',load);
 
-function toggleSort(){
-  sortDir = sortDir===1 ? -1 : 1;
-  const icon=document.getElementById('sort-icon');
-  if(icon) icon.textContent = sortDir===1 ? '↓' : '↑';
-  render();
-}
+function toggleSort(){ sortDir=sortDir===1?-1:1; const icon=document.getElementById('sort-icon'); if(icon)icon.textContent=sortDir===1?'↓':'↑'; render(); }
 
 function cycleStatus(idx){
   const mrn=rows[idx]&&rows[idx].mrn; if(!mrn)return;
@@ -379,23 +319,18 @@ function render(){
     if(F.sched==='yes'&&!hd)return false;
     if(F.sched==='no'&&hd)return false;
     if(F.sched==='36'){if(!hd)return false; if(d<DAY36)return false;}
-    if(F.sched==='n36'){
-      const w=getNext36Window();
-      if(!hd)return false;
-      if(d<w.start||d>=w.end)return false;
-    }
+    if(F.sched==='n36'){ const w=getNext36Window(); if(!hd)return false; if(d<w.start||d>=w.end)return false; }
     if(F.status!=='all'&&getStatus(i)!==parseInt(F.status))return false;
     if(q&&!r.name.toLowerCase().includes(q)&&!r.mrn.includes(q))return false;
     return true;
   });
-
-  if(sortDir!==0) filtered.sort((a,b)=> sortDir===1 ? b.avgWT-a.avgWT : a.avgWT-b.avgWT);
+  if(sortDir!==0) filtered.sort((a,b)=>sortDir===1?b.avgWT-a.avgWT:a.avgWT-b.avgWT);
   document.getElementById('shown').textContent=filtered.length;
   document.getElementById('total').textContent=rows.length;
-
   if(!filtered.length){ document.getElementById('container').innerHTML='<div class="empty">No matching results found</div>'; return; }
 
-  let html='<table><thead><tr><th>MRN</th><th>Contact Status</th><th>Patient Name</th><th>Surgery Date</th><th>Edit Date</th><th>Surgeon</th><th style="max-width:80px;width:80px;">Specialty</th><th style="width:90px;max-width:90px;">Admission Type</th><th>Procedure</th><th style="width:70px;max-width:70px;cursor:pointer;user-select:none;" onclick="toggleSort()" id="avgwt-th">Avg Wait <span id="sort-icon">↕</span></th><th>Phone</th><th>WhatsApp</th></tr></thead><tbody>';
+  let html='<table><thead><tr><th>MRN</th><th>Contact Status</th><th>Patient Name</th><th>Surgery Date</th><th>Edit Date</th><th>Surgeon</th><th style="max-width:80px;width:80px;">Specialty</th><th style="width:100px;">Admission Type</th><th>Procedure</th><th style="width:70px;cursor:pointer;user-select:none;" onclick="toggleSort()">Avg Wait <span id="sort-icon">↕</span></th><th>Phone</th><th>WhatsApp</th></tr></thead><tbody>';
+
   filtered.forEach(r=>{
     const idx=rows.indexOf(r);
     const tc=r.admType==='Day Surgery'?'bd':'br';
@@ -405,34 +340,22 @@ function render(){
     const d=pDate(effDate);
     const isOverdue=d&&d>=DAY36;
     const hasEdit=editedDates[idx]!==undefined;
-    const editVal=hasEdit?editedDates[idx]:'';
     const st=getStatus(idx);
     html+='<tr'+(isOverdue?' class="overdue"':'')+'>'; 
     html+='<td class="mrn">'+r.mrn+'</td>';
     html+='<td><button class="status-btn '+STATUS_CLS[st]+'" id="st-'+idx+'" onclick="cycleStatus('+idx+')">'+STATUS_LABELS[st]+'</button></td>';
     html+='<td class="nm">'+r.name+'</td>';
     html+='<td>'+fDate(r.date)+'</td>';
-    // Days Left — فقط للمرضى اللي 36 يوم أو أقل
-    const daysLeft=(()=>{
-      const rd=pDate(effDate);
-      if(!rd) return '';
-      const diff=Math.ceil((rd-TODAY)/(1000*60*60*24));
-      if(diff>36||diff<0) return '';
-      const color=diff<=7?'#dc2626':diff<=14?'#d97706':'#059669';
-      return '<span style="font-weight:700;color:'+color+';">'+diff+'d</span>';
-    })();
-    html+='<td style="text-align:center;">'+daysLeft+'</td>';
-    html+='<td><input class="di'+(hasEdit?' has-edit':'')+'" placeholder="DD/MM/YYYY" value="'+editVal+'" oninput="onDateEdit('+idx+',this)"></td>';
+    html+='<td><input class="di'+(hasEdit?' has-edit':'')+'" placeholder="DD/MM/YYYY" value="'+(hasEdit?editedDates[idx]:'')+'" oninput="onDateEdit('+idx+',this)"></td>';
     html+='<td title="'+r.surgeon+'">'+r.surgeon.split(' ').slice(0,3).join(' ')+'</td>';
     html+='<td style="max-width:80px;overflow:hidden;text-overflow:ellipsis;" title="'+(r.specialty||'')+'">'+(r.specialty||'—')+'</td>';
-    html+='<td style="width:90px;max-width:90px;"><span class="bdg '+tc+'">'+(r.admType||'—')+'</span></td>';
+    html+='<td><span class="bdg '+tc+'">'+(r.admType||'—')+'</span></td>';
     html+='<td>'+(r.procedure||'—')+'</td>';
-    html+='<td style="width:70px;max-width:70px;" class="'+ac+'">'+(r.avgWT||'—')+'</td>';
+    html+='<td class="'+ac+'">'+(r.avgWT||'—')+'</td>';
     html+='<td><input class="pi" placeholder="05XXXXXXXX" value="'+ph+'" oninput="phones['+idx+']=this.value;updWA('+idx+')"></td>';
     html+='<td><div class="wbs" id="wa-'+idx+'">'+buildWA(r,idx,ph,effDate)+'</div></td>';
     html+='</tr>';
-    }); // end specRows.forEach
-  }); // end specOrder.forEach
+  });
   html+='</tbody></table>';
   document.getElementById('container').innerHTML=html;
 }
@@ -454,6 +377,7 @@ function pDate(raw){
 function fDate(raw){const d=pDate(raw);if(!d)return '<span class="nd">Not Scheduled</span>';return '<span>'+pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+'</span>';}
 function pad(n){return String(n).padStart(2,'0');}
 function updWA(idx){const el=document.getElementById('wa-'+idx);if(el)el.innerHTML=buildWA(rows[idx],idx,phones[idx]||'',getDate(idx));}
+
 function buildWA(r,idx,phone,dateRaw){
   const d=pDate(dateRaw);let ds='___',dn='____';
   if(d){ds=pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear();dn=DAYS[d.getDay()];}
@@ -463,195 +387,33 @@ function buildWA(r,idx,phone,dateRaw){
   const m2=encodeURIComponent(rtl+'السلام عليكم ورحمة الله وبركاته\n'+rtl+'عزيزي/عزيزتي '+r.name+'\n'+rtl+'نود إبلاغكم بأن موعد عمليتكم في مدينة الملك سعود الطبية قد تم تحديده يوم '+dn+' الموافق '+ds+'\n'+rtl+'وسيكون التنويم يوم ____ الموافق ____\n\n'+rtl+'📌 تعليمات مهمة:\n'+rtl+'• سيتم التواصل معكم في نفس يوم التنويم لتحديد وقت الحضور، يرجى الانتباه للجوال\n'+rtl+'• إحضار الهوية الوطنية / الإقامة أثناء التنويم\n'+rtl+'• للنساء: يرجى إزالة المكياج، طلاء الأظافر، والإكسسوارات قبل الحضور\n\n'+rtl+'‼️ الرجاء إبلاغنا في حال أخذ أدوية مسيلة للدم أو إبر إنقاص الوزن\n\n'+rtl+'⚠️ تنبيه: الرجاء الالتزام بالحضور، وفي حال عدم الحضور سيتم إغلاق الطلب الجراحي\n\n'+rtl+'مدينة الملك سعود الطبية - قسم تنسيق العمليات');
   const a1=ok?'href="https://web.whatsapp.com/send?phone='+ph+'&text='+m1+'" target="_blank"':'';
   const a2=ok?'href="https://web.whatsapp.com/send?phone='+ph+'&text='+m2+'" target="_blank"':'';
-  const rtl2='\u202B';
-  const mF=encodeURIComponent(
-    rtl2+'*قسم تنسيق العمليات الجراحية*\n'+
-    rtl2+'*مدينة الملك سعود الطبية*\n\n'+
-    rtl2+'اسم المريض : _______________\n'+
-    rtl2+'Patient Name : _______________\n\n'+
-    rtl2+'رقم المريض : '+r.mrn+'\n'+
-    rtl2+'Patient MRN : '+r.mrn+'\n\n'+
-    rtl2+'تاريخ الموعد : '+ds+'\n'+
-    rtl2+'Surgery Date : '+ds+'\n\n'+
-    rtl2+'الطبيب المعالج : '+r.surgeon+'\n'+
-    rtl2+'Treating Physician : '+r.surgeon+'\n\n'+
-    rtl2+'الإجراء الجراحي : '+(r.procedure||'—')+'\n'+
-    rtl2+'Surgical Procedure : '+(r.procedure||'—')+'\n\n'+
-    rtl2+'─────────────────\n'+
-    rtl2+'*عزيزي المريض*\n'+
-    rtl2+'هذا لتأكيد تسجيل المريض في قوائم انتظار العمليات الجراحية الروتينية في مدينة الملك سعود الطبية.\n\n'+
-    rtl2+'*كمريض في قائمة الانتظار يجب عليك:*\n'+
-    rtl2+'١. اتباع النصائح الموجهة لك من قبل منسق العمليات قبل التنويم.\n'+
-    rtl2+'٢. ينبغي عليك اتباع أي تعليمات للحضور لإعادة التقييم في أي عيادة قبل دخولك للتنويم.\n'+
-    rtl2+'٣. ينبغي عليك الحضور للموعد المؤكد.\n'+
-    rtl2+'٤. عدم الحضور أو التأخير عن الموعد المحدد يؤدي إلى إغلاق الطلب الجراحي.\n'+
-    rtl2+'٥. يجب عليك الحضور لجميع المواعيد المجدولة لك بالعيادات الخارجية بعد العمل الجراحي.\n\n'+
-    rtl2+'*عزيزي المريض ينبغي عليك ابلاغ المدينة الطبية في حال:*\n'+
-    rtl2+'١. عند اجراء أي تغيير في ارقام التواصل الخاصة بك أو تغيير السكن.\n'+
-    rtl2+'٢. يجب عليك ابلاغ قسم تنسيق العمليات عند اجراء العمليات عبر طوارئ في أي مستشفى آخر.\n'+
-    rtl2+'٣. يجب ابلاغنا لأي ظرف شخصي يمنعك من اجراء العملية أو تغيير الموعد المجدول لك بمدة كافية.\n\n'+
-    rtl2+'*يسمح للمريض تأجيل العملية مرة واحدة فقط لأسباب شخصية أو اجتماعية.*\n\n'+
-    rtl2+'للاستفسارات: يرجى التواصل مع مركز الاتصال ( ١٩٩١٠ ) في مدينة الملك سعود الطبية خلال أوقات الدوام الرسمية من الساعة ٨ صباحاً حتى الساعة ٤ مساءً.'
-  );
-  const aF=ok?'href="https://web.whatsapp.com/send?phone='+ph+'&text='+mF+'" target="_blank"':'';
-  return '<a class="wb wds'+(ok?'':' off')+'" '+a1+'>'+WA_IC_GREEN+' DS</a><a class="wb wr'+(ok?'':' off')+'" '+a2+'>'+WA_IC_BLUE+' R</a><a class="wb wf'+(ok?'':' off')+'" '+aF+'>'+WA_IC_FORM+' Form</a>';
+  return '<a class="wb wds'+(ok?'':' off')+'" '+a1+'>'+WA_IC_GREEN+' DS</a><a class="wb wr'+(ok?'':' off')+'" '+a2+'>'+WA_IC_BLUE+' R</a>';
 }
 
-
-// ── Stats Page ────────────────────────────────────────────────
 function openStats(){
   if(!rows.length){alert('Please load data first');return;}
-  
-  // حساب البيانات
   const specs=[...new Set(rows.map(r=>r.specialty).filter(Boolean))].sort();
   const surgeons=[...new Set(rows.map(r=>r.surgeon).filter(Boolean))].sort();
-  
-  // نسبة المجدول لكل تخصص
-  const specData=specs.map(s=>{
-    const g=rows.filter(r=>r.specialty===s);
-    const total=g.length;
-    const sched=g.filter(r=>pDate(r.date)).length;
-    const avg=total>0?Math.round(g.reduce((a,r)=>a+r.avgWT,0)/total):0;
-    return{name:s,total,sched,unsched:total-sched,pct:total>0?Math.round(sched/total*100):0,avg};
-  });
-
-  // عمليات الأسبوع القادم
+  const specData=specs.map(s=>{ const g=rows.filter(r=>r.specialty===s); const total=g.length; const sched=g.filter(r=>pDate(r.date)).length; const avg=total>0?Math.round(g.reduce((a,r)=>a+r.avgWT,0)/total):0; return{name:s,total,sched,unsched:total-sched,pct:total>0?Math.round(sched/total*100):0,avg}; });
   const win=getNext36Window();
   const weekDays=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس'];
-  const weekCounts=[0,1,2,3,4].map(d=>{
-    const target=new Date(win.start); target.setDate(win.start.getDate()+d);
-    return rows.filter(r=>{
-      const rd=pDate(getDate(rows.indexOf(r)));
-      return rd&&rd.toDateString()===target.toDateString();
-    }).length;
-  });
-  const maxWeek=Math.max(...weekCounts,1);
-
-  // أكثر الأطباء مرضى
+  const weekCounts=[0,1,2,3,4].map(d=>{ const target=new Date(win.start); target.setDate(win.start.getDate()+d); return rows.filter(r=>{ const rd=pDate(getDate(rows.indexOf(r))); return rd&&rd.toDateString()===target.toDateString(); }).length; });
   const surgData=surgeons.map(s=>({name:s.split(' ').slice(0,3).join(' '),count:rows.filter(r=>r.surgeon===s).length})).sort((a,b)=>b.count-a.count).slice(0,8);
   const maxSurg=Math.max(...surgData.map(s=>s.count),1);
-
-  // توزيع الانتظار
   const w1=rows.filter(r=>r.avgWT<30).length;
   const w2=rows.filter(r=>r.avgWT>=30&&r.avgWT<=90).length;
   const w3=rows.filter(r=>r.avgWT>90).length;
   const total=rows.length;
-
   const getBarColor=pct=>pct>=80?'#059669':pct>=60?'#d97706':'#dc2626';
-  const getWaitColor=v=>v>90?'#dc2626':v>60?'#d97706':'#059669';
   const getDayColor=v=>v>=Math.max(...weekCounts)*0.7?'#dc2626':v>=Math.max(...weekCounts)*0.4?'#d97706':'#059669';
+  const specRows=specData.map(s=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="font-size:12px;color:#1e293b;width:130px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${s.name}">${s.name}</div><div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;"><div style="width:${s.pct}%;height:100%;background:${getBarColor(s.pct)};border-radius:4px;"></div></div><div style="font-size:12px;font-weight:500;width:36px;text-align:right;color:${getBarColor(s.pct)};">${s.pct}%</div><div style="font-size:11px;color:#64748b;width:65px;text-align:right;flex-shrink:0;">${s.sched} / ${s.total}</div></div>`).join('');
+  const surgRows=surgData.map(s=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><div style="font-size:12px;color:#1e293b;width:160px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${s.name}</div><div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;"><div style="width:${Math.round(s.count/maxSurg*100)}%;height:100%;background:#1e293b;border-radius:4px;"></div></div><div style="font-size:12px;font-weight:500;width:30px;text-align:right;color:#1e293b;">${s.count}</div></div>`).join('');
+  const dayCards=weekDays.map((d,i)=>`<div style="background:#f8fafc;border-radius:10px;padding:12px 8px;text-align:center;border:1px solid #e2e8f0;"><div style="font-size:11px;color:#64748b;margin-bottom:6px;">${d}</div><div style="font-size:24px;font-weight:500;color:${getDayColor(weekCounts[i])};">${weekCounts[i]}</div><div style="font-size:10px;color:#94a3b8;margin-top:3px;">عملية</div></div>`).join('');
 
-  const specRows=specData.map(s=>`
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-      <div style="font-size:12px;color:var(--tp);width:130px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${s.name}">${s.name}</div>
-      <div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;">
-        <div style="width:${s.pct}%;height:100%;background:${getBarColor(s.pct)};border-radius:4px;"></div>
-      </div>
-      <div style="font-size:12px;font-weight:500;width:36px;text-align:right;color:${getBarColor(s.pct)};">${s.pct}%</div>
-      <div style="font-size:11px;color:#64748b;width:65px;text-align:right;flex-shrink:0;">${s.sched} / ${s.total}</div>
-    </div>`).join('');
-
-  const surgRows=surgData.map(s=>`
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-      <div style="font-size:12px;color:var(--tp);width:160px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${s.name}">${s.name}</div>
-      <div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;">
-        <div style="width:${Math.round(s.count/maxSurg*100)}%;height:100%;background:#1e293b;border-radius:4px;"></div>
-      </div>
-      <div style="font-size:12px;font-weight:500;width:30px;text-align:right;color:#1e293b;">${s.count}</div>
-    </div>`).join('');
-
-  const dayCards=weekDays.map((d,i)=>`
-    <div style="background:#f8fafc;border-radius:10px;padding:12px 8px;text-align:center;border:1px solid #e2e8f0;">
-      <div style="font-size:11px;color:#64748b;margin-bottom:6px;">${d}</div>
-      <div style="font-size:24px;font-weight:500;color:${getDayColor(weekCounts[i])};">${weekCounts[i]}</div>
-      <div style="font-size:10px;color:#94a3b8;margin-top:3px;">عملية</div>
-    </div>`).join('');
-
-  const html=`
-  <div id="stats-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:999;display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 16px;">
-    <div style="background:#f8fafc;border-radius:16px;width:100%;max-width:820px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.2);">
-      
-      <!-- Header -->
-      <div style="background:#1e293b;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;">
-        <div>
-          <div style="font-size:15px;font-weight:700;color:#f1f5f9;">Statistics Dashboard</div>
-          <div style="font-size:11px;color:#94a3b8;margin-top:2px;">OR Coordination — King Saud Medical City</div>
-        </div>
-        <button onclick="document.getElementById('stats-overlay').remove()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:white;border-radius:8px;padding:6px 14px;cursor:pointer;font-family:inherit;font-size:12px;">✕ إغلاق</button>
-      </div>
-
-      <div style="padding:20px 24px;">
-
-        <!-- Metric Cards -->
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;">
-          <div style="background:white;border-radius:10px;padding:14px 16px;border:1px solid #e2e8f0;">
-            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">إجمالي المرضى</div>
-            <div style="font-size:24px;font-weight:500;color:#1e293b;">${total}</div>
-          </div>
-          <div style="background:white;border-radius:10px;padding:14px 16px;border:1px solid #e2e8f0;">
-            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">مجدولون</div>
-            <div style="font-size:24px;font-weight:500;color:#059669;">${rows.filter(r=>pDate(r.date)).length}</div>
-          </div>
-          <div style="background:white;border-radius:10px;padding:14px 16px;border:1px solid #e2e8f0;">
-            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">غير مجدولين</div>
-            <div style="font-size:24px;font-weight:500;color:#f59e0b;">${rows.filter(r=>!pDate(r.date)).length}</div>
-          </div>
-          <div style="background:white;border-radius:10px;padding:14px 16px;border:1px solid #e2e8f0;">
-            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">متوسط الانتظار</div>
-            <div style="font-size:24px;font-weight:500;color:#dc2626;">${total>0?Math.round(rows.reduce((a,r)=>a+r.avgWT,0)/total):0} <span style="font-size:13px;font-weight:400;">يوم</span></div>
-          </div>
-        </div>
-
-        <!-- توزيع الانتظار -->
-        <div style="background:white;border-radius:12px;padding:16px;border:1px solid #e2e8f0;margin-bottom:14px;">
-          <div style="font-size:11px;font-weight:500;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;">توزيع أوقات الانتظار</div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
-            <div style="text-align:center;background:#f0fdf4;border-radius:8px;padding:12px;">
-              <div style="font-size:28px;font-weight:500;color:#059669;">${w1}</div>
-              <div style="font-size:11px;color:#64748b;margin-top:4px;">أقل من 30 يوم</div>
-              <div style="font-size:11px;color:#059669;margin-top:2px;">${total>0?Math.round(w1/total*100):0}%</div>
-            </div>
-            <div style="text-align:center;background:#fefce8;border-radius:8px;padding:12px;">
-              <div style="font-size:28px;font-weight:500;color:#d97706;">${w2}</div>
-              <div style="font-size:11px;color:#64748b;margin-top:4px;">30 – 90 يوم</div>
-              <div style="font-size:11px;color:#d97706;margin-top:2px;">${total>0?Math.round(w2/total*100):0}%</div>
-            </div>
-            <div style="text-align:center;background:#fff1f2;border-radius:8px;padding:12px;">
-              <div style="font-size:28px;font-weight:500;color:#dc2626;">${w3}</div>
-              <div style="font-size:11px;color:#64748b;margin-top:4px;">أكثر من 90 يوم</div>
-              <div style="font-size:11px;color:#dc2626;margin-top:2px;">${total>0?Math.round(w3/total*100):0}%</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- نسبة المجدول لكل تخصص -->
-        <div style="background:white;border-radius:12px;padding:16px;border:1px solid #e2e8f0;margin-bottom:14px;">
-          <div style="font-size:11px;font-weight:500;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;">نسبة المجدولين لكل تخصص</div>
-          ${specRows}
-        </div>
-
-        <!-- أكثر الأطباء مرضى -->
-        <div style="background:white;border-radius:12px;padding:16px;border:1px solid #e2e8f0;margin-bottom:14px;">
-          <div style="font-size:11px;font-weight:500;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;">أكثر الأطباء مرضى</div>
-          ${surgRows}
-        </div>
-
-        <!-- عمليات الأسبوع القادم -->
-        <div style="background:white;border-radius:12px;padding:16px;border:1px solid #e2e8f0;">
-          <div style="font-size:11px;font-weight:500;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;">عمليات الأسبوع القادم (من ${pad(win.start.getDate())}/${pad(win.start.getMonth()+1)})</div>
-          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
-            ${dayCards}
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>`;
+  const html=`<div id="stats-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:999;display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 16px;"><div style="background:#f8fafc;border-radius:16px;width:100%;max-width:820px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.2);"><div style="background:#1e293b;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:15px;font-weight:700;color:#f1f5f9;">Statistics Dashboard</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;">OR Coordination — King Saud Medical City</div></div><button onclick="document.getElementById('stats-overlay').remove()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:white;border-radius:8px;padding:6px 14px;cursor:pointer;font-family:inherit;font-size:12px;">✕ إغلاق</button></div><div style="padding:20px 24px;"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;"><div style="background:white;border-radius:10px;padding:14px 16px;border:1px solid #e2e8f0;"><div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">إجمالي المرضى</div><div style="font-size:24px;font-weight:500;color:#1e293b;">${total}</div></div><div style="background:white;border-radius:10px;padding:14px 16px;border:1px solid #e2e8f0;"><div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">مجدولون</div><div style="font-size:24px;font-weight:500;color:#059669;">${rows.filter(r=>pDate(r.date)).length}</div></div><div style="background:white;border-radius:10px;padding:14px 16px;border:1px solid #e2e8f0;"><div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">غير مجدولين</div><div style="font-size:24px;font-weight:500;color:#f59e0b;">${rows.filter(r=>!pDate(r.date)).length}</div></div><div style="background:white;border-radius:10px;padding:14px 16px;border:1px solid #e2e8f0;"><div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">متوسط الانتظار</div><div style="font-size:24px;font-weight:500;color:#dc2626;">${total>0?Math.round(rows.reduce((a,r)=>a+r.avgWT,0)/total):0} <span style="font-size:13px;font-weight:400;">يوم</span></div></div></div><div style="background:white;border-radius:12px;padding:16px;border:1px solid #e2e8f0;margin-bottom:14px;"><div style="font-size:11px;font-weight:500;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;">توزيع أوقات الانتظار</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;"><div style="text-align:center;background:#f0fdf4;border-radius:8px;padding:12px;"><div style="font-size:28px;font-weight:500;color:#059669;">${w1}</div><div style="font-size:11px;color:#64748b;margin-top:4px;">أقل من 30 يوم</div><div style="font-size:11px;color:#059669;margin-top:2px;">${total>0?Math.round(w1/total*100):0}%</div></div><div style="text-align:center;background:#fefce8;border-radius:8px;padding:12px;"><div style="font-size:28px;font-weight:500;color:#d97706;">${w2}</div><div style="font-size:11px;color:#64748b;margin-top:4px;">30 – 90 يوم</div><div style="font-size:11px;color:#d97706;margin-top:2px;">${total>0?Math.round(w2/total*100):0}%</div></div><div style="text-align:center;background:#fff1f2;border-radius:8px;padding:12px;"><div style="font-size:28px;font-weight:500;color:#dc2626;">${w3}</div><div style="font-size:11px;color:#64748b;margin-top:4px;">أكثر من 90 يوم</div><div style="font-size:11px;color:#dc2626;margin-top:2px;">${total>0?Math.round(w3/total*100):0}%</div></div></div></div><div style="background:white;border-radius:12px;padding:16px;border:1px solid #e2e8f0;margin-bottom:14px;"><div style="font-size:11px;font-weight:500;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;">نسبة المجدولين لكل تخصص</div>${specRows}</div><div style="background:white;border-radius:12px;padding:16px;border:1px solid #e2e8f0;margin-bottom:14px;"><div style="font-size:11px;font-weight:500;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;">أكثر الأطباء مرضى</div>${surgRows}</div><div style="background:white;border-radius:12px;padding:16px;border:1px solid #e2e8f0;"><div style="font-size:11px;font-weight:500;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;">عمليات الأسبوع القادم (من ${pad(win.start.getDate())}/${pad(win.start.getMonth()+1)})</div><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">${dayCards}</div></div></div></div></div>`;
 
   document.body.insertAdjacentHTML('beforeend',html);
-  document.getElementById('stats-overlay').addEventListener('click',e=>{
-    if(e.target.id==='stats-overlay') document.getElementById('stats-overlay').remove();
-  });
+  document.getElementById('stats-overlay').addEventListener('click',e=>{ if(e.target.id==='stats-overlay')document.getElementById('stats-overlay').remove(); });
 }
 
 load();
