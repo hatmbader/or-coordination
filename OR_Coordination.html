@@ -252,14 +252,17 @@ let mrnStatuses=loadStatuses();
 function getStatus(idx){ const mrn=rows[idx]&&rows[idx].mrn; return (mrn&&mrnStatuses[mrn]!==undefined)?mrnStatuses[mrn]:0; }
 function getDate(idx){ return editedDates[idx]!==undefined?editedDates[idx]:rows[idx].date; }
 
-// يحسب نافذة الـ 36 يوم من أقرب أحد
+// يحسب نافذة الـ 36 يوم:
+// - تبدأ من اليوم دائماً (عشان المرضى من اليوم للأحد القادم يظهرون)
+// - تنتهي بعد 36 يوم من الأحد القادم
+// - كل أحد تتجدد تلقائياً
 function getNext36Window(){
   const now=new Date(); now.setHours(0,0,0,0);
   const day=now.getDay(); // 0=الأحد
   const daysUntilSun = day===0 ? 7 : 7-day; // الأحد القادم دائماً
   const nextSun=new Date(now); nextSun.setDate(now.getDate()+daysUntilSun);
   const end=new Date(nextSun); end.setDate(nextSun.getDate()+36);
-  return {start:nextSun, end:end};
+  return {start:now, end:end}; // تبدأ من اليوم
 }
 
 async function load(){
@@ -409,6 +412,16 @@ function render(){
     html+='<td><button class="status-btn '+STATUS_CLS[st]+'" id="st-'+idx+'" onclick="cycleStatus('+idx+')">'+STATUS_LABELS[st]+'</button></td>';
     html+='<td class="nm">'+r.name+'</td>';
     html+='<td>'+fDate(r.date)+'</td>';
+    // Days Left — فقط للمرضى اللي 36 يوم أو أقل
+    const daysLeft=(()=>{
+      const rd=pDate(effDate);
+      if(!rd) return '';
+      const diff=Math.ceil((rd-TODAY)/(1000*60*60*24));
+      if(diff>36||diff<0) return '';
+      const color=diff<=7?'#dc2626':diff<=14?'#d97706':'#059669';
+      return '<span style="font-weight:700;color:'+color+';">'+diff+'d</span>';
+    })();
+    html+='<td style="text-align:center;">'+daysLeft+'</td>';
     html+='<td><input class="di'+(hasEdit?' has-edit':'')+'" placeholder="DD/MM/YYYY" value="'+editVal+'" oninput="onDateEdit('+idx+',this)"></td>';
     html+='<td title="'+r.surgeon+'">'+r.surgeon.split(' ').slice(0,3).join(' ')+'</td>';
     html+='<td style="max-width:80px;overflow:hidden;text-overflow:ellipsis;" title="'+(r.specialty||'')+'">'+(r.specialty||'—')+'</td>';
@@ -418,7 +431,8 @@ function render(){
     html+='<td><input class="pi" placeholder="05XXXXXXXX" value="'+ph+'" oninput="phones['+idx+']=this.value;updWA('+idx+')"></td>';
     html+='<td><div class="wbs" id="wa-'+idx+'">'+buildWA(r,idx,ph,effDate)+'</div></td>';
     html+='</tr>';
-  });
+    }); // end specRows.forEach
+  }); // end specOrder.forEach
   html+='</tbody></table>';
   document.getElementById('container').innerHTML=html;
 }
